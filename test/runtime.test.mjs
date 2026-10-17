@@ -1,0 +1,13 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { productionRuntime,runtimeFromLibraries } from '../src/runtime.mjs';
+import { KHIE_PAIRING_PROTOCOL,KHIE_JSON_RPC_PROTOCOL,RPC_MAX_BYTES } from '../core/src/protocol.mjs';
+
+test('actual pinned production entrypoints import without constructing a node or transport',async()=>{const runtime=await productionRuntime();assert.deepEqual(Object.keys(runtime),['createNode','createRelay','createTransport']);});
+test('runtime assembles bounded relay-only configuration using exclusively fake constructors',async()=>{
+  let options,pairingConfig,guard,transportConfig,refresh;const policy={denyDialPeer:()=>true};
+  const runtime=runtimeFromLibraries({createLibp2p:async value=>(options=value,{fixture:true}),noise:()=> 'noise',yamux:()=> 'yamux',circuitRelayTransport:()=>()=>({onStop(){},dial(){},reservationStore:{}}),identify:()=> 'identify',identifyPush:()=> 'push',webSockets:o=>{assert.equal(o.maxBufferedAmount,RPC_MAX_BYTES);return ()=>({_connect(){},dial(){}});},Libp2p:{pairingService:(c,g)=>(pairingConfig=c,guard=g,'pairing'),RelayConnectionController:class{constructor(node,addresses){this.node=node;this.addresses=addresses;}},JsonRpcTransportLibp2p:class{constructor(node,peer,o){transportConfig=o;this.node=node;this.peer=peer;}}}});
+  assert.deepEqual(await runtime.createNode({policy}),{fixture:true});assert.equal(options.start,false);assert.deepEqual(options.addresses.listen,[]);assert.equal(options.connectionGater,policy);assert.equal(options.connectionManager.maxConnections,4);assert.deepEqual(options.connectionManager.resolvers,{});assert.equal(typeof options.transports[0], 'function');assert.equal(typeof options.transports[1], 'function');assert.equal(pairingConfig.protocol,KHIE_PAIRING_PROTOCOL);assert.equal(guard(),false);
+  const log=options.logger.forComponent('test');for(const fn of [log,log.error,log.trace,log.newScope('child')])assert.equal(fn('public-fixture-secret'),undefined);assert.equal(log.enabled,false);
+  const node={services:{pairing:{refresh:peer=>refresh=peer}}},peer={fixture:true};const relay=runtime.createRelay(node,'allowed-fixture-relay');assert.deepEqual(relay.addresses,['allowed-fixture-relay']);const signal=new AbortController().signal;runtime.createTransport(node,peer,{signal,requestTimeoutMs:1234});assert.equal(transportConfig.protocol,KHIE_JSON_RPC_PROTOCOL);assert.equal(transportConfig.maxMessageLength,RPC_MAX_BYTES);assert.equal(transportConfig.timeout,1234);assert.equal(transportConfig.signal,signal);transportConfig.onResponse();assert.equal(refresh,peer);
+});

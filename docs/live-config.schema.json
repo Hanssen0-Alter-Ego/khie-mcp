@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Trusted Khie read-only live configuration",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["enabled", "relayAddress", "relayAllowlist"],
+  "properties": {
+    "enabled": { "const": true },
+    "relayAddress": { "type": "string", "maxLength": 300, "pattern": "^/dns[46]/[a-z0-9.-]+/tcp/443/wss$" },
+    "relayAllowlist": { "type": "array", "minItems": 1, "maxItems": 4, "items": { "type": "string", "maxLength": 300, "pattern": "^/dns[46]/[a-z0-9.-]+/tcp/443/wss$" } },
+    "connectNetwork": { "enum": ["ckb-testnet", "ckb-mainnet"] },
+    "readyTimeoutMs": { "type": "integer", "minimum": 1000, "maximum": 60000, "default": 30000 },
+    "requestTimeoutMs": { "type": "integer", "minimum": 1000, "maximum": 60000, "default": 10000 }
+  },
+  "$comment": "Runtime also checks canonical multiaddr syntax, DNS labels/reserved local-name rejection, selected relay membership, endpoint route/peer identity, and pinned relay-only routes. The sensitive provider endpoint is never part of this config or MCP schema."
+}

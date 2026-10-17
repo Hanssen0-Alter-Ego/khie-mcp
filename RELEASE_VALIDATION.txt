@@ -1,0 +1,27 @@
+Khie MCP source candidate 0.2.1-reconstruction
+Release validation: 2026-10-17
+
+Independent review: PASS for the documented offline reconstruction and opt-in read-only adapter scope. This note supersedes the review-pending status recorded when the frozen source documentation was written.
+
+Source manifest SHA-256:
+4cbc394b9874f0ef319d55ea711040089dbedab6507ee4615bfc2bad74ced5ef
+All 46 manifest entries independently verified. The original reviewed core remains unchanged; its manifest SHA-256 is:
+29c1aa1f17fe321b57ab692cacbf1a8e77aaba0a68b1d2fa386e6daa3af56b2b
+
+TESTED
+- 141/141 offline tests, independently rerun with matching coverage: 99.48% lines, 91.94% branches, 96.63% functions.
+- Fresh isolated frozen-lockfile installation with lifecycle scripts disabled, concurrency 1, 512 MiB heap cap, and normal pnpm supply-chain verification for 153 lock entries. 134 packages materialized from the existing content-addressed cache; zero package tarballs downloaded. The complete suite also passed against that installation.
+- Stdio MCP, bounded sessions/requests/results, timeout recovery, fair admission, close/shutdown, private endpoint descriptor input, explicit host configuration and read-only method enforcement.
+- Actual pinned CCC provider protocol with a fake signer for all four read methods and result recovery; fake connect confirmation occurs only when explicitly configured.
+- Actual pinned relay/WebSocket transport implementations with fake components/sockets. Review reproduced and verified fixes for inbound STOP side effects, failed/aborted upgrade socket leaks, invalid reset close code and terminal provider/unpair cleanup. A separate in-memory stream/protobuf test confirmed outgoing relay CONNECT still works while STOP causes no listener/reservation side effects.
+- Fake-clock independent 30-minute live-idle cleanup; no additional MCP call is required to stop idle transport resources.
+
+NOT TESTED / STILL REQUIRES EXPLICIT AUTHORIZATION
+- Real relay connectivity, mobile-provider pairing, user wallet connection approval and intended MCP helper interoperability.
+- Deployment-specific DNS/TLS/egress behavior. Exact approved hostname/multiaddr routing is enforced; DNS-to-IP pinning is not provided.
+- Public/private tunnel or authenticated HTTP gateway deployment. This service remains single-client stdio.
+- Signing, transaction preparation, broadcast and value transfers. These are not exposed by this adapter.
+
+No real libp2p node, wallet pairing, WebSocket connection, relay session, credential setup, signature or transaction was performed during development/review. Tests contain public synthetic fixtures only. This is new reconstruction source, not a recovered original archive or proof of original historical schemas/tests.
+
+Archive contents include README.md, exact package/lockfiles, source/tests, frozen core, provenance/integration documentation and validation evidence. There are no node_modules, private keys, credential files or real wallet data. RELEASE_SHA256SUMS binds this note to the unchanged reviewed source manifest; verify docs/SHA256SUMS from this directory for individual source files.

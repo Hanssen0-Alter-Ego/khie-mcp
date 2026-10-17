@@ -1,0 +1,19 @@
+{
+  "name": "khie-mcp-rebuilt",
+  "version": "0.1.0-reconstruction",
+  "private": true,
+  "type": "module",
+  "description": "Clean local reconstruction; offline-first Khie MCP candidate, not recovered original source",
+  "engines": {"node": ">=24"},
+  "packageManager": "pnpm@11.25.0",
+  "scripts": {
+    "start": "node src/cli.mjs",
+    "test": "node --test test/*.test.mjs",
+    "test:coverage": "node --experimental-test-coverage --test test/*.test.mjs",
+    "check": "node --check src/service.mjs && node --check src/mcp.mjs && node --check src/adapter.mjs && node --check src/cli.mjs"
+  },
+  "dependencies": {
+    "@ckb-ccc/core": "1.23.0",
+    "@ckb-ccc/libp2p": "0.3.2"
+  }
+}

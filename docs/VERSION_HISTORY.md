@@ -1,0 +1,8 @@
+# Candidate history
+
+- `0.1.0-reconstruction`, frozen reviewed offline core, 2026-10-17. Independent review verified 76/76 tests and no remaining blocking finding for its documented offline scope. `core/docs/SHA256SUMS` SHA-256: `29c1aa1f17fe321b57ab692cacbf1a8e77aaba0a68b1d2fa386e6daa3af56b2b`. This snapshot remains byte-for-byte unchanged in `core/`.
+- `0.2.0-reconstruction`, separate opt-in read-only CCC/libp2p adapter candidate, 2026-10-17. Adds strict local config/private endpoint input, relay-only route/identity gating, real runtime assembly, metadata-first pairing flow, optional wallet connection approval, abort-safe pre-upgrade WebSocket cleanup and fake integration tests. The root manifest identifies this candidate independently. Pre-review manifest SHA-256: `a75e7b5f0702c5ff3dbb5d3692c768693b8602780fd0f09f17f4a4b81b382ccc`. That complete snapshot is preserved separately. Subsequent clean installation passed; independent review then found three transport/lifecycle issues, corrected in the next revision.
+
+- `0.2.1-reconstruction`, 2026-10-17. Fixes inbound STOP-triggered reservations/listeners, WebSocket ownership through failed/aborted upgrades and invalid reset close code, and terminal unpair/provider-invalidation cleanup. Adds an independent live idle deadline, actual pinned transport tests with fake components, and all-four-method real CCC provider/fake signer interoperability. The original core remains unchanged. Real network pairing remains untested.
+
+The root SHA256SUMS includes the old core manifest as well as all source, tests, lockfiles and documentation, but excludes itself, node_modules and temporary output. This preserves the frozen core's provenance while allowing separately reviewed adapter revisions.

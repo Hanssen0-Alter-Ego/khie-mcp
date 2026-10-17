@@ -1,0 +1,26 @@
+{
+  "name": "khie-mcp-live-adapter",
+  "version": "0.2.1-reconstruction",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "packageManager": "pnpm@11.25.0",
+  "scripts": {
+    "start": "node src/cli.mjs",
+    "test": "node --test core/test/*.test.mjs test/*.test.mjs",
+    "test:coverage": "node --experimental-test-coverage --test core/test/*.test.mjs test/*.test.mjs"
+  },
+  "dependencies": {
+    "@ckb-ccc/core": "1.23.0",
+    "@ckb-ccc/libp2p": "0.3.2",
+    "@chainsafe/libp2p-noise": "17.0.0",
+    "@chainsafe/libp2p-yamux": "8.0.1",
+    "@libp2p/circuit-relay-v2": "4.2.14",
+    "@libp2p/identify": "4.1.15",
+    "@libp2p/websockets": "10.1.22",
+    "@multiformats/multiaddr": "13.0.3",
+    "libp2p": "3.3.12"
+  }
+}

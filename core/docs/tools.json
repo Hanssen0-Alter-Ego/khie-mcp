@@ -1,0 +1,167 @@
+[
+  {
+    "name": "khie_capabilities",
+    "description": "Read service policy, limits and reconstruction status.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {},
+      "required": [],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "openWorldHint": false
+    }
+  },
+  {
+    "name": "khie_session_open",
+    "description": "Create an ephemeral session. Default CLI uses an offline public fixture only.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {},
+      "required": [],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": false,
+      "openWorldHint": false
+    }
+  },
+  {
+    "name": "khie_session_status",
+    "description": "Read initialization state and sanitized ready errors.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        }
+      },
+      "required": [
+        "sessionId"
+      ],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "openWorldHint": false
+    }
+  },
+  {
+    "name": "khie_request",
+    "description": "Submit a read-only Khie request with a caller-supplied idempotency key. Poll khie_result. Signing and sending are disabled on this MCP surface.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "requestId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "method": {
+          "enum": [
+            "get_info",
+            "get_scripts",
+            "get_native_address",
+            "get_identity"
+          ]
+        },
+        "params": {
+          "type": "array",
+          "maxItems": 0
+        }
+      },
+      "required": [
+        "sessionId",
+        "requestId",
+        "method"
+      ],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "idempotentHint": true,
+      "openWorldHint": false
+    }
+  },
+  {
+    "name": "khie_result",
+    "description": "Retrieve a request result without rerunning it, including after session close until TTL expiry. Set recover to start a nonblocking timed-out provider result query; poll this tool for its outcome without repeating the operation.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "requestId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "recover": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "sessionId",
+        "requestId"
+      ],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "readOnlyHint": true,
+      "idempotentHint": true,
+      "openWorldHint": false
+    }
+  },
+  {
+    "name": "khie_session_close",
+    "description": "Close a session, cancel queued approvals and retain bounded results temporarily.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "sessionId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        }
+      },
+      "required": [
+        "sessionId"
+      ],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "idempotentHint": true,
+      "openWorldHint": false
+    }
+  },
+  {
+    "name": "khie_shutdown",
+    "description": "Stop admitting work and close all sessions. Cached result reads remain available until process exit.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {},
+      "required": [],
+      "additionalProperties": false
+    },
+    "annotations": {
+      "readOnlyHint": false,
+      "destructiveHint": true,
+      "idempotentHint": true,
+      "openWorldHint": false
+    }
+  }
+]

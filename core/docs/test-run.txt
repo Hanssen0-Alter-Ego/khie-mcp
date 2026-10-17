@@ -1,0 +1,98 @@
+✔ adapter emits pinned CCC metadata and uses no automatic connect (4.678127ms)
+✔ provider session change is a ready error (0.932079ms)
+✔ recovery uses get_result with original remote request key (0.535952ms)
+✔ mismatched IDs and malformed response variants fail closed (0.699695ms)
+✔ remote errors preserve code without exposing arbitrary provider text (0.412508ms)
+✔ adapter enforces request and response byte limits before serialization escapes (0.505697ms)
+✔ close is idempotent and abort signal prevents transmission (0.823509ms)
+✔ bad adapter configuration and disabled fixture methods fail closed (0.833691ms)
+✔ actual pinned libp2p adapter can be constructed without dialing any peer (1224.372579ms)
+✔ new adapter interoperates with pinned real CCC provider using only fake wallet methods (8.028184ms)
+✔ pinned pairing codec rejects incompatible role and malformed public fixture (19.59182ms)
+✔ initialization negotiates version and requires initialized notification (29.12307ms)
+✔ invalid initialization does not advance phase (15.750075ms)
+✔ duplicate initialize is refused and ping works (14.567145ms)
+✔ MCP request surface cannot enable signing or transmit approval (22.378206ms)
+✔ unexpected prototype-like argument is rejected (4.704528ms)
+✔ missing and incorrectly typed arguments return tool errors (0.551208ms)
+✔ schemas enumerate exactly the implemented new tool contract (6.718289ms)
+✔ notifications are not answered (3.58218ms)
+✔ unknown method and unknown tool have JSON-RPC errors (0.446567ms)
+✔ invalid request forms are rejected (6.665735ms)
+✔ open/status/request/result/close/shutdown tools work end-to-end (92.733642ms)
+✔ stdio decodes split UTF-8 frames and emits only JSON lines (26.673527ms)
+✔ malformed UTF-8 and JSON get parse errors, later frames work (11.930543ms)
+✔ oversized fragmented line is discarded and parser recovers at newline (1.027669ms)
+✔ unterminated final frame is not executed (16.745662ms)
+✔ output failure closes service (12.232231ms)
+✔ real CLI subprocess completes stdio initialize and shuts down on EOF (170.436003ms)
+✔ explicit null tool arguments are rejected without creating a session (0.678452ms)
+✔ older batch-requiring MCP version is not falsely advertised (0.40037ms)
+✔ saturated nonblocking recoveries leave stdio close, ping, cached reads and shutdown responsive (224.431044ms)
+✔ CLI SIGINT after a successful ping is a clean intentional shutdown (152.422944ms)
+✔ CLI SIGTERM after a successful ping is a clean intentional shutdown (178.843554ms)
+✔ offline read completes and returns a detached result (19.845936ms)
+✔ same request is deduplicated before and after completion (4.962218ms)
+✔ conflicting duplicate is rejected (2.052133ms)
+✔ readonly defaults reject sign and send methods (1.336773ms)
+✔ new service epoch invalidates old handle (1.658183ms)
+✔ closing and reopening gives distinct handles and cannot reuse old one (1.977394ms)
+✔ shutdown admission barrier is synchronous and idempotent (1.709766ms)
+✔ completed result remains recoverable after close and shutdown (5.861733ms)
+✔ result TTL expires but dedup tombstone prevents re-execution (2.587436ms)
+✔ closed session TTL removes handle and releases quota (1.282934ms)
+✔ idle session expiry closes the adapter (1.486998ms)
+✔ session quota and per-session lifetime quota are bounded (1.535325ms)
+✔ noisy session cannot consume another session request budget (1.950104ms)
+✔ round robin favors a waiting session over repeat work from active session (6.214668ms)
+✔ result retrieval bypasses a saturated work queue (3.220122ms)
+✔ RPC request limit applies to UTF-8 serialized envelope (1.098261ms)
+✔ oversized result is a stored error (3.57267ms)
+✔ startup error surfaces sanitized ready error and closes adapter (1.423581ms)
+✔ ready timeout is classified independently of transport rejection (6.573814ms)
+✔ adapter returned after initialization timeout is closed (5.631092ms)
+✔ request deadline reports timeout and ignores late completion (7.552477ms)
+✔ late rejection after timeout is observed (6.524004ms)
+✔ transport TimeoutError is timeout, ordinary failure is not (3.028554ms)
+✔ signing cannot be enabled without an approval callback (0.285134ms)
+✔ each unique fake signing action gets its own explicit approval (3.444322ms)
+✔ truthy non-boolean approval never authorizes execution (2.543385ms)
+✔ close during pending approval prevents action even after late approval (1.097871ms)
+✔ queued requests are cancelled without execution on close (0.875719ms)
+✔ hung cleanup is bounded and reported (5.96741ms)
+✔ bad limits and malformed arguments fail closed (1.345742ms)
+✔ explicit remote recovery retrieves timeout outcome without reexecuting (8.233718ms)
+✔ remote pending and not-found retain unknown timeout outcome (6.376251ms)
+✔ recovery is independent of request quota and never recreates expired requests (6.396419ms)
+✔ concurrent recovery deduplicates calls and is cancelled by close (21.473873ms)
+✔ per-session retained payload budget rejects excess results without evicting recovery (2.78307ms)
+✔ result that exceeds remaining retention budget becomes a bounded error (2.353578ms)
+✔ late factory cleanup failure remains visible after close and repeated shutdown (1.569953ms)
+✔ pending initialization remains quota-tracked after handle retention TTL (2.561643ms)
+✔ close before factory starts never leaves phantom pending cleanup (1.608911ms)
+✔ late recovery success cannot revive an expired result or session (6.903596ms)
+✔ late recovery rejection cannot return a record removed during expiry (6.945476ms)
+✔ recovery cannot return a stale record when close and expiry race (7.440636ms)
+✔ cleanup failure arriving after original closed TTL remains observable for a fresh bounded interval (1.180009ms)
+ℹ tests 76
+ℹ suites 0
+ℹ pass 76
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1518.073153
+ℹ start of coverage report
+ℹ --------------------------------------------------------------
+ℹ file          | line % | branch % | funcs % | uncovered lines
+ℹ --------------------------------------------------------------
+ℹ src           |        |          |         | 
+ℹ  adapter.mjs  | 100.00 |    95.35 |   93.33 | 
+ℹ  cli.mjs      |  88.24 |    60.00 |  100.00 | 7-8
+ℹ  mcp.mjs      | 100.00 |    94.02 |  100.00 | 
+ℹ  protocol.mjs | 100.00 |    85.19 |  100.00 | 
+ℹ  service.mjs  |  98.81 |    93.83 |   97.96 | 49-51
+ℹ --------------------------------------------------------------
+ℹ all files     |  98.99 |    93.08 |   97.75 | 
+ℹ --------------------------------------------------------------
+ℹ end of coverage report

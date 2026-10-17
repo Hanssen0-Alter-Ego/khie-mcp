@@ -1,0 +1,9 @@
+Fresh isolated installation: PASS, 2026-10-17.
+Node v24.19.0; pnpm 11.25.0.
+Command: pnpm install --frozen-lockfile --ignore-scripts --network-concurrency=1 --child-concurrency=1.
+Resource limits: PNPM_MAX_WORKERS=1, Node maximum old-space size 512 MiB.
+Normal pnpm supply-chain policy validation: PASS for all 153 lockfile entries.
+Packages materialized: 134, all reused from the existing content-addressed cache.
+Package tarballs downloaded: 0. Lifecycle scripts run: 0. TLS/policy bypasses: none.
+The source lockfile SHA-256 remained 9720edf67e98bd65e3aa58d7e8e80fdd0f9ab9a5b2ae75b188caa2e7a6b090bf.
+This checks reproducible installation, not real wallet/relay connectivity or absence of all vulnerabilities.

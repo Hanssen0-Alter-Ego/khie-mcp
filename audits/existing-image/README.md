@@ -13,6 +13,8 @@ sizes, and decompressed diff IDs are checked. The pinned public Node base is
 identified independently. Every layer is inspected separately; whiteouts do not
 remove earlier versions from scanning. Image paths and links are never extracted
 as filesystem paths, and image-supplied scanner configuration is not honored.
+The root manifest's verified digest is authoritative for the descriptor list;
+browser UI blob-list transcription is recorded only as a consistency observation.
 
 Gitleaks 8.30.1 is pinned by the upstream release archive's SHA-256. It runs with
 no job/registry credentials, with decoding and archive traversal depth four.

@@ -293,7 +293,15 @@ def audit(scratch, progress):
     need(manifest["config"]["digest"] == CONFIG and manifest["config"]["size"] == 9917,
          "config_descriptor_changed")
     layers = manifest["layers"]
-    need([x["digest"] for x in layers] == ["sha256:" + x for x in LAYERS], "layer_scope_changed")
+    # The root digest pins the exact authoritative descriptor list. Browser UI
+    # blob lists can include config/auxiliary objects and use a different order;
+    # their transcription must not replace this cryptographic boundary.
+    need(0 < len(layers) <= 32, "layer_count_limit")
+    need(all(re.fullmatch(r"sha256:[a-f0-9]{64}", x["digest"])
+             and 0 <= x["size"] <= MAX_BLOB for x in layers), "invalid_layer_descriptor")
+    progress.update({"manifest_layer_count": len(layers),
+                     "browser_list_matches_manifest_set":
+                     {x["digest"] for x in layers} == {"sha256:" + x for x in LAYERS}})
     config_raw = fetch(root + "/blobs/" + CONFIG, auth, digest=CONFIG)
     need(len(config_raw) == 9917, "config_size_changed")
     config = json.loads(config_raw)

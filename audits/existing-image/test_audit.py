@@ -62,6 +62,13 @@ class AuditTests(unittest.TestCase):
         with self.assertRaisesRegex(audit.AuditError, "^digest_mismatch$"):
             audit.verify(b"bad", "sha256:" + "0" * 64)
 
+    def test_manifest_digest_pins_descriptor_changes(self):
+        original = json.dumps({"layers": [{"digest": "sha256:" + "a" * 64}]}).encode()
+        digest = "sha256:" + hashlib.sha256(original).hexdigest()
+        audit.verify(original, digest)
+        with self.assertRaisesRegex(audit.AuditError, "^digest_mismatch$"):
+            audit.verify(original.replace(b"aaaa", b"bbbb"), digest)
+
     def test_traversal_is_rejected_without_disclosing_path(self):
         with self.assertRaisesRegex(audit.AuditError, "^unsafe_tar_path$"):
             audit.normal_path("../private-value")

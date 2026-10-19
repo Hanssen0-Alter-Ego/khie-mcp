@@ -116,6 +116,37 @@ class AuditTests(unittest.TestCase):
         with self.assertRaisesRegex(audit.AuditError, "^unexpected_redirect$"):
             audit.SafeRedirect().redirect_request(request, None, 307, "", {}, "https://untrusted.example/blob")
 
+    def test_candidate_classification_never_accepts_unknown_content(self):
+        records = {"00000001.data": {"path": "app/source.ts", "sha256": "abc", "metadata": False},
+                   "00000002.metadata": {"path": "app/source.ts", "metadata": True}}
+        with mock.patch.object(audit, "public_npm_match", return_value=False) as npm:
+            counts = audit.classify_flags(set(records), records, Path("unused"), Path("unused"),
+                                         {"app/source.ts": "abc"}, False, {}, {})
+        self.assertEqual(counts["exact_reviewed_public_source"], 1)
+        self.assertEqual(counts["unresolved"], 1)
+        npm.assert_not_called()
+
+    def test_unknown_package_never_reaches_network(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            package_root = "app/node_modules/.pnpm/private@1.0.0/node_modules/private"
+            (root / "00000000.data").write_text(json.dumps({"name": "private", "version": "1.0.0"}))
+            record = {"path": package_root + "/index.js", "sha256": "abc", "metadata": False}
+            records = {"00000000.data": {"path": package_root + "/package.json", "metadata": False}}
+            with mock.patch.object(audit, "get_json") as request:
+                self.assertFalse(audit.public_npm_match(record, records, root, root, {}, {}))
+                request.assert_not_called()
+
+    def test_public_npm_candidate_requires_matching_file_hash(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            package_root = "app/node_modules/.pnpm/example@1.0.0/node_modules/example"
+            (root / "00000000.data").write_text(json.dumps({"name": "example", "version": "1.0.0"}))
+            record = {"path": package_root + "/index.js", "sha256": "actual", "metadata": False}
+            records = {"00000000.data": {"path": package_root + "/package.json", "metadata": False}}
+            self.assertFalse(audit.public_npm_match(record, records, root, root,
+                {"example@1.0.0": "sha512-fixture"}, {"example@1.0.0": {"index.js": "different"}}))
+
 
 if __name__ == "__main__":
     unittest.main()

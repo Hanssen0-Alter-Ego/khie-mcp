@@ -25,16 +25,23 @@ no job/registry credentials, with decoding and archive traversal depth four.
 Supplemental byte scans cover key blocks, credential tokens and wallet fields;
 path checks flag state/credential locations, unknown application files and
 changes outside `/app`. Source hashes cover the already reviewed public CCC
-workspace and bridge source. Dependency/build outputs are secret-scanned but
-are not claimed to be reproducibly rebuilt or completely compared with every
-upstream npm tarball. This is an exposure audit, not a vulnerability assessment
+workspace and bridge source. Candidate matches are resolved only when the
+complete file is byte-identical to reviewed public source or a public npm file
+whose tarball passes the already-public lockfile's SHA-512 integrity check, or
+when it belongs to the byte-verified public base. Unknown package identities
+are never sent to a registry. Structural/provenance findings are never waived.
+Dependency/build outputs are secret-scanned but are not claimed to be
+reproducibly rebuilt or completely compared with every upstream npm tarball.
+This is an exposure audit, not a vulnerability assessment
 or a proof that every possible encoded secret can be detected.
 
 Only fixed stage names, known public digests, aggregate counts and scanner rule
 IDs are logged. Image bytes, paths, matches, subprocess output and detailed
 reports remain in a private temporary directory and are removed on exit. No
-artifact is uploaded. Any finding returns `needs_review`; no match text is
-published. A scanner, format, digest, size or access failure returns `blocked`.
+artifact is uploaded. Any unresolved candidate or structural/provenance finding
+returns `needs_review`; no match text is published. Exact public-file matches
+are reported as aggregate provenance counts, without names or match text.
+A scanner, format, digest, size or access failure returns `blocked`.
 Neither outcome authorizes changing image visibility.
 
 The public source hash manifest was derived from the previously verified exact

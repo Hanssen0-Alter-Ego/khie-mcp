@@ -195,6 +195,8 @@ def scan_layer(blob, diff_id, scratch, source_hashes, is_base):
     files.mkdir()
     counts = collections.Counter()
     findings = collections.Counter()
+    records = {}
+    flagged_files = set()
     with tarfile.open(raw, "r:") as archive:
         for i, member in enumerate(archive):
             name = normal_path(member.name)
@@ -202,8 +204,13 @@ def scan_layer(blob, diff_id, scratch, source_hashes, is_base):
             # Metadata itself can contain credentials; include it in the scan.
             metadata = json.dumps({"name": member.name, "link": member.linkname,
                                    "pax": member.pax_headers}).encode()
+            metadata_name = f"{i:08d}.metadata"
+            before = findings.copy()
             scan_bytes(metadata, findings)
-            (files / f"{i:08d}.metadata").write_bytes(metadata)
+            if findings != before:
+                flagged_files.add(metadata_name)
+            (files / metadata_name).write_bytes(metadata)
+            records[metadata_name] = {"path": name, "metadata": True}
             if PurePosixPath(name).name.startswith(".wh."):
                 counts["whiteouts"] += 1
             if not member.isfile():
@@ -217,12 +224,17 @@ def scan_layer(blob, diff_id, scratch, source_hashes, is_base):
             # path or .gitleaks.toml inside the image control scanner behavior.
             content_hash = hashlib.sha256()
             overlap = b""
+            before = findings.copy()
             with archive.extractfile(member) as src, (files / f"{i:08d}.data").open("wb") as out:
                 while chunk := src.read(1024**2):
                     out.write(chunk)
                     content_hash.update(chunk)
                     scan_bytes(overlap + chunk, findings)
                     overlap = chunk[-8192:]
+            data_name = f"{i:08d}.data"
+            records[data_name] = {"path": name, "sha256": content_hash.hexdigest(), "metadata": False}
+            if findings != before:
+                flagged_files.add(data_name)
             if name in source_hashes:
                 counts["reviewed_source_files"] += 1
                 if content_hash.hexdigest() != source_hashes[name]:
@@ -234,6 +246,9 @@ def scan_layer(blob, diff_id, scratch, source_hashes, is_base):
                     findings["sensitive_file_path"] += 1
                 elif name not in source_hashes and not allowed_generated(name):
                     findings["unclassified_application_file"] += 1
+    # Only the private job reads this map; no image paths are logged/uploaded.
+    (scratch / "private-records.json").write_text(json.dumps(records))
+    (scratch / "private-flags.json").write_text(json.dumps(sorted(flagged_files)))
     return counts, findings, files
 
 
@@ -276,10 +291,96 @@ def gitleaks(binary, directory, scratch):
     # Rule IDs/counts only. Never print descriptions, match text, paths or secret
     # fingerprints from the image-derived Gitleaks report.
     counts = collections.Counter()
+    flagged_files = set()
     for item in items:
         key = item.get("RuleID", "")
         need(bool(re.fullmatch(r"[a-z0-9-]{1,80}", key)), "invalid_scanner_report")
         counts["gitleaks:" + key] += 1
+        match = re.search(r"(?:^|/)([0-9]{8}\.(?:data|metadata))(?:$|[!:])", item.get("File", ""))
+        flagged_files.add(match.group(1) if match else "unmapped")
+    return counts, flagged_files
+
+
+def npm_identity(path):
+    # Only pnpm's known package directory structure is considered. Nothing from
+    # an unknown path/package is sent to an external registry.
+    parts = PurePosixPath(path).parts
+    if len(parts) < 7 or parts[:3] != ("app", "node_modules", ".pnpm") or parts[4] != "node_modules":
+        return None
+    width = 2 if parts[5].startswith("@") else 1
+    root_end = 5 + width
+    if len(parts) <= root_end:
+        return None
+    return "/".join(parts[:root_end]), "/".join(parts[root_end:])
+
+
+def public_npm_match(record, records, files, scratch, allowed, cache):
+    identity = npm_identity(record["path"])
+    if not identity:
+        return False
+    root, relative = identity
+    package_record = next(((name, item) for name, item in records.items()
+                           if not item["metadata"] and item["path"] == root + "/package.json"), None)
+    if not package_record:
+        return False
+    try:
+        metadata = json.loads((files / package_record[0]).read_bytes())
+    except (ValueError, UnicodeError):
+        return False
+    name, version = metadata.get("name"), metadata.get("version")
+    if not isinstance(name, str) or not isinstance(version, str):
+        return False
+    package_id = name + "@" + version
+    integrity = allowed.get(package_id)
+    if not integrity or not integrity.startswith("sha512-"):
+        return False
+    if package_id not in cache:
+        # Name/version must be in the already-public audited lockfile before
+        # either value is used in an unauthenticated request.
+        package_meta = get_json("https://registry.npmjs.org/" +
+            urllib.parse.quote(name, safe="@/") + "/" + urllib.parse.quote(version, safe=""))
+        dist = package_meta.get("dist", {})
+        need(dist.get("integrity") == integrity, "public_npm_integrity_changed")
+        url = dist.get("tarball", "")
+        location = urllib.parse.urlsplit(url)
+        need(location.scheme == "https" and location.hostname == "registry.npmjs.org"
+             and not location.username and not location.password, "unexpected_public_npm_url")
+        archive_path = scratch / ("npm-" + sha(package_id.encode()) + ".tgz")
+        fetch(url, destination=archive_path, limit=MAX_BLOB)
+        with archive_path.open("rb") as stream:
+            digest = base64.b64encode(hashlib.file_digest(stream, "sha512").digest()).decode()
+        need("sha512-" + digest == integrity, "public_npm_archive_mismatch")
+        public_files = {}
+        with tarfile.open(archive_path, "r:gz") as archive:
+            for member in archive:
+                if member.isfile():
+                    normalized = normal_path(member.name)
+                    need(member.size <= MAX_FILE, "public_npm_file_limit")
+                    # npm pack normally uses package/, but old public packages
+                    # can use a different single top-level directory.
+                    relative_name = normalized.split("/", 1)[1] if "/" in normalized else ""
+                    with archive.extractfile(member) as stream:
+                        public_files[relative_name] = hashlib.file_digest(stream, "sha256").hexdigest()
+        archive_path.unlink()
+        cache[package_id] = public_files
+    return cache[package_id].get(relative) == record["sha256"]
+
+
+def classify_flags(flagged, records, files, scratch, sources, is_base, allowed, cache):
+    counts = collections.Counter()
+    for filename in flagged:
+        if is_base:
+            counts["exact_public_base"] += 1
+            continue
+        record = records.get(filename)
+        if not record or record["metadata"]:
+            counts["unresolved"] += 1
+        elif sources.get(record["path"]) == record["sha256"]:
+            counts["exact_reviewed_public_source"] += 1
+        elif public_npm_match(record, records, files, scratch, allowed, cache):
+            counts["exact_public_npm_file"] += 1
+        else:
+            counts["unresolved"] += 1
     return counts
 
 
@@ -338,8 +439,13 @@ def audit(scratch, progress):
     config_dir.mkdir()
     (config_dir / "config.data").write_bytes(config_raw)
     scan_bytes(config_raw, findings)
-    findings.update(gitleaks(binary, config_dir, scratch))
+    config_findings, _ = gitleaks(binary, config_dir, scratch)
+    findings.update(config_findings)
     source_hashes = json.loads(Path(__file__).with_name("source-sha256.json").read_text())
+    npm_allowed = json.loads(Path(__file__).with_name("public-npm-integrity.json").read_text())
+    npm_cache = {}
+    classified = collections.Counter()
+    candidate_totals = collections.Counter()
     for i, (layer, diff_id) in enumerate(zip(layers, diff_ids)):
         progress["stage"] = "audit_layer"
         progress["layer_number"] = i + 1
@@ -352,16 +458,32 @@ def audit(scratch, progress):
             size = fetch(root + "/blobs/" + layer["digest"], auth, blob, MAX_BLOB, layer["digest"])
             need(size == layer["size"], "layer_size_mismatch")
             counts, flags, files = scan_layer(blob, diff_id, work, source_hashes, i < len(base))
-            flags.update(gitleaks(binary, files, work))
-            findings.update(flags)
+            leak_flags, leak_files = gitleaks(binary, files, work)
+            flags.update(leak_flags)
+            flagged = set(json.loads((work / "private-flags.json").read_text())) | leak_files
+            records = json.loads((work / "private-records.json").read_text())
+            classification = classify_flags(flagged, records, files, scratch, source_hashes,
+                                            i < len(base), npm_allowed, npm_cache)
+            classified.update(classification)
+            candidate_totals.update(flags)
+            if classification["unresolved"]:
+                findings["unresolved_candidate_files"] += classification["unresolved"]
+            # Structural/provenance findings never receive a secret-rule waiver.
+            for key, value in flags.items():
+                if key not in COMPILED and not key.startswith("gitleaks:"):
+                    findings[key] += value
             totals.update(counts)
             progress["layers_verified_and_scanned"] = i + 1
             print(json.dumps({"layer": i + 1, "compressed_digest_verified": True,
                               "diff_id_verified": True, "counts": dict(counts),
-                              "findings": dict(flags)}), flush=True)
+                              "candidate_rules": dict(flags),
+                              "candidate_provenance": dict(classification)}), flush=True)
     progress.update({"stage": "complete", "image_digest": DIGEST,
                      "scanner": "gitleaks 8.30.1 plus wallet/path/provenance checks",
                      "counts": dict(totals), "findings": dict(findings),
+                     "candidate_rules": dict(candidate_totals),
+                     "candidate_provenance": dict(classified),
+                     "public_npm_archives_verified": len(npm_cache),
                      "image_executed": False, "rebuild": False, "republish": False,
                      "artifact_uploads": False,
                      "result": "needs_review" if findings else "no_findings"})

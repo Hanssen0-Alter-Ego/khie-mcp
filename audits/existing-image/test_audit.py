@@ -181,6 +181,21 @@ class AuditTests(unittest.TestCase):
                 root, root, {}, generated, {}, Path("scanner"))
             self.assertEqual(result, (False, "source_map_inputs_not_all_verified"))
 
+    def test_public_alias_uses_locked_canonical_tarball_and_exact_hash(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            package_root = "app/node_modules/.pnpm/@public+alias@1.0.0/node_modules/alias"
+            (root / "00000000.data").write_text(json.dumps({"name": "original-name", "version": "1.0.0"}))
+            record = {"path": package_root + "/index.js", "sha256": "exact", "metadata": False}
+            records = {"00000000.data": {"path": package_root + "/package.json", "metadata": False}}
+            allowed = {"@public/alias@1.0.0": "sha512-fixture"}
+            cache = {"@public/alias@1.0.0": {"index.js": "exact"}}
+            with mock.patch.object(audit, "get_json") as request:
+                self.assertTrue(audit.public_npm_match(record, records, root, root, allowed, cache))
+                request.assert_not_called()
+                record["sha256"] = "different"
+                self.assertFalse(audit.public_npm_match(record, records, root, root, allowed, cache))
+
 
 if __name__ == "__main__":
     unittest.main()

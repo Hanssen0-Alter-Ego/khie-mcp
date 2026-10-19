@@ -31,6 +31,10 @@ complete file is byte-identical to reviewed public source or a public npm file
 whose tarball passes the already-public lockfile's SHA-512 integrity check, or
 when it belongs to the byte-verified public base. Unknown package identities
 are never sent to a registry. Structural/provenance findings are never waived.
+Public npm aliases are resolved from canonical pnpm directory identities only
+when those identities exist in the already-public lockfile. A different embedded
+package name does not establish provenance; the locked tarball integrity and
+complete candidate file hash must still match exactly.
 For generated bundles, resolution additionally requires the exact hash of a
 retained build artifact (no rebuild), verified public source-map inputs, and
 proof that every detected value occurs in those exact public inputs. Detector

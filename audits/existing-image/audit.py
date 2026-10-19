@@ -352,26 +352,56 @@ def npm_identity(path):
     return "/".join(parts[:root_end]), "/".join(parts[root_end:])
 
 
-def public_npm_match(record, records, files, scratch, allowed, cache):
+def public_npm_match(record, records, files, scratch, allowed, cache, explanation=None):
+    explanation = explanation if explanation is not None else {}
     identity = npm_identity(record["path"])
     if not identity:
+        explanation["reason"] = "not_npm_layout"
         return False
     root, relative = identity
     package_record = next(((name, item) for name, item in records.items()
                            if not item["metadata"] and item["path"] == root + "/package.json"), None)
     if not package_record:
+        explanation["reason"] = "package_metadata_missing"
         return False
     try:
         metadata = json.loads((files / package_record[0]).read_bytes())
     except (ValueError, UnicodeError):
+        explanation["reason"] = "package_metadata_invalid"
         return False
     name, version = metadata.get("name"), metadata.get("version")
     if not isinstance(name, str) or not isinstance(version, str):
+        explanation["reason"] = "package_identity_missing"
         return False
-    package_id = name + "@" + version
-    integrity = allowed.get(package_id)
-    if not integrity or not integrity.startswith("sha512-"):
+    # npm aliases can retain an original package.json name/version. pnpm's
+    # directory identifies the canonical locked package, including aliases.
+    # Only identities already present in the public lockfile may be queried.
+    identities = []
+    metadata_id = name + "@" + version
+    if metadata_id in allowed:
+        identities.append(metadata_id)
+    folder = PurePosixPath(record["path"]).parts[3]
+    for key in allowed:
+        encoded = key.replace("/", "+")
+        if folder == encoded or folder.startswith(encoded + "_") or folder.startswith(encoded + "("):
+            if key not in identities:
+                identities.append(key)
+    if not identities:
+        explanation["reason"] = "identity_not_in_public_lockfile"
         return False
+    for package_id in identities:
+        if public_npm_file_hash(package_id, relative, scratch, allowed, cache) == record["sha256"]:
+            explanation["reason"] = "exact_public_file"
+            explanation["alias_resolution"] = package_id != metadata_id
+            return True
+    explanation["reason"] = "locked_public_file_missing_or_different"
+    return False
+
+
+def public_npm_file_hash(package_id, relative, scratch, allowed, cache):
+    name, version = package_id.rsplit("@", 1)
+    integrity = allowed[package_id]
+    need(integrity.startswith("sha512-"), "unsupported_public_integrity")
     if package_id not in cache:
         # Name/version must be in the already-public audited lockfile before
         # either value is used in an unauthenticated request.
@@ -401,7 +431,7 @@ def public_npm_match(record, records, files, scratch, allowed, cache):
                         public_files[relative_name] = hashlib.file_digest(stream, "sha256").hexdigest()
         archive_path.unlink()
         cache[package_id] = public_files
-    return cache[package_id].get(relative) == record["sha256"]
+    return cache[package_id].get(relative)
 
 
 def classify_flags(flagged, records, files, scratch, sources, is_base, allowed, cache,
@@ -416,9 +446,16 @@ def classify_flags(flagged, records, files, scratch, sources, is_base, allowed, 
             counts["unresolved"] += 1
         elif sources.get(record["path"]) == record["sha256"]:
             counts["exact_reviewed_public_source"] += 1
-        elif public_npm_match(record, records, files, scratch, allowed, cache):
-            counts["exact_public_npm_file"] += 1
         else:
+            npm_detail = {}
+            if public_npm_match(record, records, files, scratch, allowed, cache, npm_detail):
+                counts["exact_public_npm_file"] += 1
+                if detail is not None and npm_detail.get("alias_resolution"):
+                    detail.append({"candidate": len(detail) + 1,
+                        "classification": "known_public_dependency_content",
+                        "provenance": "exact_file_in_lock_integrity_verified_public_tarball",
+                        "identity_resolution": "public_npm_alias"})
+                continue
             verified, reason = generated_public_match(record, filename, records, files, scratch,
                 sources, generated or {}, cache, binary) if binary else (False, "no_generated_comparison")
             if verified:
@@ -431,6 +468,7 @@ def classify_flags(flagged, records, files, scratch, sources, is_base, allowed, 
                 detail.append({"candidate": len(detail) + 1,
                     "classification": "known_public_code_literal" if verified else "unverified",
                     "provenance": reason,
+                    "npm_provenance_gap": npm_detail.get("reason", "not_checked"),
                     "category": "generated_bundle" if re.match(r"app/packages/(?:core|libp2p|khie-mcp)/dist", record["path"])
                     else "npm_file" if npm_identity(record["path"]) else "other"})
     return counts

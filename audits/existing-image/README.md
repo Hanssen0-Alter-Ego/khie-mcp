@@ -35,6 +35,11 @@ Public npm aliases are resolved from canonical pnpm directory identities only
 when those identities exist in the already-public lockfile. A different embedded
 package name does not establish provenance; the locked tarball integrity and
 complete candidate file hash must still match exactly.
+The identity manifest covers the complete already-audited lockfile, including
+workspace/root tooling that can remain in pnpm's installed package directory.
+It is not limited to a computed runtime dependency closure. Adding an identity
+to this comparison set neither installs it nor grants access; each candidate
+still requires the locked tarball and exact file bytes.
 For generated bundles, resolution additionally requires the exact hash of a
 retained build artifact (no rebuild), verified public source-map inputs, and
 proof that every detected value occurs in those exact public inputs. Detector

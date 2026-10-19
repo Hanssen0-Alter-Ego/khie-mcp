@@ -15,6 +15,10 @@ remove earlier versions from scanning. Image paths and links are never extracted
 as filesystem paths, and image-supplied scanner configuration is not honored.
 The root manifest's verified digest is authoritative for the descriptor list;
 browser UI blob-list transcription is recorded only as a consistency observation.
+The public Node base config is retained from the existing official image and
+must hash to the config descriptor in the independently fetched pinned public
+manifest. Its diff IDs verify exact base tar bytes despite recompression. No
+base or application image is rebuilt as evidence.
 
 Gitleaks 8.30.1 is pinned by the upstream release archive's SHA-256. It runs with
 no job/registry credentials, with decoding and archive traversal depth four.

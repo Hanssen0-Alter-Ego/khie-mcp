@@ -145,8 +145,12 @@ def public_base_layers():
                and x.get("platform", {}).get("architecture") == "amd64"]
     need(len(choices) == 1, "base_platform_ambiguous")
     manifest = get_json(root + choices[0]["digest"], headers, choices[0]["digest"])
-    base_config = get_json("https://registry-1.docker.io/v2/library/node/blobs/" +
-                           manifest["config"]["digest"], headers, manifest["config"]["digest"])
+    # These retained bytes came from the existing official Node image, never a
+    # rebuild. The public pinned manifest must confirm their exact config hash.
+    # Avoid adding new CDN origins merely to fetch the same public config.
+    base_config_raw = Path(__file__).with_name("public-node-base-config.json").read_bytes()
+    verify(base_config_raw, manifest["config"]["digest"])
+    base_config = json.loads(base_config_raw)
     return [x["digest"] for x in manifest["layers"]], base_config["rootfs"]["diff_ids"]
 
 

@@ -1,0 +1,30 @@
+name: Audit existing Khie image
+on:
+  push:
+    branches: [audit/existing-image-exposure]
+    paths:
+      - .github/workflows/audit-published-image.yaml
+      - audits/existing-image/**
+  workflow_dispatch:
+permissions: {}
+concurrency:
+  group: audit-existing-khie-image
+  cancel-in-progress: false
+jobs:
+  audit:
+    if: github.repository == 'Hanssen0-Alter-Ego/khie-mcp' && github.ref == 'refs/heads/audit/existing-image-exposure'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      packages: read
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+      - name: Test sanitization, deleted-file coverage, and digest checks
+        run: python3 -m unittest discover -s audits/existing-image -p 'test_*.py'
+      - name: Verify existing access and audit the original digest without executing it
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python3 audits/existing-image/audit.py

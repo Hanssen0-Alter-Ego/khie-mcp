@@ -147,6 +147,40 @@ class AuditTests(unittest.TestCase):
             self.assertFalse(audit.public_npm_match(record, records, root, root,
                 {"example@1.0.0": "sha512-fixture"}, {"example@1.0.0": {"index.js": "different"}}))
 
+    def test_generated_candidate_requires_bundle_source_and_value_proof(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            original = 'export const sample = "harmless-public-fixture";\n'
+            compiled = b'const sample="harmless-public-fixture";'
+            path = "app/packages/core/dist/index.js"
+            (root / "00000001.data").write_bytes(compiled)
+            (root / "00000002.data").write_text(json.dumps({"sourcesContent": [original]}))
+            record = {"path": path, "sha256": audit.sha(compiled), "metadata": False}
+            records = {"00000001.data": record, "00000002.data":
+                       {"path": path + ".map", "metadata": False}}
+            sources = {"app/packages/core/src/index.ts": audit.sha(original.encode())}
+            generated = {path: audit.sha(compiled)}
+            output = io.StringIO()
+            with mock.patch.object(audit, "gitleaks", return_value=(collections.Counter(),
+                    [{"Secret": "harmless-public-fixture"}])):
+                with contextlib.redirect_stdout(output):
+                    result = audit.generated_public_match(record, "00000001.data", records,
+                        root, root, sources, generated, {}, Path("scanner"))
+                self.assertTrue(result[0])
+            self.assertEqual(output.getvalue(), "")
+            with mock.patch.object(audit, "gitleaks", return_value=(collections.Counter(),
+                    [{"Secret": "different-private-fixture"}])):
+                result = audit.generated_public_match(record, "00000001.data", records,
+                    root, root, sources, generated, {}, Path("scanner"))
+                self.assertFalse(result[0])
+                self.assertEqual(result[1], "candidate_not_present_in_verified_public_source")
+            result = audit.generated_public_match(record, "00000001.data", records,
+                root, root, sources, {path: "wrong"}, {}, Path("scanner"))
+            self.assertEqual(result, (False, "not_exact_retained_bundle"))
+            result = audit.generated_public_match(record, "00000001.data", records,
+                root, root, {}, generated, {}, Path("scanner"))
+            self.assertEqual(result, (False, "source_map_inputs_not_all_verified"))
+
 
 if __name__ == "__main__":
     unittest.main()

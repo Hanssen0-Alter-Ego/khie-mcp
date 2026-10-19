@@ -108,9 +108,8 @@ def get_json(url, headers=None, digest=None):
 
 
 def access_preflight(token):
-    # This read is credential-free even though the process has a job token.
-    guide = fetch(f"https://raw.githubusercontent.com/{REPO}/{GUIDE_COMMIT}/RECONNECT_PROTOTYPE.md")
-    need(DIGEST.encode() in guide, "anonymous_repository_read_failed")
+    # Anonymous repository access was already verified by audit run 39210247569.
+    # This continuation only resolves private image candidates.
     auth = {"Authorization": "Bearer " + token, "Accept": "application/vnd.github+json",
             "X-GitHub-Api-Version": "2022-11-28"}
     endpoint = "https://api.github.com/users/Hanssen0-Alter-Ego/packages/container/khie-mcp-reconnect"
@@ -131,7 +130,7 @@ def access_preflight(token):
     registry_token = access.get("token") or access.get("access_token")
     need(isinstance(registry_token, str) and registry_token, "registry_access_denied")
     return {"Authorization": "Bearer " + registry_token}, {
-        "anonymous_repository_read": "passed", "existing_package_access": "passed",
+        "anonymous_repository_read": "previously_verified_run_39210247569", "existing_package_access": "passed",
         "active_versions": 1, "untagged_versions": 0, "package_visibility": "private"}
 
 
@@ -271,7 +270,7 @@ def install_scanner(scratch):
     return binary
 
 
-def gitleaks(binary, directory, scratch):
+def gitleaks(binary, directory, scratch, private_details=False):
     report = scratch / "gitleaks-report.json"
     # No image-supplied baseline/ignore configuration. The scanner receives no
     # job token, registry bearer token, Docker config, proxy auth or Git config.
@@ -280,7 +279,7 @@ def gitleaks(binary, directory, scratch):
     result = subprocess.run([
         str(binary), "dir", str(directory), "--config", str(config),
         "--gitleaks-ignore-path", str(scratch / "no-ignore-file"),
-        "--ignore-gitleaks-allow", "--redact=100", "--no-banner", "--no-color",
+        "--ignore-gitleaks-allow", "--redact=" + ("0" if private_details else "100"), "--no-banner", "--no-color",
         "--log-level", "error", "--max-decode-depth", "4", "--max-archive-depth", "4",
         "--report-format", "json", "--report-path", str(report), "--timeout", "900",
     ], stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=960, cwd=scratch,
@@ -298,7 +297,46 @@ def gitleaks(binary, directory, scratch):
         counts["gitleaks:" + key] += 1
         match = re.search(r"(?:^|/)([0-9]{8}\.(?:data|metadata))(?:$|[!:])", item.get("File", ""))
         flagged_files.add(match.group(1) if match else "unmapped")
-    return counts, flagged_files
+    # Raw details are permitted only inside this private process for exact
+    # comparisons. They never enter stdout, the summary, artifacts or a tool.
+    return (counts, items) if private_details else (counts, flagged_files)
+
+
+def generated_public_match(record, filename, records, files, scratch, sources, generated, cache, binary):
+    if generated.get(record["path"]) != record["sha256"]:
+        return False, "not_exact_retained_bundle"
+    mapping_path = record["path"] if record["path"].endswith(".map") else record["path"] + ".map"
+    mapping_record = next(((name, item) for name, item in records.items()
+                           if not item["metadata"] and item["path"] == mapping_path), None)
+    if not mapping_record:
+        return False, "verified_source_map_unavailable"
+    try:
+        mapping = json.loads((files / mapping_record[0]).read_bytes())
+    except (ValueError, UnicodeError):
+        return False, "source_map_invalid"
+    contents = mapping.get("sourcesContent", [])
+    if not contents or not all(isinstance(x, str) for x in contents):
+        return False, "source_map_inputs_missing"
+    public_hashes = set(sources.values()) | {value for package in cache.values() for value in package.values()}
+    if not all(sha(x.encode()) in public_hashes for x in contents):
+        return False, "source_map_inputs_not_all_verified"
+    public_content = [x.encode() for x in contents]
+    data = (files / filename).read_bytes()
+    supplement = [match.group() for pattern in COMPILED.values() for match in pattern.finditer(data)]
+    # Use an isolated scan of this exact candidate. No private details from this
+    # report leave memory or the temporary directory; stdout/stderr stay captured.
+    with tempfile.TemporaryDirectory(dir=scratch) as directory:
+        private = Path(directory)
+        candidate_dir = private / "candidate"
+        candidate_dir.mkdir()
+        (candidate_dir / filename).write_bytes(data)
+        _, raw_items = gitleaks(binary, candidate_dir, private, private_details=True)
+        candidates = supplement + [item.get("Secret", "").encode() for item in raw_items]
+        if not candidates or any(not value or value == b"REDACTED" or value == b"[REDACTED]" for value in candidates):
+            return False, "detector_values_unavailable_for_comparison"
+        if not all(any(value in source for source in public_content) for value in candidates):
+            return False, "candidate_not_present_in_verified_public_source"
+    return True, "exact_bundle_and_all_matches_in_verified_public_source"
 
 
 def npm_identity(path):
@@ -366,9 +404,10 @@ def public_npm_match(record, records, files, scratch, allowed, cache):
     return cache[package_id].get(relative) == record["sha256"]
 
 
-def classify_flags(flagged, records, files, scratch, sources, is_base, allowed, cache):
+def classify_flags(flagged, records, files, scratch, sources, is_base, allowed, cache,
+                   generated=None, binary=None, detail=None):
     counts = collections.Counter()
-    for filename in flagged:
+    for filename in sorted(flagged):
         if is_base:
             counts["exact_public_base"] += 1
             continue
@@ -380,7 +419,20 @@ def classify_flags(flagged, records, files, scratch, sources, is_base, allowed, 
         elif public_npm_match(record, records, files, scratch, allowed, cache):
             counts["exact_public_npm_file"] += 1
         else:
-            counts["unresolved"] += 1
+            verified, reason = generated_public_match(record, filename, records, files, scratch,
+                sources, generated or {}, cache, binary) if binary else (False, "no_generated_comparison")
+            if verified:
+                counts["exact_generated_copy_of_public_source"] += 1
+            else:
+                counts["unresolved"] += 1
+            if detail is not None:
+                # Fixed vocabulary and sequential opaque IDs only; no image
+                # paths, fingerprints, snippets or candidate values are emitted.
+                detail.append({"candidate": len(detail) + 1,
+                    "classification": "known_public_code_literal" if verified else "unverified",
+                    "provenance": reason,
+                    "category": "generated_bundle" if re.match(r"app/packages/(?:core|libp2p|khie-mcp)/dist", record["path"])
+                    else "npm_file" if npm_identity(record["path"]) else "other"})
     return counts
 
 
@@ -443,9 +495,11 @@ def audit(scratch, progress):
     findings.update(config_findings)
     source_hashes = json.loads(Path(__file__).with_name("source-sha256.json").read_text())
     npm_allowed = json.loads(Path(__file__).with_name("public-npm-integrity.json").read_text())
+    generated = json.loads(Path(__file__).with_name("retained-generated-sha256.json").read_text())
     npm_cache = {}
     classified = collections.Counter()
     candidate_totals = collections.Counter()
+    candidate_details = []
     for i, (layer, diff_id) in enumerate(zip(layers, diff_ids)):
         progress["stage"] = "audit_layer"
         progress["layer_number"] = i + 1
@@ -463,7 +517,8 @@ def audit(scratch, progress):
             flagged = set(json.loads((work / "private-flags.json").read_text())) | leak_files
             records = json.loads((work / "private-records.json").read_text())
             classification = classify_flags(flagged, records, files, scratch, source_hashes,
-                                            i < len(base), npm_allowed, npm_cache)
+                                            i < len(base), npm_allowed, npm_cache,
+                                            generated, binary, candidate_details)
             classified.update(classification)
             candidate_totals.update(flags)
             if classification["unresolved"]:
@@ -484,6 +539,7 @@ def audit(scratch, progress):
                      "candidate_rules": dict(candidate_totals),
                      "candidate_provenance": dict(classified),
                      "public_npm_archives_verified": len(npm_cache),
+                     "remaining_candidate_classifications": candidate_details,
                      "image_executed": False, "rebuild": False, "republish": False,
                      "artifact_uploads": False,
                      "result": "needs_review" if findings else "no_findings"})

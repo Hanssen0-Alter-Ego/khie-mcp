@@ -6,8 +6,9 @@ It cannot build, publish, delete, change visibility, or execute the image. It us
 the repository's existing ephemeral job token with `contents: read` and
 `packages: read`, without adding credentials or changing persistent grants.
 
-Before image access it checks a public guide without authentication, the existing
-package's private visibility and repository association, and its one active
+The initial audit verified the public guide without authentication in run
+39210247569; this continuation does not repeat that check. Before image access
+it checks the existing package's private visibility and repository association, and its one active
 version/tag. A denial stops execution. Manifest/config/compressed-layer hashes,
 sizes, and decompressed diff IDs are checked. The pinned public Node base is
 identified independently. Every layer is inspected separately; whiteouts do not
@@ -30,6 +31,13 @@ complete file is byte-identical to reviewed public source or a public npm file
 whose tarball passes the already-public lockfile's SHA-512 integrity check, or
 when it belongs to the byte-verified public base. Unknown package identities
 are never sent to a registry. Structural/provenance findings are never waived.
+For generated bundles, resolution additionally requires the exact hash of a
+retained build artifact (no rebuild), verified public source-map inputs, and
+proof that every detected value occurs in those exact public inputs. Detector
+values used for that comparison stay inside the private process and temporary
+report; they are never logged, uploaded or returned to a caller. A failure of
+any comparison remains unresolved. Only fixed classifications and opaque
+sequential candidate IDs are reported.
 Dependency/build outputs are secret-scanned but are not claimed to be
 reproducibly rebuilt or completely compared with every upstream npm tarball.
 This is an exposure audit, not a vulnerability assessment
@@ -48,6 +56,10 @@ The public source hash manifest was derived from the previously verified exact
 CCC workspace at `0abf78e5f469216e82a24de8d4051e757368af90` plus the audited
 prototype patch, and from the committed container/provenance files. No image
 contents or runtime state are part of this audit's source files.
+The retained generated-file manifest contains hashes only. Its source, build
+configuration and lockfile inputs matched 211 audited files. Three bridge
+Markdown documentation files differ; they are outside the TypeScript compiler
+inputs. No generated artifact or image was rebuilt for this comparison.
 
 Local synthetic tests:
 

@@ -1,0 +1,21 @@
+{
+  "repository": "Hanssen0-Alter-Ego/khie-mcp",
+  "visibility": "private",
+  "branch": "feat/reconnect-mcp-docker",
+  "directory": "prototypes/reconnect-mcp",
+  "existing_base_commit": "a78fc8f5d591f53f395f35fc8deae9d57521bba7",
+  "audited_source_commit": "efa647790c2cdc63ea0a8923537b650b96784716",
+  "audited_source_archive_sha256": "81f35d3463aa2a35902181249eebe2fb2a4df384da5e2c52f56650e9525dc601",
+  "root_workflow": ".github/workflows/reconnect-container.yaml",
+  "workflow_sha256": "4c3da8f33d61b75e9fcfc28c97d578dcad67db3e71d6319293de73df1c4bacca",
+  "image_target": "ghcr.io/hanssen0-alter-ego/khie-mcp-reconnect",
+  "metadata_or_docs_adapted": [
+    "CONTAINERS.md",
+    "Dockerfile",
+    "PUBLICATION_REVIEW.md",
+    "README.md",
+    "container/Dockerfile.offline"
+  ],
+  "runtime_patch_unchanged": true,
+  "visibility_change": false
+}

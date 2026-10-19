@@ -1,0 +1,41 @@
+{
+  "name": "@ckb-ccc/khie-mcp",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "description": "Local-review prototype for a user-owned Khie wallet MCP bridge",
+  "scripts": {
+    "build": "tsc6",
+    "lint": "tsc6 --noEmit",
+    "test": "vitest run --config vitest.config.mts",
+    "test:demo": "node --test test/demo.test.mjs",
+    "start": "node dist/cli.js serve",
+    "demo": "node dist/demo.js",
+    "smoke": "node dist/smoke.js",
+    "read-probe": "node dist/readProbe.js"
+  },
+  "dependencies": {
+    "@chainsafe/libp2p-noise": "^17.0.0",
+    "@chainsafe/libp2p-yamux": "^8.0.1",
+    "@ckb-ccc/core": "workspace:*",
+    "@ckb-ccc/libp2p": "workspace:*",
+    "@libp2p/circuit-relay-v2": "^4.2.12",
+    "@libp2p/crypto": "5.1.23",
+    "@libp2p/identify": "^4.1.13",
+    "@libp2p/interface": "^3.3.0",
+    "@libp2p/peer-id": "6.0.15",
+    "@libp2p/websockets": "^10.1.20",
+    "@modelcontextprotocol/sdk": "1.32.1",
+    "@multiformats/multiaddr": "^13.0.3",
+    "libp2p": "^3.3.9",
+    "zod": "4.6.7"
+  },
+  "devDependencies": {
+    "@types/node": "26.6.4",
+    "typescript": "npm:@typescript/typescript6@^6.0.2",
+    "vitest": "^4.1.9"
+  }
+}

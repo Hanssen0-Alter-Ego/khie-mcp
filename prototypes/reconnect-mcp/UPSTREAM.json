@@ -1,0 +1,12 @@
+{
+  "repository": "https://github.com/ckb-devrel/ccc.git",
+  "commit": "0abf78e5f469216e82a24de8d4051e757368af90",
+  "patch": "patches/ccc-khie-mcp.patch",
+  "patch_sha256": "4371f74fc9a4d852fcb7c4be4a61dcb9a99c6c638be30f1049dad193513a42e9",
+  "changed_files": 26,
+  "mobile_source_inspected": {
+    "repository": "https://github.com/Hanssen0/khie-mobile",
+    "commit": "ad1cf891e43ff93a7ec3b5538d357b449dd45f9e",
+    "implementation_changes": false
+  }
+}

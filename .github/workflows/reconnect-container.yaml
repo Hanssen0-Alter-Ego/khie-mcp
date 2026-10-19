@@ -1,0 +1,65 @@
+name: Reconnect prototype image
+on:
+  push:
+    branches: [feat/reconnect-mcp-docker]
+    paths:
+      - "prototypes/reconnect-mcp/**"
+      - ".github/workflows/reconnect-container.yaml"
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: reconnect-prototype-image-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  publish:
+    if: github.repository == 'Hanssen0-Alter-Ego/khie-mcp' && github.ref == 'refs/heads/feat/reconnect-mcp-docker'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      packages: write
+    defaults:
+      run:
+        working-directory: prototypes/reconnect-mcp
+    env:
+      IMAGE: ghcr.io/hanssen0-alter-ego/khie-mcp-reconnect
+    steps:
+      - name: Check out this commit without retained Git credentials
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6, verified 2026-10-18
+        with:
+          persist-credentials: false
+      - name: Use the validated Node release
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6, verified 2026-10-18
+        with:
+          node-version: 24.19.0
+      - name: Check protected operator provisioning
+        run: node --test test/operator-files.test.mjs
+      - name: Reconstruct pinned upstream workspace
+        run: node scripts/prepare-workspace.mjs ./ccc-workspace
+      - name: Build and run package tests (linux/amd64)
+        run: docker build --platform linux/amd64 --build-arg VCS_REF="$GITHUB_SHA" --tag "$IMAGE:sha-$GITHUB_SHA" .
+      - name: Verify container with synthetic wallet only
+        run: node scripts/container-smoke.mjs "$IMAGE:sha-$GITHUB_SHA"
+      - name: Authenticate with this job's ephemeral package token
+        env:
+          GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: printf '%s' "$GHCR_TOKEN" | docker login ghcr.io --username "$GITHUB_ACTOR" --password-stdin
+      - name: Publish and pull the tested commit tag
+        shell: bash
+        run: |
+          set -euo pipefail
+          docker push "$IMAGE:sha-$GITHUB_SHA" | tee "$RUNNER_TEMP/khie-image-push.log"
+          digest=$(sed -nE 's/^.*digest: (sha256:[a-f0-9]{64}).*$/\1/p' "$RUNNER_TEMP/khie-image-push.log" | tail -n 1)
+          test -n "$digest"
+          docker pull "$IMAGE@$digest"
+          printf 'Authenticated pull verified for linux/amd64 image: `%s@%s`\n\nCommit tag: `%s:sha-%s`\n' "$IMAGE" "$digest" "$IMAGE" "$GITHUB_SHA" >> "$GITHUB_STEP_SUMMARY"
+      - name: Record package visibility without changing it
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh api /users/Hanssen0-Alter-Ego/packages/container/khie-mcp-reconnect --jq '{name, visibility, html_url}' | tee "$RUNNER_TEMP/khie-package-metadata.json"
+          cat "$RUNNER_TEMP/khie-package-metadata.json" >> "$GITHUB_STEP_SUMMARY"
+      - name: Remove ephemeral registry login
+        if: always()
+        run: docker logout ghcr.io

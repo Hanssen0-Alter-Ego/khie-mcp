@@ -1,0 +1,13 @@
+/ccc-workspace/
+/.khie-materialize-*/
+node_modules/
+dist/
+.env
+.env.*
+*.pem
+*.key
+client.json
+config.json
+store-key
+http-token
+/state/

@@ -1,0 +1,229 @@
+{
+  "algorithm": "sha256",
+  "excludes": [
+    "MANIFEST.json",
+    ".git/"
+  ],
+  "files": [
+    {
+      "path": ".dockerignore",
+      "bytes": 605,
+      "sha256": "81a300ac8fa5d194c91224ed8bb57b57d7c1da1af2eddee5282076beb1a9c0bc"
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 135,
+      "sha256": "04a71eb3a118929c5aa45d821b10f57c732f575a4c5ebf600fcecdf0da5c58ae"
+    },
+    {
+      "path": "CONTAINERS.md",
+      "bytes": 11594,
+      "sha256": "11c34524dfc34839f9b061cc497a5defbd4c3d9b71077db3b9df0802642b2fcd"
+    },
+    {
+      "path": "Dockerfile",
+      "bytes": 2151,
+      "sha256": "661356f33e3dc06616d647bc90785db2e5714150e04f022cb9d01c15c05783d5"
+    },
+    {
+      "path": "INTEGRATION.json",
+      "bytes": 848,
+      "sha256": "4445698d5093e733345a8967be502eb96185d4b8ed2ead26c53092b2e8b3672b"
+    },
+    {
+      "path": "LICENSE",
+      "bytes": 1075,
+      "sha256": "2acbef0209f47cde6b7919c889487fae63de5c43928fbcb5a8cf0ae7db88e332"
+    },
+    {
+      "path": "NOTICE.md",
+      "bytes": 1490,
+      "sha256": "74287fda17cbc0a458f7200d15d8a937c2da3f16e6cf8c12a98468fffe6b8d3a"
+    },
+    {
+      "path": "PUBLICATION_REVIEW.md",
+      "bytes": 3852,
+      "sha256": "df7f4a8a584d723e90580cb83e482e5724151289fb699552761f8deb26bd1977"
+    },
+    {
+      "path": "README.md",
+      "bytes": 6827,
+      "sha256": "5d4d44ac2ec8874497b55a5ed89c6e5440f7c374b39e4d3f670f39aeff5aa20e"
+    },
+    {
+      "path": "UPSTREAM.json",
+      "bytes": 457,
+      "sha256": "46378178a1e72e0be92a2fe9f203f991a9fafd11fcb6c41d8d511c41afde85fa"
+    },
+    {
+      "path": "compose.demo.yaml",
+      "bytes": 694,
+      "sha256": "2dd0150491f22470ff841bc8d2955fb4950ad2fbeb9b168d196b48ef317dd6eb"
+    },
+    {
+      "path": "compose.yaml",
+      "bytes": 1308,
+      "sha256": "6b70a1075157973e451256cca1c2767f54ef250175b9a319bc0be1082145495d"
+    },
+    {
+      "path": "container/Dockerfile.offline",
+      "bytes": 2802,
+      "sha256": "57bd7d6dcb3547d1879c9bd403389d2dbdd39198d72503a492c2344aaa2c2c79"
+    },
+    {
+      "path": "container/entrypoint.sh",
+      "bytes": 665,
+      "sha256": "fea259a89f3753b31791780f844bbbc95fabed030826978b67158e6f02ef360a"
+    },
+    {
+      "path": "patches/ccc-khie-mcp.patch",
+      "bytes": 133090,
+      "sha256": "4371f74fc9a4d852fcb7c4be4a61dcb9a99c6c638be30f1049dad193513a42e9"
+    },
+    {
+      "path": "scripts/container-smoke.mjs",
+      "bytes": 3904,
+      "sha256": "7de42d78bbdce06ee62427b4f8d3a537748431a8f65057402d508c366628e6b1"
+    },
+    {
+      "path": "scripts/init-operator.mjs",
+      "bytes": 2081,
+      "sha256": "3b2477622c8cbc05851f927713b4827634507ee2db5b9c453655d54eafb077c2"
+    },
+    {
+      "path": "scripts/prepare-workspace.mjs",
+      "bytes": 5018,
+      "sha256": "0f2e101475faae1609d698d12d03d59ffe6572503ec98e1fdadd577c2bf867c0"
+    },
+    {
+      "path": "scripts/write-read-client.mjs",
+      "bytes": 1400,
+      "sha256": "7966b7f8e9eea97cd2e5b8648846094848634c43a7c045083f53e236e9a2fd03"
+    },
+    {
+      "path": "source/packages/khie-mcp/MOBILE_READINESS.md",
+      "bytes": 8053,
+      "sha256": "14da7317d349116debe93aec35a4bd370c1a01ce1532cf7bd66be48eb0e1f0d4"
+    },
+    {
+      "path": "source/packages/khie-mcp/README.md",
+      "bytes": 11623,
+      "sha256": "3d0e9913b6d82893290b767d40517e83d5172d043e07cf9e9242ff2336304263"
+    },
+    {
+      "path": "source/packages/khie-mcp/REVIEW.md",
+      "bytes": 6742,
+      "sha256": "094d46132856a2fda9d9865e0e49b3f62ea12c76e19052950ff0f09b3a9317f6"
+    },
+    {
+      "path": "source/packages/khie-mcp/package.json",
+      "bytes": 1203,
+      "sha256": "5d83391f37674973559ca044f670cdd00aa7e202200997a1ae7234f9ab860a29"
+    },
+    {
+      "path": "source/packages/khie-mcp/src/bridge.test.ts",
+      "bytes": 20170,
+      "sha256": "bf8f1fb8dfdaa60274cbe817d8a78e458ece5773da49ca62eaec223de302ba44"
+    },
+    {
+      "path": "source/packages/khie-mcp/src/bridge.ts",
+      "bytes": 9184,
+      "sha256": "18b0eef593d866cb99302e37435a51597c01a62586aa4df53b42bd908227aa18"
+    },
+    {
+      "path": "source/packages/khie-mcp/src/cli.ts",
+      "bytes": 3033,
+      "sha256": "92deee0720f3643aa401001d2313a046a811cda87b636cabdfd7fdd05c03dd46"
+    },
+    {
+      "path": "source/packages/khie-mcp/src/demo.ts",
+      "bytes": 4187,
+      "sha256": "ee1375003a048921d9de1d46b6195a23ade857370171127bbe2116b5cce9e72d"
+    },
+    {
+      "path": "source/packages/khie-mcp/src/enroll.ts",
+      "bytes": 1524,
+      "sha256": "ab83553f3713fdeab98f11b84e3addaab094d74e0e16c17f91d2ae8878b2b161"
+    },
+    {
+      "path": "source/packages/khie-mcp/src/listenHost.test.ts",
+      "bytes": 543,
+      "sha256": "f193cb08b086a18605ce6ca1d99886ea0a18564a381369981f890a3184c27760"
+    },
+    {
+      "path": "source/packages/khie-mcp/src/listenHost.ts",
+      "bytes": 375,
+      "sha256": "ccaf459c8053279940eef743d2ccc707e7dbf90aa354894f84022562df8e201b"
+    },
+    {
+      "path": "source/packages/khie-mcp/src/mobileEndpoint.test.ts",
+      "bytes": 4617,
+      "sha256": "eb9bddfb2ae3e63b508660ba62a25f21dbbfa04abc66a3b5de8b79622cba656c"
+    },
+    {
+      "path": "source/packages/khie-mcp/src/readProbe.test.ts",
+      "bytes": 5190,
+      "sha256": "8c05dab79baf0cb2cd2a3f95b758cd598517eba2c72599420e158fdaeff80fbe"
+    },
+    {
+      "path": "source/packages/khie-mcp/src/readProbe.ts",
+      "bytes": 3537,
+      "sha256": "a49101500eeb30d99f0e5d76eb45bdcde4b7f1cdcf4f9c1d8dc889d689e03de3"
+    },
+    {
+      "path": "source/packages/khie-mcp/src/server.test.ts",
+      "bytes": 4948,
+      "sha256": "7258954b2dc1d3a8eea6b4535640fc96923136f854d9984958a30802ff96e452"
+    },
+    {
+      "path": "source/packages/khie-mcp/src/server.ts",
+      "bytes": 6007,
+      "sha256": "70747fa08010ce1b016779a01a8c708a9c64444c142b6ae12ea99ba7f8622fc6"
+    },
+    {
+      "path": "source/packages/khie-mcp/src/smoke.ts",
+      "bytes": 3395,
+      "sha256": "90f96cf7a699d09dc52895ab056dd22e215921662c09d731448fa34de636c9b1"
+    },
+    {
+      "path": "source/packages/khie-mcp/src/state.ts",
+      "bytes": 2024,
+      "sha256": "bc69f777e0849956c0831adb9ddd7e83231257b6ae7a85f3f427b888a8a1f000"
+    },
+    {
+      "path": "source/packages/khie-mcp/src/store.ts",
+      "bytes": 4133,
+      "sha256": "0e5fad0470e8ec9772d5cef2bf53d906d5c5f9e7d749e9878549720df0ae8276"
+    },
+    {
+      "path": "source/packages/khie-mcp/src/testWallet.ts",
+      "bytes": 4624,
+      "sha256": "a52fa80fc2efcbdd6a01854573bdd67887d80094a759821d024664d5c25a34c2"
+    },
+    {
+      "path": "source/packages/khie-mcp/src/transport.ts",
+      "bytes": 4660,
+      "sha256": "e6c496773c7412ae4fe2c7a7f047ef7789aef1b13d948563e244ca57a1dd4ad4"
+    },
+    {
+      "path": "source/packages/khie-mcp/test/demo.test.mjs",
+      "bytes": 3459,
+      "sha256": "58f5c1dfeb6d1f641c28721b4d79fc42ac36a4dae5d3fdd28d70330dfc0b4619"
+    },
+    {
+      "path": "source/packages/khie-mcp/tsconfig.json",
+      "bytes": 284,
+      "sha256": "039b5ac965c29775b68f1665a95a45373cfa73aa1c65c94a9f611113a83beac0"
+    },
+    {
+      "path": "source/packages/khie-mcp/vitest.config.mts",
+      "bytes": 145,
+      "sha256": "9c8ead439490c5ae064aa87d307cde219fa2e3db356a8de93876a9d321548620"
+    },
+    {
+      "path": "test/operator-files.test.mjs",
+      "bytes": 3427,
+      "sha256": "05a4a29b971eb74374461ef7bbe73ec3cd00e948f4ece87678bb91e41408b285"
+    }
+  ]
+}

@@ -1,0 +1,3665 @@
+diff --git a/pnpm-lock.yaml b/pnpm-lock.yaml
+index 3bd57cd2..b539f755 100644
+--- a/pnpm-lock.yaml
++++ b/pnpm-lock.yaml
+@@ -828,6 +828,61 @@ importers:
+         specifier: ^4.1.9
+         version: 4.1.11(@types/node@26.6.4)(@vitest/coverage-v8@4.1.11)(vite@7.3.7(@types/node@26.6.5)(jiti@2.7.0)(lightningcss@1.32.0)(terser@5.51.2)(tsx@4.23.15)(yaml@2.9.1))
+ 
++  packages/khie-mcp:
++    dependencies:
++      '@chainsafe/libp2p-noise':
++        specifier: ^17.0.0
++        version: 17.0.0
++      '@chainsafe/libp2p-yamux':
++        specifier: ^8.0.1
++        version: 8.0.1
++      '@ckb-ccc/core':
++        specifier: workspace:*
++        version: link:../core
++      '@ckb-ccc/libp2p':
++        specifier: workspace:*
++        version: link:../libp2p
++      '@libp2p/circuit-relay-v2':
++        specifier: ^4.2.12
++        version: 4.2.13
++      '@libp2p/crypto':
++        specifier: 5.1.23
++        version: 5.1.23
++      '@libp2p/identify':
++        specifier: ^4.1.13
++        version: 4.1.14
++      '@libp2p/interface':
++        specifier: ^3.3.0
++        version: 3.3.0
++      '@libp2p/peer-id':
++        specifier: 6.0.15
++        version: 6.0.15
++      '@libp2p/websockets':
++        specifier: ^10.1.20
++        version: 10.1.21
++      '@modelcontextprotocol/sdk':
++        specifier: 1.32.1
++        version: 1.32.1(zod@4.6.7)
++      '@multiformats/multiaddr':
++        specifier: ^13.0.3
++        version: 13.0.3
++      libp2p:
++        specifier: ^3.3.9
++        version: 3.3.11
++      zod:
++        specifier: 4.6.7
++        version: 4.6.7
++    devDependencies:
++      '@types/node':
++        specifier: 26.6.4
++        version: 26.6.4
++      typescript:
++        specifier: npm:@typescript/typescript6@^6.0.2
++        version: '@typescript/typescript6@6.0.2'
++      vitest:
++        specifier: ^4.1.9
++        version: 4.1.11(@types/node@26.6.4)(@vitest/coverage-v8@4.1.11)(vite@7.3.7(@types/node@26.6.4)(jiti@2.7.0)(lightningcss@1.32.0)(terser@5.51.2)(tsx@4.23.15)(yaml@2.9.1))
++
+   packages/libp2p:
+     dependencies:
+       '@ckb-ccc/core':
+@@ -2316,6 +2371,12 @@ packages:
+   '@gerrit0/mini-shiki@3.23.0':
+     resolution: {integrity: sha512-bEMORlG0cqdjVyCEuU0cDQbORWX+kYCeo0kV1lbxF5bt4r7SID2l9bqsxJEM0zndaxpOUT7riCyIVEuqq/Ynxg==}
+ 
++  '@hono/node-server@2.1.5':
++    resolution: {integrity: sha512-MgP/I06GdvsilDspMk/qmRzpk8LOUStP6jFAbSRi40W09DhoyUn+Mj7eyKICPqeYKybOjVFLVIAQzvu1bfIa7Q==}
++    engines: {node: '>=20'}
++    peerDependencies:
++      hono: ^4 || ^5.0.0-0
++
+   '@humanfs/core@0.19.2':
+     resolution: {integrity: sha512-UhXNm+CFMWcbChXywFwkmhqjs3PRCmcSa/hfBgLIb7oQ5HNb1wS0icWsGtSAUNgefHeI+eBrA8I1fxmbHsGdvA==}
+     engines: {node: '>=18.18.0'}
+@@ -2908,6 +2969,16 @@ packages:
+     resolution: {integrity: sha512-j37dj/h6p6pots1L7pLPPNuABEEu9WP4OYg9pW1g+nYG331j0+3canE9OagtYdytYvdSAMG+2fKU5cxep6LgjA==}
+     engines: {node: '>=22.12.0'}
+ 
++  '@modelcontextprotocol/sdk@1.32.1':
++    resolution: {integrity: sha512-2DdE+SJDtzLEEWzY1ZjY7Q+VcPhcV1KisD3zI4u0XZyktsjHum1mwbMI+JaulUBi2OZk+KJAi2uPXzxichPkdw==}
++    engines: {node: '>=18'}
++    peerDependencies:
++      '@cfworker/json-schema': ^4.1.1
++      zod: ^3.25 || ^4.0
++    peerDependenciesMeta:
++      '@cfworker/json-schema':
++        optional: true
++
+   '@monaco-editor/loader@1.5.0':
+     resolution: {integrity: sha512-hKoGSM+7aAc7eRTRjpqAZucPmoNOC4UUbknb/VNoTkEIkCPhqV8LfbsgM1webRM7S/z21eHEx9Fkwx8Z/C/+Xw==}
+ 
+@@ -6683,6 +6754,14 @@ packages:
+     resolution: {integrity: sha512-mQw+2fkQbALzQ7V0MY0IqdnXNOeTtP4r0lN9z7AAawCXgqea7bDii20AYrIBrFd/Hx0M2Ocz6S111CaFkUcb0Q==}
+     engines: {node: '>=0.8.x'}
+ 
++  eventsource-parser@3.1.1:
++    resolution: {integrity: sha512-EKN1vKAMcZ8MlYMpaNuxN6R9yakzH6uajHcHVTqWJzvu5pWw9DyhbP35HH8MVBQ+dZjAfDxk+A8NiR9KWaXiyQ==}
++    engines: {node: '>=18.0.0'}
++
++  eventsource@3.0.7:
++    resolution: {integrity: sha512-CRT1WTyuQoD771GW56XEZFQ/ZoSfWid1alKGDYMmkt2yl8UXrVR4pspqWNEcqKvVIzg6PAltWjxcSSPrboA4iA==}
++    engines: {node: '>=18.0.0'}
++
+   execa@5.1.1:
+     resolution: {integrity: sha512-8uSpZZocAZRBAPIEINJj3Lo9HyGitllczc27Eh5YYojjMFMn8yHMDMaUHE2Jqfq05D/wucwI4JGURyXt1vchyg==}
+     engines: {node: '>=10'}
+@@ -6706,6 +6785,12 @@ packages:
+   exponential-backoff@3.1.3:
+     resolution: {integrity: sha512-ZgEeZXj30q+I0EN+CbSSpIyPaJ5HVQD18Z1m+u1FXbAeT94mr1zw50q4q6jiiC447Nl/YTcIYSAftiGqetwXCA==}
+ 
++  express-rate-limit@8.7.1:
++    resolution: {integrity: sha512-2FXbqkygil3mZiXzEtM0IjE/UBmBNot0J1GEVrJT4JbrvwOSoEtqtO+wHbiMQELWe1eNvHoYRg2dkjOid+6JkA==}
++    engines: {node: '>= 16'}
++    peerDependencies:
++      express: '>= 4.11'
++
+   express@5.2.1:
+     resolution: {integrity: sha512-hIS4idWWai69NezIdRt2xFVofaF4j+6INOpJlVOLDO8zXGpUVEVzIYk12UUi2JzjEzWL3IOAxcTubgz9Po0yXw==}
+     engines: {node: '>= 18'}
+@@ -7235,6 +7320,10 @@ packages:
+   hmac-drbg@1.0.1:
+     resolution: {integrity: sha512-Tti3gMqLdZfhOQY1Mzf/AanLiqh1WTiJgEj26ZuYQ9fbkLomzGchCws4FyrSd4VkpBfiNhaE1On+lOz894jvXg==}
+ 
++  hono@4.13.13:
++    resolution: {integrity: sha512-CQ46U0ZkAGmbT/4UxdzzGJpacP2IeKgY4a5/tOI9AABbpOMfK739wfDXmv1usCk+3RkKj1hQy4/fjhiwa2xlrA==}
++    engines: {node: '>=16.9.0'}
++
+   hookable@6.1.2:
+     resolution: {integrity: sha512-+abwxtiEA52GCVIsQqut3S/uKTbUwYIp4Pe/vv+6py5XiXBCqMZHg6pA6Y5qhgLSEys0/cYuPbO0z1QFj5ZCmg==}
+ 
+@@ -7349,6 +7438,10 @@ packages:
+   invariant@2.2.4:
+     resolution: {integrity: sha512-phJfQVBuaJM5raOpJjSfkiD6BpbCE4Ns//LaXl6wGYtUBY83nWS6Rf9tXm2e8VaK60JEjYldbPif/A2B1C2gNA==}
+ 
++  ip-address@10.7.4:
++    resolution: {integrity: sha512-DWBMKyeM25D70nrIiTkgQth59/G+naKOTep6huF9j+GmeK3DMD60Zvxg5d5qQnz+38AHgou6ean2LECX+lrKDg==}
++    engines: {node: '>= 12'}
++
+   ipaddr.js@1.9.1:
+     resolution: {integrity: sha512-0KI/607xoxSToH7GjN1FfSbLoU0+btTicjsQSWQlh/hZykN8KpmMf7uYwPW3R+akZ6R/w18ZlXSHBYXiYUPO3g==}
+     engines: {node: '>= 0.10'}
+@@ -7808,6 +7901,9 @@ packages:
+   jju@1.4.0:
+     resolution: {integrity: sha512-8wb9Yw966OSxApiCt0K3yNJL8pnNeIv+OEq2YMidz4FKP6nonSRoOXc80iXY4JaN2FC11B9qsNmDsm+ZOfMROA==}
+ 
++  jose@6.2.12:
++    resolution: {integrity: sha512-9NiFmJEex0sy2Dk58j2UGBSHgUs2ypF9eZSu4L6vjOX3Dp96Sw1F3uL+H+D1sx02jZZdzUT0HgvCy59CuvXcWw==}
++
+   js-tokens@10.0.0:
+     resolution: {integrity: sha512-lM/UBzQmfJRo9ABXbPWemivdCW8V2G8FHaHdypQaIy523snUjog0W71ayWXTjiR+ixeMyVHN2XcpnTd/liPg/Q==}
+ 
+@@ -7860,6 +7956,9 @@ packages:
+   json-schema-traverse@1.0.0:
+     resolution: {integrity: sha512-NM8/P9n3XjXhIZn1lLhkFaACTOURQXjWhV4BA/RnOv8xvgqtqpAX9IO4mRQxSx1Rlo4tqzeqb0sOlruaOy3dug==}
+ 
++  json-schema-typed@8.0.2:
++    resolution: {integrity: sha512-fQhoXdcvc3V28x7C7BMs4P5+kNlgUURe2jmUT1T//oBRMDrqy1QPelJimwZGo7Hg9VPV3EQV5Bnq4hbFy2vetA==}
++
+   json-stable-stringify-without-jsonify@1.0.1:
+     resolution: {integrity: sha512-Bdboy+l7tA3OGW6FjyFHWkP5LuByj1Tk33Ljyq0axyzdk9//JSi2u3fP1QSmd1KNwq6VOKYGlAu87CisVir6Pw==}
+ 
+@@ -8861,6 +8960,10 @@ packages:
+     resolution: {integrity: sha512-TfySrs/5nm8fQJDcBDuUng3VOUKsd7S+zqvbOTiGXHfxX4wK31ard+hoNuvkicM/2YFzlpDgABOevKSsB4G/FA==}
+     engines: {node: '>= 6'}
+ 
++  pkce-challenge@5.0.1:
++    resolution: {integrity: sha512-wQ0b/W4Fr01qtpHlqSqspcj3EhBvimsdh0KlHhH8HRZnMsEa0ea2fTULOXOS9ccQr3om+GcGRk4e+isrZWV8qQ==}
++    engines: {node: '>=16.20.0'}
++
+   pkg-dir@4.2.0:
+     resolution: {integrity: sha512-HRDzbaKjC+AOWVXxAU/x54COGeIv9eb+6CkDSQoNTt4XyWoIJvuPsXizxu/Fr23EiekbtZwmh1IcIG/l/a10GQ==}
+     engines: {node: '>=8'}
+@@ -10622,6 +10725,11 @@ packages:
+     resolution: {integrity: sha512-lmnEEnb93QQcNv7qARDr7jBVPxYdZbZ9XdZ0dbZ0qaOvGne4jJMW4fjwPfVaUKQXv3FNWvGbDwRDgyaSb1pc8w==}
+     engines: {node: '>= 20.0.0'}
+ 
++  zod-to-json-schema@3.25.2:
++    resolution: {integrity: sha512-O/PgfnpT1xKSDeQYSCfRI5Gy3hPf91mKVDuYLUHZJMiDFptvP41MSnWofm8dnCm0256ZNfZIM7DSzuSMAFnjHA==}
++    peerDependencies:
++      zod: ^3.25.28 || ^4
++
+   zod-validation-error@4.0.2:
+     resolution: {integrity: sha512-Q6/nZLe6jxuU80qb/4uJ4t5v2VEZ44lzQjPDhYJNztRQ4wyWc6VF3D3Kb/fAuPetZQnhS3hnajCf9CsWesghLQ==}
+     engines: {node: '>=18.0.0'}
+@@ -10631,6 +10739,9 @@ packages:
+   zod@4.6.5:
+     resolution: {integrity: sha512-v5l/aFXZQeai4awLbOpSoHecE9UiMrnfx75tEXLjNonXVARxQ5mOeipTjROUchszUNCqnE+hqAMujRsRHsut2Q==}
+ 
++  zod@4.6.7:
++    resolution: {integrity: sha512-g8W2D2kU6a8untc053fX1uVBKzM7yqAxW/3zwk83+6RyF2+SKOuV+c0wBDhUwzV1PaGapmZH+rmcUzPf+3CGwg==}
++
+   zwitch@2.0.4:
+     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
+ 
+@@ -11536,6 +11647,10 @@ snapshots:
+       '@shikijs/types': 3.23.0
+       '@shikijs/vscode-textmate': 10.0.2
+ 
++  '@hono/node-server@2.1.5(hono@4.13.13)':
++    dependencies:
++      hono: 4.13.13
++
+   '@humanfs/core@0.19.2':
+     dependencies:
+       '@humanfs/types': 0.15.0
+@@ -12398,6 +12513,28 @@ snapshots:
+     dependencies:
+       '@chevrotain/types': 13.2.0
+ 
++  '@modelcontextprotocol/sdk@1.32.1(zod@4.6.7)':
++    dependencies:
++      '@hono/node-server': 2.1.5(hono@4.13.13)
++      ajv: 8.20.0
++      ajv-formats: 3.0.1(ajv@8.20.0)
++      content-type: 1.0.5
++      cors: 2.8.6
++      cross-spawn: 7.0.6
++      eventsource: 3.0.7
++      eventsource-parser: 3.1.1
++      express: 5.2.1
++      express-rate-limit: 8.7.1(express@5.2.1)
++      hono: 4.13.13
++      jose: 6.2.12
++      json-schema-typed: 8.0.2
++      pkce-challenge: 5.0.1
++      raw-body: 3.0.2
++      zod: 4.6.7
++      zod-to-json-schema: 3.25.2(zod@4.6.7)
++    transitivePeerDependencies:
++      - supports-color
++
+   '@monaco-editor/loader@1.5.0':
+     dependencies:
+       state-local: 1.0.7
+@@ -16383,6 +16520,12 @@ snapshots:
+ 
+   events@3.3.0: {}
+ 
++  eventsource-parser@3.1.1: {}
++
++  eventsource@3.0.7:
++    dependencies:
++      eventsource-parser: 3.1.1
++
+   execa@5.1.1:
+     dependencies:
+       cross-spawn: 7.0.6
+@@ -16419,6 +16562,14 @@ snapshots:
+ 
+   exponential-backoff@3.1.3: {}
+ 
++  express-rate-limit@8.7.1(express@5.2.1):
++    dependencies:
++      debug: 4.4.3
++      express: 5.2.1
++      ip-address: 10.7.4
++    transitivePeerDependencies:
++      - supports-color
++
+   express@5.2.1:
+     dependencies:
+       accepts: 2.0.0
+@@ -17068,6 +17219,8 @@ snapshots:
+       minimalistic-assert: 1.0.1
+       minimalistic-crypto-utils: 1.0.1
+ 
++  hono@4.13.13: {}
++
+   hookable@6.1.2: {}
+ 
+   hookified@1.15.1: {}
+@@ -17173,6 +17326,8 @@ snapshots:
+     dependencies:
+       loose-envify: 1.4.0
+ 
++  ip-address@10.7.4: {}
++
+   ipaddr.js@1.9.1: {}
+ 
+   is-alphabetical@2.0.1: {}
+@@ -17881,6 +18036,8 @@ snapshots:
+ 
+   jju@1.4.0: {}
+ 
++  jose@6.2.12: {}
++
+   js-tokens@10.0.0: {}
+ 
+   js-tokens@4.0.0: {}
+@@ -17918,6 +18075,8 @@ snapshots:
+ 
+   json-schema-traverse@1.0.0: {}
+ 
++  json-schema-typed@8.0.2: {}
++
+   json-stable-stringify-without-jsonify@1.0.1: {}
+ 
+   json5@1.0.2:
+@@ -19306,6 +19465,8 @@ snapshots:
+ 
+   pirates@4.0.7: {}
+ 
++  pkce-challenge@5.0.1: {}
++
+   pkg-dir@4.2.0:
+     dependencies:
+       find-up: 4.1.0
+@@ -21367,10 +21528,20 @@ snapshots:
+ 
+   zbsearch@4.0.1: {}
+ 
++  zod-to-json-schema@3.25.2(zod@4.6.7):
++    dependencies:
++      zod: 4.6.7
++
+   zod-validation-error@4.0.2(zod@4.6.5):
+     dependencies:
+       zod: 4.6.5
+ 
++  zod-validation-error@4.0.2(zod@4.6.7):
++    dependencies:
++      zod: 4.6.7
++
+   zod@4.6.5: {}
+ 
++  zod@4.6.7: {}
++
+   zwitch@2.0.4: {}
+diff --git a/vitest.config.mts b/vitest.config.mts
+index 832387f3..50f5f7b2 100644
+--- a/vitest.config.mts
++++ b/vitest.config.mts
+@@ -5,6 +5,7 @@ const packages = [
+   "packages/core",
+   "packages/did-ckb",
+   "packages/joy-id",
++  "packages/khie-mcp",
+   "packages/libp2p",
+   "packages/nip07",
+   "packages/okx",
+diff --git a/packages/khie-mcp/MOBILE_READINESS.md b/packages/khie-mcp/MOBILE_READINESS.md
+new file mode 100644
+index 0000000..920c23b
+--- /dev/null
++++ b/packages/khie-mcp/MOBILE_READINESS.md
+@@ -0,0 +1,132 @@
++# Mobile readiness and network checks
++
++Inspected on 2026-10-18 using the permitted read-only GitHub connector. Public
++`Hanssen0/khie-mobile` default branch `dev` resolved to
++[`ad1cf891e43ff93a7ec3b5538d357b449dd45f9e`](https://github.com/Hanssen0/khie-mobile/commit/ad1cf891e43ff93a7ec3b5538d357b449dd45f9e).
++The important files were also fetched at that immutable SHA and matched the
++initial branch reads. No mobile files or repository permissions were changed.
++
++## Confirmed pairing flow
++
++- [KhieScreen.tsx, lines 85–90](https://github.com/Hanssen0/khie-mobile/blob/ad1cf891e43ff93a7ec3b5538d357b449dd45f9e/src/ui/KhieScreen.tsx#L85)
++  contains both connector scanning/pasting and a provider QR with a copy action.
++  The provider export is shown while unpaired, below the divider. Developer mode
++  only controls raw text/debug display; copying is available without it.
++- [KhieProviderSession.ts, line 430](https://github.com/Hanssen0/khie-mobile/blob/ad1cf891e43ff93a7ec3b5538d357b449dd45f9e/src/khie/KhieProviderSession.ts#L430)
++  encodes the node's addresses and current pairing secret with role `provider`.
++  [App.tsx, line 163](https://github.com/Hanssen0/khie-mobile/blob/ad1cf891e43ff93a7ec3b5538d357b449dd45f9e/App.tsx#L163)
++  supplies the base `https://app.ckbccc.com/khie`. The actual format is
++  `https://app.ckbccc.com/khie#?role=provider&addresses=...&secret=...`.
++- [App.tsx, line 698](https://github.com/Hanssen0/khie-mobile/blob/ad1cf891e43ff93a7ec3b5538d357b449dd45f9e/App.tsx#L698)
++  enables pairing while the unpaired Khie/scanner screen is open. Leaving it
++  disables pairing. The wallet must remain foregrounded for this MVP test.
++- [App.tsx, line 1254](https://github.com/Hanssen0/khie-mobile/blob/ad1cf891e43ff93a7ec3b5538d357b449dd45f9e/App.tsx#L1254)
++  deliberately keeps the provider owner alive beyond each transport request.
++  Unpair invalidates that owner. The
++  [RPC guard](https://github.com/Hanssen0/khie-mobile/blob/ad1cf891e43ff93a7ec3b5538d357b449dd45f9e/src/khie/KhieProviderSession.ts#L548)
++  checks the caller's paired and selected PeerID. These behaviors fit restored
++  bridge identity and session resume; device acceptance is still outstanding.
++
++No incoming connector QR implementation is needed. The complete provider QR/link
++is a one-time credential, even though its relay addresses and PeerIDs are public.
++Transfer it only through the operator's protected channel into a 0600 file inside
++a 0700 directory; never send it through chat or MCP. Remove that temporary file
++after successful enrollment. If pairing acknowledgement is lost, inspect/revoke
++the incomplete pairing before enrolling again. Do not discard uncertain journals.
++
++The bridge does not fetch the HTTPS URL. It decodes the fragment, then initiates
++outbound WebSocket/Noise/Yamux connections through a saved circuit-relay address.
++It has no libp2p listener or public HTTP requirement. Mobile must have a live relay
++reservation and advertise at least one supported circuit/WebSocket route; a
++WebRTC-only route is insufficient. The existing 30-minute disconnected expiry,
++process-scoped mobile authorization and stale-address limitations still apply.
++
++## Read-only local client
++
++`src/readProbe.ts` initializes the real MCP SDK, discovers tools, performs one
++read or result poll, and closes its client. It never generates an operation ID,
++automatically retries, or requests signing. Requests allow only `get_identity`,
++`get_native_address`, and `get_scripts`. Every invocation needs an explicit ID;
++reuse it for the same intent. Unknown/not_found is never a reason to create a new
++ID for an uncertain operation.
++
++The operator creates `client.json` with mode 0600 in an owner-only directory:
++
++```json
++{
++  "endpoint": "http://127.0.0.1:8787/mcp",
++  "handle": "OPERATOR_PROVISIONED_UUID",
++  "token": "OPERATOR_INSERTS_TOKEN_LOCALLY"
++}
++```
++
++The token must be the server's configured token, supplied privately. The client
++accepts only loopback `http://127.0.0.1:<port>/mcp`, rejects URL credentials,
++queries and fragments, reads the protected file without following a symlink,
++and suppresses raw setup/SDK/transport exceptions. Wallet identity/address
++results are printed for operator comparison; no synthetic result is assumed.
++
++Once network access and a protected provisioning channel are available:
++
++1. Use a user-created unfunded testnet wallet and keep its unpaired Khie screen
++   open until its provider QR appears. Copy that endpoint privately.
++2. Follow README operator configuration with read-only methods. Run
++   `node packages/khie-mcp/dist/cli.js enroll /private/endpoint`; approve the
++   connection in the wallet. For delayed authorization, use the printed handle
++   with `cli.js authorize HANDLE`, preserving the existing setup operation.
++3. Start `cli.js serve` with the same protected `KHIE_CONFIG_FILE`, then run:
++
++   ```sh
++   pnpm --filter @ckb-ccc/khie-mcp read-probe /private/client.json request mobile-read-001 get_identity
++   pnpm --filter @ckb-ccc/khie-mcp read-probe /private/client.json poll mobile-read-001
++   ```
++
++4. Restart only the bridge server using the same store/key. Issue a new harmless
++   read with `mobile-read-002` and confirm no new wallet authorization and the
++   same caller identity. A cached retry alone cannot prove reconnection.
++5. Repeat `mobile-read-001` unchanged, then request `get_native_address` under
++   that same ID to verify mismatch rejection. Use a new ID for a separately
++   intended address read. Revoke the test pair in the wallet and check a new
++   uncached read fails without silent reauthorization.
++
++Do not run `smoke.js` against mobile: it is intentionally synthetic-only and
++includes a synthetic signing operation. The local probe has no signing path.
++
++## Network readiness observed during validation
++
++The development environment's system DNS returned `EAI_AGAIN` for both the
++public relay and a control hostname. Its configured HTTP proxy rejected CONNECT
++to `relay.ckbccc.com:443` with HTTP 403 before the wallet protocol was reached.
++A separately authorized synthetic-only tunnel prerequisite to `free.pinggy.io`
++failed at DNS resolution, before host-key exchange or forwarding. A previously
++attempted tunnel-binary release lookup was denied with HTTP 403 and was stopped.
++No route was bypassed, and no public MCP URL, tunnel, or production deployment
++was created. These are environment observations, not a claim that those public
++services are unavailable.
++
++A device test needs permitted DNS and outbound WSS connectivity to the wallet's
++live relay. The installed libp2p transport uses `new WebSocket(uri)` and this
++package provides no HTTP-proxy adapter. A public MCP tunnel does not repair the
++wallet relay connection. The operator may run this local prototype on a computer
++with permitted network access.
++
++Any separately authorized public test should use the synthetic demo, retain its
++application bearer authentication, verify any SSH host key through a trusted
++source, and preserve the exact Host allowlist. No host-level ChatGPT connector
++authentication compatibility or public HTTPS result is claimed.
++
++## Validation scope
++
++The new mobile wire tests independently encode the inspected length-prefixed,
++zlib/base64url address format using Node zlib, then exercise the actual CCC decoder
++and operator enrollment with an isolated node mock. They cover the mobile URL
++shape, mixed WebRTC/circuit addresses, saved caller identity, omission of the
++one-time endpoint secret from resume state, and role rejection before state/node
++creation. They do not execute React Native or claim a real relay connection.
++
++Read-probe tests use actual MCP SDK HTTP initialization/discovery against an
++isolated mock bridge, checking one-call reads, stable-ID polling, signing denial,
++protected file permissions, local-only destinations and error redaction. Existing
++passing suites and the synthetic end-to-end smoke were not repeated unchanged.
++Real mobile pairing/resume, actual relay behavior, pending mobile operations,
++expiry/restart, public HTTPS and host connector compatibility remain untested.
+diff --git a/packages/khie-mcp/README.md b/packages/khie-mcp/README.md
+new file mode 100644
+index 0000000..53a91c9
+--- /dev/null
++++ b/packages/khie-mcp/README.md
+@@ -0,0 +1,211 @@
++# Khie MCP prototype
++
++Experimental Node.js prototype for local review. The npm package remains
++`private: true` to prevent accidental registry publication. The user owns and runs Khie; the bridge
++never creates a wallet or holds its asset signing key. The worker restores its
++**own libp2p communication private key**, pinned wallet PeerID/addresses, and
++existing JSON-RPC session from a server-side store for each operation. It dials
++on demand, requests or polls once, and calls `node.stop()` to close transport.
++It does not call connector `close()`, signer `disconnect()`, or pairing `unpair()`.
++Existing CCC connector revoke semantics are unchanged.
++
++## Run locally
++
++From the repository root, with Node 24 and the repository's pnpm 11.8.0:
++
++```sh
++pnpm --filter @ckb-ccc/khie-mcp... --filter . install --frozen-lockfile
++pnpm --filter @ckb-ccc/core --filter @ckb-ccc/libp2p build
++pnpm --filter @ckb-ccc/khie-mcp build
++pnpm --filter @ckb-ccc/khie-mcp test
++pnpm --filter @ckb-ccc/khie-mcp test:demo
++```
++
++Two-terminal smoke test, using a synthetic wallet on loopback WebSockets. No
++wallet asset keys, real signing, chain clients, or transactions are used:
++
++```sh
++# Terminal 1; the directory must not exist
++pnpm --filter @ckb-ccc/khie-mcp demo /tmp/khie-mcp-demo
++
++# Terminal 2; credentials are read from a 0600 file, never CLI values
++pnpm --filter @ckb-ccc/khie-mcp smoke /tmp/khie-mcp-demo/client.json
++```
++
++The independent SDK client performs MCP initialize, tools/list, an authorized
++request, identical retry, mismatched retry, and pending/completed polling. The
++synthetic signing operation deliberately takes 25 seconds. The server binds
++`127.0.0.1:8787`, stops after five minutes or SIGINT/SIGTERM, and deletes its
++temporary state and client credential file. Stop it after testing.
++The `test:demo` checks use the built demo in separate child processes and need
++loopback port 8787 available. They verify startup-failure and SIGTERM cleanup.
++
++## Operator-only enrollment
++
++Use a separate trusted provisioning channel, never tool arguments or chat, for
++the wallet's `provider` pairing endpoint. Keep the wallet online. Before using a
++real wallet, review this code and verify mobile compatibility; only the synthetic
++provider and protocol fixtures have been tested here.
++
++Create an owner-only directory outside the repository with:
++
++- A random 32-byte AES key encoded as base64 in `store-key` (0600).
++- An independent, random bearer token with at least 256 bits of entropy in
++  `http-token` (0600).
++- A `config.json` (0600), with the following non-secret settings and file paths.
++
++```json
++{
++  "principal": "operator-assigned-user-id",
++  "storeDirectory": "/absolute/private/khie/state",
++  "storeKeyFile": "/absolute/private/khie/store-key",
++  "tokenFile": "/absolute/private/khie/http-token",
++  "allowedHosts": ["127.0.0.1:8787", "localhost:8787"],
++  "port": 8787,
++  "listenHost": "127.0.0.1",
++  "networkId": "ckb-testnet",
++  "allowedMethods": ["get_identity", "get_native_address", "get_scripts"]
++}
++```
++
++Save the wallet's endpoint in an owner-only file, then:
++
++```sh
++export KHIE_CONFIG_FILE=/absolute/private/khie/config.json
++node packages/khie-mcp/dist/cli.js enroll /absolute/private/khie/endpoint
++# Approve connection in the user's wallet. Keep the printed opaque handle.
++# If setup returns unknown/pending, poll the SAME setup operation:
++node packages/khie-mcp/dist/cli.js authorize HANDLE
++node packages/khie-mcp/dist/cli.js serve
++```
++
++Enrollment generates only a communication identity, pairs using the protected
++endpoint, then durably records `get_info` and `connect` IDs. Setup may require
++multiple `authorize` invocations while the user reviews the wallet prompt.
++There is no model-facing pairing/authorization tool. If pairing itself fails
++(including a lost pairing acknowledgement), inspect/revoke the incomplete pair
++in the wallet before a new enrollment; do not assume it failed on both sides.
++
++Requests are read-only by default. An operator can opt a handle into
++`sign_message` at enrollment; the wallet still confirms the message. This does
++not expose transaction preparation, signing, broadcast, arbitrary RPC, or wallet
++creation. The synthetic demo enables `sign_message` only to test a pending
++operation; its result is not a real signature.
++
++The HTTP CLI defaults to loopback. Containers may explicitly set
++`listenHost` to `0.0.0.0` while publishing only on the host loopback interface;
++no other bind value is accepted. The synthetic demo accepts the same explicit
++choice through `KHIE_LISTEN_HOST`. Authentication and Host checks stay enabled.
++
++## MCP contract
++
++`POST /mcp` uses stateless Streamable HTTP with JSON responses. Supply the bearer
++token in the HTTP `Authorization` header through the client credential channel.
++Each HTTP request creates a fresh MCP server/transport; wallet state is external
++to that lifecycle. The prototype supports one authenticated principal per server.
++Handles are scoped to that principal and are not authentication credentials.
++All browser Origins are rejected, Host is allowlisted, bodies are bounded to
++64 KiB, and only eight HTTP requests may be active. GET/SSE and DELETE return 405.
++This is a bounded prototype, not an OAuth implementation or a verified ChatGPT
++connector integration.
++
++Example tool arguments (all identifiers below are non-secret placeholders):
++
++```json
++{
++  "name": "khie_request",
++  "arguments": {
++    "handle": "OPERATOR_PROVISIONED_UUID",
++    "operation_id": "user-intent-001",
++    "method": "get_identity",
++    "params": []
++  }
++}
++```
++
++Poll with `khie_get_result` and the same `handle` and `operation_id`. Operation
++IDs must match `[a-zA-Z0-9][a-zA-Z0-9_-]{0,127}`. Internal setup IDs cannot be
++queried through MCP. For messages, `params` contains one `{ "type": "string",
++"value": "..." }` or `{ "type": "bytes", "value": "0x..." }` object.
++
++| Outcome                   | Meaning / next action                                                                |
++| ------------------------- | ------------------------------------------------------------------------------------ |
++| `completed`               | Durable returned result; identical retries use the saved result.                     |
++| `pending`                 | Wallet still processing/awaiting approval; poll the same operation.                  |
++| `unknown`, `transport`    | No reliable reply, possibly already executed; poll only.                             |
++| `unknown`, `not_found`    | Never seen **or evicted** by the wallet; do not resubmit automatically.              |
++| `unknown`, `wallet_error` | Ambiguous provider error, including unpaired-peer rejection; inspect wallet/pairing. |
++| `repair_required`         | Invalid/expired session or authorization state; explicit operator intervention.      |
++| `rejected`                | Wallet returned a terminal protocol rejection; code only, raw messages suppressed.   |
++
++A changed payload under an existing ID is rejected before dialing. A request ID
++and SHA-256 hash of canonical method/params are saved **before** any dial/send.
++Later workers only call `get_result` with that saved ID. Duplicate-request replies
++also trigger polling. A crash even just before sending deliberately sacrifices
++liveness: `not_found` cannot prove whether execution occurred. Creating a new ID
++is a new user intent, not a safe retry. This is not an exactly-once protocol.
++
++Completed results and rejection records are kept locally even if the wallet
++evicts its results. There is a hard limit of 1,024 operations per handle with no
++automatic eviction of tombstones. Do not restore an older state-store backup or
++discard the journal to retry uncertain work. No operation is migrated or replayed
++automatically into a newly paired wallet session.
++
++## State-store and deployment boundary
++
++`SecureStateStore` in `src/state.ts` is the explicit integration boundary. A remote
++implementation must encrypt secrets/results with a managed key service, enforce
++principal access, durably commit before resolving `save`, and serialize a handle
++across workers. Use a shared transactional store with fencing when scaling beyond
++a single host. Never place communication keys, session IDs, endpoint secrets,
++bearer tokens, raw wallet errors, or state blobs in model inputs/results/logs.
++
++`FileSecureStateStore` is a local POSIX demonstration: AES-256-GCM, handle-bound
++authenticated data, atomic replace plus file/directory fsync, directory mode 0700,
++file mode 0600, and exclusive per-handle lock directories. Workers can be
++recreated against the same external directory/key. There is no automatic stale
++lock recovery: after a process crash or failed transport cleanup the handle stays
++busy. An operator must prove the prior worker/node stopped before removing its
++lock. The journal must remain intact. This adapter is not a multi-host store;
++secret provisioning, key rotation, access auditing, and backup rollback protection
++are deployment responsibilities, not completed features of this prototype.
++
++## Availability and mobile boundary
++
++- The wallet must stay online and reachable. No background wake/push is added.
++- Khie pairing can expire after 30 minutes disconnected. Wallet/provider restart
++  can lose its in-memory pairing/session/results. Both can require explicit
++  re-pairing and new authorization; the bridge never silently reauthorizes.
++- Existing generic `ServerError` for an unpaired peer is indistinguishable from
++  other provider failures by code alone. It is returned as an unknown outcome,
++  with operator inspection required; error-message matching is deliberately avoided.
++- Only saved WebSocket/relay addresses are used, pinned to the wallet PeerID.
++  Stale relay reservations, relay PeerID changes, wallet migration, or a
++  WebRTC-only address can prevent reconnection despite a valid authorization.
++  This Node adapter intentionally omits WebRTC/native dependencies. No discovery,
++  automatic relay-address refresh, or relay availability guarantee is provided.
++  A trusted operator may update addresses in a store adapter only after verifying
++  they refer to the same wallet. The model cannot supply dial targets.
++- The public mobile `dev` source was inspected at commit
++  `ad1cf891e43ff93a7ec3b5538d357b449dd45f9e`. Its Khie screen exports a provider QR
++  and copyable endpoint, compatible with this operator-only enrollment direction.
++  Its provider owner outlives individual RPC transports. No incoming connector QR
++  flow or mobile change is necessary based on that source. This is source evidence,
++  not a real-device result; see [mobile readiness](MOBILE_READINESS.md) for the
++  exact UI, read-only client, validation scope, and current network blockers.
++- If explicit revocation is desired, use the wallet's existing unpair controls.
++  Neither temporary transport shutdown nor deleting a local handle revokes the
++  remote authorization. Existing CCC revoke methods have not been redefined.
++
++## Public testing status
++
++No public MCP endpoint is deployed. Real mobile pairing, public relay connectivity,
++public HTTPS, and host-level ChatGPT connector compatibility remain untested.
++The development environment could not resolve the relay; its configured HTTP
++proxy rejected the relay CONNECT with 403. A bounded synthetic-only SSH tunnel
++prerequisite also stopped at DNS resolution. No tunnel or public URL was created.
++See [mobile readiness](MOBILE_READINESS.md) for the scope and prerequisites.
++
++The `smoke` command is synthetic-only. Never point it at a real mobile wallet;
++it includes a fake signing operation. The `read-probe` command is limited to
++loopback and read methods for a separately authorized operator-led device test.
+diff --git a/packages/khie-mcp/REVIEW.md b/packages/khie-mcp/REVIEW.md
+new file mode 100644
+index 0000000..6c8f89b
+--- /dev/null
++++ b/packages/khie-mcp/REVIEW.md
+@@ -0,0 +1,119 @@
++# Validation and review record
++
++Validated on Node 24.19.0 with pnpm 11.8.0 against CCC commit
++`0abf78e5f469216e82a24de8d4051e757368af90`. The publication source preserves the
++tested runtime, test and configuration bytes; only documentation was edited to
++remove environment-specific paths and network configuration. No real wallet,
++asset key, transaction or production signing was used.
++
++## Changes
++
++All application code is in the new private npm package `packages/khie-mcp`.
++Root changes add its test project and lockfile entries (171 lockfile additions,
++no removals). Existing dependency resolutions are preserved. No existing CCC
++core, connector, libp2p or mobile implementation is modified.
++
++- `state.ts` / `store.ts`: principal-scoped handles, durable journal contract,
++  encrypted local store, serialization and cleanup-failure quarantine.
++- `transport.ts` / `bridge.ts`: communication identity injection, session resume,
++  transport-only stop, write-ahead operation IDs, payload matching and poll-only
++  retries after uncertainty.
++- `enroll.ts` / `cli.ts`: operator-only pairing and authorization from protected
++  files. No credential-bearing MCP tool.
++- `server.ts`: two authenticated MCP tools over bounded stateless Streamable HTTP.
++- `testWallet.ts` / `demo.ts` / `smoke.ts`: isolated synthetic wallet and separate
++  HTTP client using real libp2p/CCC/MCP implementations.
++- `readProbe.ts`: local-only operator client, explicit operation IDs, read methods
++  and polling only; no automatic retries or signing.
++
++## Commands and results
++
++The commands below use portable `pnpm` spelling. Validation invoked the exact
++pnpm 11.8.0 JavaScript entrypoint from a temporary tool directory; this did not
++change package scripts or flags.
++
++```sh
++pnpm --filter @ckb-ccc/core --filter @ckb-ccc/libp2p build
++pnpm --filter @ckb-ccc/khie-mcp run build
++pnpm --filter @ckb-ccc/khie-mcp run lint
++pnpm --filter @ckb-ccc/khie-mcp test
++pnpm --filter @ckb-ccc/khie-mcp run test:demo
++pnpm exec vitest run packages/libp2p/src packages/core/src/signer/jsonRpc
++```
++
++- Dependency builds, package build and type check passed.
++- Original focused suite: **20 passed**, two files, 15.07 seconds.
++- Built-demo child processes: **2 passed**, 3.33 seconds; occupied-port startup
++  failure and SIGTERM both clean temporary state and release the listener.
++- Existing libp2p and signer JSON-RPC regressions: **54 passed**, eight files,
++  3.15 seconds. The entire monorepo suite was not run.
++- Frozen install with pnpm 11.8.0 passed; install scripts were disabled and
++  repository release-age checks retained. No native WebRTC dependency is needed.
++- Prettier, focused curly-brace style check and `git diff --check` passed.
++  This is not a claim of running all repository ESLint rules.
++
++The later read-probe and mobile endpoint additions were checked with:
++
++```sh
++pnpm --filter @ckb-ccc/khie-mcp build
++pnpm --filter @ckb-ccc/khie-mcp exec vitest run --config vitest.config.mts src/mobileEndpoint.test.ts src/readProbe.test.ts
++pnpm --filter @ckb-ccc/khie-mcp exec vitest run --config vitest.config.mts src/readProbe.test.ts
++```
++
++A test mock type was corrected after the initial build. The combined test run
++passed all **3 mobile endpoint tests** and **4 of 5 read-probe tests**. The failing
++fixture intended unsafe file mode 0644, but the environment umask made it safe
++0600. Explicitly setting the fixture mode fixed it; the read-probe rerun passed
++**5 of 5**. Final build passed. This is **8 new passing tests across those runs**,
++not a claim of one final 28-test full-suite run. The earlier passing suites and
++smoke were not repeated unchanged. Temporary test directories and listeners were
++cleaned up.
++
++## Coverage and independent review
++
++Real loopback WebSocket/Noise/Yamux peers and the CCC provider exercise restored
++caller identity, changed-key denial, resume without reauthorization, transport
++shutdown without unpair, explicit revoke, disconnected expiry, wallet state loss,
++and pending/completed polling across fresh bridge/store/node instances. Isolated
++journal tests cover matching/mismatching retries, ambiguous not_found, write-ahead
++failure, crash uncertainty, retained locks, setup polling and principal isolation.
++MCP server tests use the real SDK over HTTP with a mock bridge. Mobile fixtures
++exercise the actual CCC endpoint decoder and mocked enrollment; they do not
++execute React Native or connect to a mobile device.
++
++A separately authorized independent reviewer found two cleanup defects and
++confirmed both fixes: failed libp2p startup can leave status `stopping`, so cleanup
++now requires final `stopped` or keeps the session lock quarantined; occupied-port
++demo startup now awaits binding and always cleans acquired temporary resources.
++The reviewer independently reran the lifecycle regression (1 passed) and demo
++checks (2 passed), with no additional substantive defect in those fixes.
++
++The separate-process smoke used `demo` and `smoke` exactly as documented in the
++README. It passed actual MCP initialization, listing, authentication, request,
++identical retry, mismatch rejection and pending/completed polling through the
++bridge and real libp2p transport to the synthetic wallet. Cleanup reported one
++authorization and one fake signing action, then removed state and credentials.
++
++The tests do not establish power-loss durability, distributed fencing, production
++security, real-device compatibility, public relay behavior, public HTTPS or a
++host application's connector integration. See `MOBILE_READINESS.md` for the
++inspected mobile source and remaining operator-led device checks.
++
++## Container follow-up
++
++Added explicit HTTP bind validation (`listenHost.ts`) with loopback as the CLI
++default and an operator-selected IPv4 wildcard only for containers. The demo
++uses the same validation. Existing bearer, Host and Origin guards are unchanged.
++The new unit test passed locally, and the final container build passed the full
++focused suite: **29 tests in 5 files, 14.44 seconds**. Dependency builds, package
++build and type check passed in that build; demo child-process checks passed
++**2 tests, 1.94 seconds**.
++
++Docker packaging, Compose files, operator helpers and their **2 passing tests**
++are supplied in the publication repository. The primary Docker build stopped on
++npm registry DNS (`EAI_AGAIN`). A documented offline variant reused cached pnpm,
++package content and release-age metadata without disabling policies or changing
++network settings, then executed the same build/test/runtime stages. Production
++installation retains the frozen workspace graph instead of legacy deploy range
++resolution. See the publication container guide for runtime validation results
++and image publication status. No real wallet or production signing was used.
+diff --git a/packages/khie-mcp/package.json b/packages/khie-mcp/package.json
+new file mode 100644
+index 0000000..e7d5537
+--- /dev/null
++++ b/packages/khie-mcp/package.json
+@@ -0,0 +1,41 @@
++{
++  "name": "@ckb-ccc/khie-mcp",
++  "version": "0.0.0",
++  "private": true,
++  "type": "module",
++  "engines": {
++    "node": ">=24"
++  },
++  "description": "Local-review prototype for a user-owned Khie wallet MCP bridge",
++  "scripts": {
++    "build": "tsc6",
++    "lint": "tsc6 --noEmit",
++    "test": "vitest run --config vitest.config.mts",
++    "test:demo": "node --test test/demo.test.mjs",
++    "start": "node dist/cli.js serve",
++    "demo": "node dist/demo.js",
++    "smoke": "node dist/smoke.js",
++    "read-probe": "node dist/readProbe.js"
++  },
++  "dependencies": {
++    "@chainsafe/libp2p-noise": "^17.0.0",
++    "@chainsafe/libp2p-yamux": "^8.0.1",
++    "@ckb-ccc/core": "workspace:*",
++    "@ckb-ccc/libp2p": "workspace:*",
++    "@libp2p/circuit-relay-v2": "^4.2.12",
++    "@libp2p/crypto": "5.1.23",
++    "@libp2p/identify": "^4.1.13",
++    "@libp2p/interface": "^3.3.0",
++    "@libp2p/peer-id": "6.0.15",
++    "@libp2p/websockets": "^10.1.20",
++    "@modelcontextprotocol/sdk": "1.32.1",
++    "@multiformats/multiaddr": "^13.0.3",
++    "libp2p": "^3.3.9",
++    "zod": "4.6.7"
++  },
++  "devDependencies": {
++    "@types/node": "26.6.4",
++    "typescript": "npm:@typescript/typescript6@^6.0.2",
++    "vitest": "^4.1.9"
++  }
++}
+diff --git a/packages/khie-mcp/src/bridge.test.ts b/packages/khie-mcp/src/bridge.test.ts
+new file mode 100644
+index 0000000..70e465d
+--- /dev/null
++++ b/packages/khie-mcp/src/bridge.test.ts
+@@ -0,0 +1,587 @@
++import { ccc } from "@ckb-ccc/core";
++import { generateKeyPair, privateKeyToProtobuf } from "@libp2p/crypto/keys";
++import { randomBytes } from "node:crypto";
++import { mkdtemp, readFile, rm } from "node:fs/promises";
++import { tmpdir } from "node:os";
++import { join } from "node:path";
++import { afterEach, describe, expect, it, vi } from "vitest";
++import { KhieBridge, payloadFingerprint } from "./bridge.js";
++import { enroll } from "./enroll.js";
++import { BridgeError, type WalletState } from "./state.js";
++import { FileSecureStateStore } from "./store.js";
++import { createTestBridgeNode, createTestWallet } from "./testWallet.js";
++import {
++  createBridgeNode,
++  disconnectNode,
++  libp2pConnector,
++  type BridgeNode,
++  type WalletConnector,
++} from "./transport.js";
++
++const cleanup: (() => Promise<unknown>)[] = [];
++afterEach(async () => {
++  for (const stop of cleanup.splice(0).reverse()) {
++    await stop();
++  }
++});
++
++async function storeFixture() {
++  const directory = await mkdtemp(join(tmpdir(), "khie-store-test-"));
++  cleanup.push(() => rm(directory, { recursive: true, force: true }));
++  const key = randomBytes(32);
++  const store = await FileSecureStateStore.open(directory, key);
++  return { directory, key, store };
++}
++
++async function fixture(connector: WalletConnector) {
++  const disk = await storeFixture();
++  const state: WalletState = {
++    version: 1,
++    principal: "test-user",
++    communicationKey: "synthetic-communication-secret",
++    walletPeerId: "synthetic-peer",
++    walletAddresses: [],
++    sessionId: "synthetic-session-secret",
++    networkId: "ckb-testnet",
++    phase: "authorized",
++    allowedMethods: ["get_identity", "sign_message"],
++    operations: {},
++  };
++  const handle = await disk.store.create(state);
++  return {
++    ...disk,
++    handle,
++    state,
++    bridge: new KhieBridge(disk.store, connector),
++  };
++}
++
++describe("durable bridge semantics", () => {
++  it("polls a pending operation in fresh workers without re-dispatch and caches completed results", async () => {
++    const responses = [
++      new Error("timeout synthetic-session-secret"),
++      { status: "pending" },
++      { status: "completed", result: "synthetic-result" },
++    ];
++    const request = vi.fn(async () => {
++      const next = responses.shift();
++      if (next instanceof Error) {
++        throw next;
++      }
++      return next;
++    });
++    const disconnectTransport = vi.fn(async () => {});
++    const connector = vi.fn(async () => ({ request, disconnectTransport }));
++    const f = await fixture(connector);
++    expect(
++      await f.bridge.request("test-user", f.handle, "op-1", "get_identity"),
++    ).toEqual({ status: "unknown", reason: "transport" });
++    const fresh = () =>
++      FileSecureStateStore.open(f.directory, f.key).then(
++        (store) => new KhieBridge(store, connector),
++      );
++    expect(
++      await (
++        await fresh()
++      ).request("test-user", f.handle, "op-1", "get_identity"),
++    ).toEqual({ status: "pending" });
++    expect(await (await fresh()).poll("test-user", f.handle, "op-1")).toEqual({
++      status: "completed",
++      result: "synthetic-result",
++    });
++    expect(await (await fresh()).poll("test-user", f.handle, "op-1")).toEqual({
++      status: "completed",
++      result: "synthetic-result",
++    });
++    expect(request.mock.calls.map((args) => (args as unknown[])[0])).toEqual([
++      "get_identity",
++      "get_result",
++      "get_result",
++    ]);
++    const calls = request.mock.calls as unknown as [
++      string,
++      unknown[],
++      { request_id?: string },
++    ][];
++    expect(calls[1][1]).toEqual([calls[0][2].request_id]);
++    expect(calls[2][1]).toEqual(calls[1][1]);
++    expect(disconnectTransport).toHaveBeenCalledTimes(3);
++    const sealed = await readFile(`${f.directory}/${f.handle}.sealed`);
++    expect(sealed.includes(Buffer.from(f.state.communicationKey))).toBe(false);
++    expect(sealed.includes(Buffer.from(f.state.sessionId!))).toBe(false);
++  });
++
++  it("rejects mismatched retries and protects unknown/evicted operations without resending", async () => {
++    const request = vi.fn(async (method: string) => {
++      if (method !== "get_result") {
++        throw new Error("timeout");
++      }
++      return { status: "not_found" };
++    });
++    const f = await fixture(async () => ({
++      request,
++      disconnectTransport: async () => {},
++    }));
++    const first = [{ type: "string", value: "first" }];
++    await f.bridge.request(
++      "test-user",
++      f.handle,
++      "retry",
++      "sign_message",
++      first,
++    );
++    await expect(
++      f.bridge.request("test-user", f.handle, "retry", "sign_message", [
++        { value: "different", type: "string" },
++      ]),
++    ).rejects.toMatchObject({ code: "operation_payload_mismatch" });
++    for (let i = 0; i < 3; i++) {
++      expect(
++        await f.bridge.request(
++          "test-user",
++          f.handle,
++          "retry",
++          "sign_message",
++          first,
++        ),
++      ).toEqual({ status: "unknown", reason: "not_found" });
++    }
++    expect(
++      request.mock.calls.filter(([method]) => method === "sign_message"),
++    ).toHaveLength(1);
++    expect(payloadFingerprint("sign_message", first)).toBe(
++      payloadFingerprint("sign_message", [{ value: "first", type: "string" }]),
++    );
++  });
++
++  it("handles a duplicate RPC reply by polling the same ID", async () => {
++    const request = vi.fn(async (method: string) => {
++      if (method !== "get_result") {
++        throw new ccc.JsonRpcError({
++          code: -32005,
++          message: "secret error data",
++        });
++      }
++      return { status: "completed", result: "already done" };
++    });
++    const f = await fixture(async () => ({
++      request,
++      disconnectTransport: async () => {},
++    }));
++    expect(
++      await f.bridge.request(
++        "test-user",
++        f.handle,
++        "duplicate",
++        "get_identity",
++      ),
++    ).toEqual({ status: "completed", result: "already done" });
++    expect(request).toHaveBeenCalledTimes(2);
++  });
++
++  it("writes intent before connecting, keeps crash uncertainty, and rejects cross-principal access", async () => {
++    const request = vi.fn(async () => ({ status: "not_found" }));
++    const connector = vi.fn(async () => ({
++      request,
++      disconnectTransport: async () => {},
++    }));
++    const f = await fixture(connector);
++    await f.store.withSession("test-user", f.handle, async (state, save) => {
++      state.operations.crashed = {
++        fingerprint: payloadFingerprint("get_identity", []),
++        requestId: "pre-crash-id",
++      };
++      await save();
++    });
++    expect(
++      await f.bridge.request("test-user", f.handle, "crashed", "get_identity"),
++    ).toEqual({ status: "unknown", reason: "not_found" });
++    expect(request).toHaveBeenCalledWith("get_result", ["pre-crash-id"], {});
++    await expect(
++      f.bridge.poll("other-user", f.handle, "crashed"),
++    ).rejects.toMatchObject({ code: "unknown_handle" });
++    await expect(
++      f.bridge.poll("test-user", f.handle, "_info"),
++    ).rejects.toMatchObject({ code: "invalid_operation_id" });
++  });
++
++  it("does not connect on failed durable commit and never removes journal tombstones", async () => {
++    const connector = vi.fn<WalletConnector>();
++    const f = await fixture(connector);
++    const bridge = new KhieBridge(
++      {
++        create: async () => f.handle,
++        withSession: async (_principal, _handle, use) =>
++          use(f.state, async () => {
++            throw new Error("disk full");
++          }),
++      },
++      connector,
++    );
++    await expect(
++      bridge.request("test-user", f.handle, "write-failure", "get_identity"),
++    ).rejects.toThrow("disk full");
++    expect(connector).not.toHaveBeenCalled();
++    await f.store.withSession("test-user", f.handle, async (state, save) => {
++      for (let i = 0; i < 1024; i++) {
++        state.operations[`old${i}`] = {
++          fingerprint: "old",
++          requestId: String(i),
++        };
++      }
++      await save();
++    });
++    await expect(
++      f.bridge.request("test-user", f.handle, "new", "get_identity"),
++    ).rejects.toMatchObject({ code: "operation_capacity_reached" });
++  });
++
++  it("fails closed on concurrent workers and a failed transport shutdown", async () => {
++    let release!: () => void;
++    const gate = new Promise<void>((resolve) => {
++      release = resolve;
++    });
++    const f = await fixture(async () => ({
++      request: async () => "ok",
++      disconnectTransport: async () => {
++        throw new Error("stop failed");
++      },
++    }));
++    const held = f.store.withSession("test-user", f.handle, async () => {
++      await gate;
++    });
++    // Acquire is asynchronous; wait until the callback is executing.
++    await vi.waitFor(async () => {
++      await expect(
++        FileSecureStateStore.open(f.directory, f.key).then((other) =>
++          other.withSession("test-user", f.handle, async () => {}),
++        ),
++      ).rejects.toMatchObject({ code: "session_busy" });
++    });
++    release();
++    await held;
++    await expect(
++      f.bridge.request("test-user", f.handle, "cleanup", "get_identity"),
++    ).rejects.toMatchObject({ code: "transport_cleanup_failed" });
++    await expect(
++      f.bridge.poll("test-user", f.handle, "cleanup"),
++    ).rejects.toMatchObject({ code: "session_busy" });
++  });
++
++  it("surfaces invalid sessions without reauthorization and suppresses wallet errors", async () => {
++    const request = vi.fn(async () => {
++      throw new ccc.JsonRpcError({
++        code: -32004,
++        message: "private session details",
++      });
++    });
++    const f = await fixture(async () => ({
++      request,
++      disconnectTransport: async () => {},
++    }));
++    expect(
++      await f.bridge.request("test-user", f.handle, "expired", "get_identity"),
++    ).toEqual({ status: "repair_required" });
++    expect(
++      await f.bridge.request("test-user", f.handle, "later", "get_identity"),
++    ).toEqual({ status: "repair_required" });
++    expect(request).toHaveBeenCalledTimes(1);
++  });
++
++  it("treats unknown provider error codes as ambiguous and caches explicit user rejection", async () => {
++    const request = vi.fn(async () => {
++      throw new ccc.JsonRpcError({
++        code: -32099,
++        message: "unknown provider outcome",
++      });
++    });
++    const f = await fixture(async () => ({
++      request,
++      disconnectTransport: async () => {},
++    }));
++    expect(
++      await f.bridge.request(
++        "test-user",
++        f.handle,
++        "ambiguous-error",
++        "get_identity",
++      ),
++    ).toEqual({ status: "unknown", reason: "wallet_error" });
++    request.mockRejectedValue(
++      new ccc.JsonRpcError({ code: -32003, message: "synthetic rejection" }),
++    );
++    expect(
++      await f.bridge.request("test-user", f.handle, "rejected", "get_identity"),
++    ).toEqual({ status: "rejected", code: -32003 });
++    expect(await f.bridge.poll("test-user", f.handle, "rejected")).toEqual({
++      status: "rejected",
++      code: -32003,
++    });
++    expect(request).toHaveBeenCalledTimes(2);
++  });
++
++  it("resumes pending operator authorization with its original operation ID", async () => {
++    const request = vi.fn(async (method: string) => {
++      if (method === "connect") {
++        throw new Error("connection approval still pending");
++      }
++      return { status: "completed", result: null };
++    });
++    const connector = async () => ({
++      request,
++      disconnectTransport: async () => {},
++    });
++    const f = await fixture(connector);
++    await f.store.withSession("test-user", f.handle, async (state, save) => {
++      state.phase = "paired";
++      await save();
++    });
++    expect(await f.bridge.authorize("test-user", f.handle)).toEqual({
++      status: "unknown",
++      reason: "transport",
++    });
++    const fresh = new KhieBridge(
++      await FileSecureStateStore.open(f.directory, f.key),
++      connector,
++    );
++    expect(await fresh.authorize("test-user", f.handle)).toEqual({
++      status: "completed",
++    });
++    expect(await fresh.authorize("test-user", f.handle)).toEqual({
++      status: "completed",
++    });
++    expect(request.mock.calls.map(([method]) => method)).toEqual([
++      "connect",
++      "get_result",
++    ]);
++  });
++
++  it("retains a quarantine lock if connection setup cannot clean up its node", async () => {
++    const f = await fixture(async () => {
++      throw new BridgeError("transport_cleanup_failed");
++    });
++    await expect(
++      f.bridge.request("test-user", f.handle, "failed-setup", "get_identity"),
++    ).rejects.toMatchObject({ code: "transport_cleanup_failed" });
++    await expect(
++      f.bridge.poll("test-user", f.handle, "failed-setup"),
++    ).rejects.toMatchObject({ code: "session_busy" });
++  });
++});
++
++describe("isolated libp2p wallet", () => {
++  it("quarantines a real node after failed startup cleanup leaves it stopping", async () => {
++    const key = await generateKeyPair("Ed25519");
++    const probe = await createBridgeNode(key);
++    await disconnectNode(probe);
++    // Inject lifecycle faults into the installed libp2p class, without replacing
++    // its start/stop state machine. This internal access is test-only.
++    type FaultNode = BridgeNode & {
++      components: { components: Record<string, unknown> };
++    };
++    const prototype = Object.getPrototypeOf(probe) as {
++      start(this: FaultNode): Promise<void>;
++    };
++    const originalStart = prototype.start;
++    let failedNode: FaultNode | undefined;
++    const spy = vi.spyOn(prototype, "start").mockImplementation(async function (
++      this: FaultNode,
++    ) {
++      failedNode = this;
++      this.components.components.khieTestFailure = {
++        start() {},
++        stop() {},
++        afterStart() {
++          throw new Error("synthetic startup failure");
++        },
++        beforeStop() {
++          throw new Error("synthetic cleanup failure");
++        },
++      };
++      await originalStart.call(this);
++    });
++    try {
++      const f = await fixture(libp2pConnector());
++      await f.store.withSession("test-user", f.handle, async (state, save) => {
++        state.communicationKey = Buffer.from(
++          privateKeyToProtobuf(key),
++        ).toString("base64");
++        await save();
++      });
++      await expect(
++        f.bridge.request(
++          "test-user",
++          f.handle,
++          "startup-failure",
++          "get_identity",
++        ),
++      ).rejects.toMatchObject({ code: "transport_cleanup_failed" });
++      expect(failedNode?.status).toBe("stopping");
++      await expect(
++        f.bridge.poll("test-user", f.handle, "startup-failure"),
++      ).rejects.toMatchObject({ code: "session_busy" });
++    } finally {
++      spy.mockRestore();
++      if (failedNode) {
++        delete failedNode.components.components.khieTestFailure;
++        // Repair this isolated fault-injected test node solely to release test
++        // resources. Production code never resets lifecycle status or retries it.
++        failedNode.status = "started";
++        await disconnectNode(failedNode);
++      }
++    }
++  });
++
++  it("restores the communication PeerID in the production factory", async () => {
++    const key = await generateKeyPair("Ed25519");
++    const first = await createBridgeNode(key);
++    const peer = first.peerId.toString();
++    await first.stop();
++    const { privateKeyFromProtobuf } = await import("@libp2p/crypto/keys");
++    const restored = await createBridgeNode(
++      privateKeyFromProtobuf(privateKeyToProtobuf(key)),
++    );
++    try {
++      expect(restored.peerId.toString()).toBe(peer);
++    } finally {
++      await restored.stop();
++    }
++    const different = await createBridgeNode(await generateKeyPair("Ed25519"));
++    try {
++      expect(different.peerId.toString()).not.toBe(peer);
++    } finally {
++      await different.stop();
++    }
++  });
++
++  async function paired(options: Parameters<typeof createTestWallet>[0] = {}) {
++    const f = await storeFixture();
++    const wallet = await createTestWallet(options);
++    cleanup.push(() => wallet.stop());
++    const handle = await enroll(
++      f.store,
++      "test-user",
++      wallet.endpoint,
++      "ckb-testnet",
++      ["get_identity", "sign_message"],
++      createTestBridgeNode,
++    );
++    const bridge = new KhieBridge(
++      f.store,
++      libp2pConnector(createTestBridgeNode),
++    );
++    expect(await bridge.authorize("test-user", handle)).toEqual({
++      status: "completed",
++    });
++    return { ...f, wallet, handle, bridge };
++  }
++
++  it("resumes across nodes without reauthorization, preserves pairing on disconnect, rejects a changed caller key", async () => {
++    const f = await paired();
++    for (const id of ["one", "two"]) {
++      const worker = new KhieBridge(
++        await FileSecureStateStore.open(f.directory, f.key),
++        libp2pConnector(createTestBridgeNode),
++      );
++      expect(
++        await worker.request("test-user", f.handle, id, "get_identity"),
++      ).toEqual({ status: "completed", result: "synthetic-wallet-identity" });
++    }
++    expect(f.wallet.stats.authorizations).toBe(1);
++    expect(f.wallet.stats.unpairs).toBe(0);
++    expect(new Set(f.wallet.stats.peers).size).toBe(1);
++    expect(
++      f.wallet.node.services.pairing.isPaired(f.wallet.selectedPeer!),
++    ).toBe(true);
++    await f.store.withSession("test-user", f.handle, async (state, save) => {
++      state.communicationKey = Buffer.from(
++        privateKeyToProtobuf(await generateKeyPair("Ed25519")),
++      ).toString("base64");
++      await save();
++    });
++    // An unauthorized peer can receive an RPC error or have its stream closed.
++    expect(
++      await f.bridge.request(
++        "test-user",
++        f.handle,
++        "wrong-peer",
++        "get_identity",
++      ),
++    ).toMatchObject({ status: "unknown" });
++    expect(f.wallet.stats.authorizations).toBe(1);
++    expect(
++      f.wallet.stats.methods.filter((method) => method === "get_identity"),
++    ).toHaveLength(2);
++  });
++
++  it("polls pending signing across worker instances without producing a second signature", async () => {
++    const f = await paired();
++    const first = new KhieBridge(
++      f.store,
++      libp2pConnector(createTestBridgeNode, 400),
++    );
++    expect(
++      await first.request(
++        "test-user",
++        f.handle,
++        "pending-sign",
++        "sign_message",
++        [{ type: "string", value: "isolated test only" }],
++      ),
++    ).toEqual({ status: "unknown", reason: "transport" });
++    const next = new KhieBridge(
++      await FileSecureStateStore.open(f.directory, f.key),
++      libp2pConnector(createTestBridgeNode),
++    );
++    expect(await next.poll("test-user", f.handle, "pending-sign")).toEqual({
++      status: "pending",
++    });
++    f.wallet.releaseSignature();
++    expect(
++      await new KhieBridge(f.store, libp2pConnector(createTestBridgeNode)).poll(
++        "test-user",
++        f.handle,
++        "pending-sign",
++      ),
++    ).toEqual({
++      status: "completed",
++      result: "synthetic-signature-not-valid-on-any-chain",
++    });
++    expect(f.wallet.stats.signatures).toBe(1);
++    expect(f.wallet.stats.authorizations).toBe(1);
++    expect(f.wallet.stats.unpairs).toBe(0);
++  });
++
++  it("does not reconnect authorization after wallet state loss", async () => {
++    const f = await paired();
++    await f.wallet.restartSession();
++    expect(
++      await f.bridge.request("test-user", f.handle, "restart", "get_identity"),
++    ).toEqual({ status: "repair_required" });
++    expect(f.wallet.stats.authorizations).toBe(1);
++  });
++
++  it("rejects explicitly revoked pairing", async () => {
++    const f = await paired();
++    await f.wallet.node.services.pairing.unpair(f.wallet.selectedPeer!);
++    expect(f.wallet.stats.unpairs).toBe(1);
++    expect(
++      await f.bridge.request("test-user", f.handle, "revoked", "get_identity"),
++    ).toEqual({ status: "unknown", reason: "wallet_error" });
++    expect(f.wallet.stats.authorizations).toBe(1);
++  });
++
++  it("rejects expired disconnected pairing", async () => {
++    const f = await paired({ pairedPeerTimeoutMs: 1500 });
++    await vi.waitFor(
++      () => {
++        expect(f.wallet.stats.unpairs).toBe(1);
++      },
++      { timeout: 5000 },
++    );
++    expect(
++      await f.bridge.request("test-user", f.handle, "expired", "get_identity"),
++    ).toEqual({ status: "unknown", reason: "wallet_error" });
++    expect(f.wallet.stats.authorizations).toBe(1);
++  });
++});
+diff --git a/packages/khie-mcp/src/bridge.ts b/packages/khie-mcp/src/bridge.ts
+new file mode 100644
+index 0000000..8948296
+--- /dev/null
++++ b/packages/khie-mcp/src/bridge.ts
+@@ -0,0 +1,300 @@
++import { ccc } from "@ckb-ccc/core";
++import { createHash, randomUUID } from "node:crypto";
++import {
++  BridgeError,
++  METHODS,
++  validateOperationId,
++  type Method,
++  type Operation,
++  type Outcome,
++  type SecureStateStore,
++  type WalletState,
++} from "./state.js";
++import type { WalletConnection, WalletConnector } from "./transport.js";
++
++const MAX_OPERATIONS = 1024;
++
++export class KhieBridge {
++  constructor(
++    private readonly store: SecureStateStore,
++    private readonly connect: WalletConnector,
++  ) {}
++
++  async request(
++    principal: string,
++    handle: string,
++    operationId: string,
++    method: Method,
++    params: unknown[] = [],
++  ) {
++    validateOperationId(operationId);
++    validateRequest(method, params);
++    return this.store.withSession(principal, handle, async (state, save) => {
++      if (!state.allowedMethods.includes(method)) {
++        throw new BridgeError("method_not_allowed");
++      }
++      const fingerprint = payloadFingerprint(method, params);
++      const prior = getOperation(state, operationId);
++      if (prior && prior.fingerprint !== fingerprint) {
++        throw new BridgeError("operation_payload_mismatch");
++      }
++      if (state.phase !== "authorized") {
++        return { status: "repair_required" } as const;
++      }
++      return this.run(state, save, operationId, method, params);
++    });
++  }
++
++  async poll(principal: string, handle: string, operationId: string) {
++    validateOperationId(operationId);
++    return this.store.withSession(principal, handle, async (state, save) => {
++      const operation = getOperation(state, operationId);
++      if (!operation) {
++        throw new BridgeError("unknown_operation");
++      }
++      if (isTerminal(operation.outcome)) {
++        return operation.outcome;
++      }
++      if (state.phase !== "authorized") {
++        return { status: "repair_required" } as const;
++      }
++      return this.run(state, save, operationId);
++    });
++  }
++
++  /** Operator-only setup. Never registered as an MCP tool. */
++  authorize(principal: string, handle: string) {
++    return this.store.withSession(principal, handle, async (state, save) => {
++      if (state.phase === "authorized") {
++        return { status: "completed" };
++      }
++      if (state.phase !== "paired") {
++        return { status: "repair_required" };
++      }
++      if (!state.sessionId) {
++        const info = await this.run(state, save, "_info", "get_info", []);
++        if (info.status !== "completed") {
++          return withoutResult(info);
++        }
++        const result = info.result as { session_id?: unknown } | null;
++        if (
++          !result ||
++          typeof result.session_id !== "string" ||
++          !result.session_id
++        ) {
++          throw new BridgeError("invalid_wallet_info");
++        }
++        state.sessionId = result.session_id;
++        await save();
++      }
++      const outcome = await this.run(state, save, "_connect", "connect", [
++        state.networkId,
++      ]);
++      if (outcome.status === "completed") {
++        state.phase = "authorized";
++        await save();
++      }
++      // get_info/session metadata and arbitrary wallet errors never escape setup.
++      return withoutResult(outcome);
++    });
++  }
++
++  private async run(
++    state: WalletState,
++    save: () => Promise<void>,
++    operationId: string,
++    method?: string,
++    params: unknown[] = [],
++  ): Promise<Outcome> {
++    let operation = getOperation(state, operationId);
++    if (isTerminal(operation?.outcome)) {
++      return operation.outcome;
++    }
++    const firstAttempt = operation === undefined;
++    if (!operation) {
++      if (!method) {
++        throw new BridgeError("unknown_operation");
++      }
++      if (Object.keys(state.operations).length >= MAX_OPERATIONS) {
++        throw new BridgeError("operation_capacity_reached");
++      }
++      operation = {
++        fingerprint: payloadFingerprint(method, params),
++        requestId: randomUUID(),
++      };
++      state.operations[operationId] = operation;
++      // Write ahead even before dialing: crashes leave uncertainty, never a replay.
++      await save();
++    }
++    let connection: WalletConnection | undefined;
++    let outcome: Outcome;
++    try {
++      connection = await this.connect(state);
++      if (firstAttempt) {
++        try {
++          const result = await connection.request(method!, params, {
++            request_id: operation.requestId,
++            ...(method !== "get_info" ? { session_id: state.sessionId } : {}),
++          });
++          outcome = { status: "completed", result: result ?? null };
++        } catch (error) {
++          if (
++            error instanceof ccc.JsonRpcError &&
++            error.code === Number(ccc.SignerJsonRpcErrorCode.DuplicateRequestId)
++          ) {
++            outcome = await pollResult(connection, operation);
++          } else {
++            throw error;
++          }
++        }
++      } else {
++        outcome = await pollResult(connection, operation);
++      }
++    } catch (error) {
++      if (
++        error instanceof BridgeError &&
++        error.code === "transport_cleanup_failed"
++      ) {
++        throw error;
++      }
++      outcome = classifyError(error);
++      if (outcome.status === "repair_required") {
++        state.phase = "repair_required";
++      }
++    } finally {
++      if (connection) {
++        try {
++          await connection.disconnectTransport();
++        } catch {
++          throw new BridgeError("transport_cleanup_failed");
++        }
++      }
++    }
++    operation.outcome = outcome;
++    await save();
++    return outcome;
++  }
++}
++
++function withoutResult(outcome: Outcome) {
++  return outcome.status === "completed" ? { status: "completed" } : outcome;
++}
++
++function getOperation(state: WalletState, id: string) {
++  return Object.hasOwn(state.operations, id) ? state.operations[id] : undefined;
++}
++
++function isTerminal(
++  outcome: Outcome | undefined,
++): outcome is Extract<Outcome, { status: "completed" | "rejected" }> {
++  return outcome?.status === "completed" || outcome?.status === "rejected";
++}
++
++async function pollResult(
++  connection: WalletConnection,
++  operation: Operation,
++): Promise<Outcome> {
++  const result = await connection.request(
++    "get_result",
++    [operation.requestId],
++    {},
++  );
++  if (typeof result !== "object" || result === null || !("status" in result)) {
++    return { status: "unknown", reason: "invalid_response" };
++  }
++  if (result.status === "pending") {
++    return { status: "pending" };
++  }
++  if (result.status === "not_found") {
++    return { status: "unknown", reason: "not_found" };
++  }
++  if (result.status === "completed" && "result" in result) {
++    return { status: "completed", result: result.result };
++  }
++  return { status: "unknown", reason: "invalid_response" };
++}
++
++function classifyError(error: unknown): Outcome {
++  if (!(error instanceof ccc.JsonRpcError)) {
++    return { status: "unknown", reason: "transport" };
++  }
++  if (
++    error.code === Number(ccc.SignerJsonRpcErrorCode.InvalidSession) ||
++    error.code === Number(ccc.SignerJsonRpcErrorCode.InvalidState)
++  ) {
++    return { status: "repair_required" };
++  }
++  // Only recognized protocol rejections are terminal. Unknown/future error codes
++  // and generic peer-authorization/server failures cannot prove non-execution.
++  if (
++    [
++      ccc.SignerJsonRpcErrorCode.MethodNotFound,
++      ccc.SignerJsonRpcErrorCode.InvalidParams,
++      ccc.SignerJsonRpcErrorCode.NetworkMismatch,
++      ccc.SignerJsonRpcErrorCode.UserRejected,
++    ].includes(error.code)
++  ) {
++    return { status: "rejected", code: error.code };
++  }
++  return { status: "unknown", reason: "wallet_error" };
++}
++
++function validateRequest(method: Method, params: unknown[]) {
++  if (
++    !METHODS.includes(method) ||
++    !Array.isArray(params) ||
++    params.length !== (method === "sign_message" ? 1 : 0)
++  ) {
++    throw new BridgeError("invalid_request");
++  }
++  // Confirm/sign remain the wallet's responsibility; operator policy enables this.
++  if (method === "sign_message") {
++    const message = params[0] as { type?: unknown; value?: unknown } | null;
++    if (
++      !message ||
++      (message.type !== "string" && message.type !== "bytes") ||
++      typeof message.value !== "string"
++    ) {
++      throw new BridgeError("invalid_message");
++    }
++    if (
++      message.type === "bytes" &&
++      !/^0x([0-9a-fA-F]{2})*$/.test(message.value)
++    ) {
++      throw new BridgeError("invalid_message");
++    }
++  }
++}
++
++export function payloadFingerprint(method: string, params: unknown[]) {
++  return createHash("sha256")
++    .update(canonicalJson([method, params]))
++    .digest("hex");
++}
++
++function canonicalJson(value: unknown): string {
++  if (
++    value === null ||
++    typeof value === "string" ||
++    typeof value === "boolean" ||
++    (typeof value === "number" && Number.isFinite(value))
++  ) {
++    return JSON.stringify(value);
++  }
++  if (Array.isArray(value)) {
++    return `[${value.map(canonicalJson).join(",")}]`;
++  }
++  if (
++    typeof value === "object" &&
++    Object.getPrototypeOf(value) === Object.prototype
++  ) {
++    return `{${Object.keys(value)
++      .sort()
++      .map(
++        (key) =>
++          `${JSON.stringify(key)}:${canonicalJson((value as Record<string, unknown>)[key])}`,
++      )
++      .join(",")}}`;
++  }
++  throw new BridgeError("invalid_json");
++}
+diff --git a/packages/khie-mcp/src/cli.ts b/packages/khie-mcp/src/cli.ts
+new file mode 100644
+index 0000000..bbcfa20
+--- /dev/null
++++ b/packages/khie-mcp/src/cli.ts
+@@ -0,0 +1,96 @@
++import { constants } from "node:fs";
++import { open } from "node:fs/promises";
++import { KhieBridge } from "./bridge.js";
++import { enroll } from "./enroll.js";
++import { httpListenHost } from "./listenHost.js";
++import { createHttpServer } from "./server.js";
++import { BridgeError, type Method } from "./state.js";
++import { FileSecureStateStore } from "./store.js";
++import { libp2pConnector } from "./transport.js";
++
++export async function readSecretFile(path: string) {
++  const file = await open(path, constants.O_RDONLY | constants.O_NOFOLLOW);
++  try {
++    const stat = await file.stat();
++    if (
++      !stat.isFile() ||
++      stat.uid !== process.getuid?.() ||
++      (stat.mode & 0o077) !== 0
++    ) {
++      throw new BridgeError("unsafe_secret_file");
++    }
++    return (await file.readFile("utf8")).trim();
++  } finally {
++    await file.close();
++  }
++}
++
++async function main() {
++  const configFile = process.env.KHIE_CONFIG_FILE;
++  if (!configFile) {
++    throw new BridgeError("missing_config_file");
++  }
++  const config = JSON.parse(await readSecretFile(configFile)) as {
++    principal: string;
++    storeDirectory: string;
++    storeKeyFile: string;
++    tokenFile: string;
++    allowedHosts: string[];
++    port?: number;
++    listenHost?: string;
++    networkId?: string;
++    allowedMethods?: Method[];
++  };
++  const store = await FileSecureStateStore.open(
++    config.storeDirectory,
++    Buffer.from(await readSecretFile(config.storeKeyFile), "base64"),
++  );
++  const bridge = new KhieBridge(store, libp2pConnector());
++  const [command, argument] = process.argv.slice(2);
++  if (command === "enroll") {
++    if (!argument) {
++      throw new BridgeError("missing_endpoint_file");
++    }
++    const handle = await enroll(
++      store,
++      config.principal,
++      await readSecretFile(argument),
++      config.networkId ?? "ckb-testnet",
++      config.allowedMethods,
++    );
++    // Print the non-secret handle before approval so setup can be resumed.
++    console.log(JSON.stringify({ handle }));
++    console.log(
++      JSON.stringify(await bridge.authorize(config.principal, handle)),
++    );
++  } else if (command === "authorize") {
++    console.log(
++      JSON.stringify(await bridge.authorize(config.principal, argument)),
++    );
++  } else if (command === "serve") {
++    const server = createHttpServer(bridge, {
++      ...config,
++      bearerToken: await readSecretFile(config.tokenFile),
++    });
++    server.listen(config.port ?? 8787, httpListenHost(config.listenHost), () =>
++      console.log("Khie MCP HTTP listener ready"),
++    );
++    for (const signal of ["SIGINT", "SIGTERM"] as const) {
++      process.once(signal, () => {
++        server.close();
++      });
++    }
++  } else {
++    throw new BridgeError("use_enroll_authorize_or_serve");
++  }
++}
++
++// No raw errors: provisioning errors may contain endpoint or identity material.
++if (process.argv[1]?.endsWith("/cli.js")) {
++  void main().catch((error: unknown) => {
++    console.error(
++      error instanceof BridgeError ? error.code : "operator_action_failed",
++    );
++    process.exitCode = 1;
++  });
++}
+diff --git a/packages/khie-mcp/src/demo.ts b/packages/khie-mcp/src/demo.ts
+new file mode 100644
+index 0000000..f7ea7be
+--- /dev/null
++++ b/packages/khie-mcp/src/demo.ts
+@@ -0,0 +1,131 @@
++import { randomBytes } from "node:crypto";
++import { mkdir, rm, writeFile } from "node:fs/promises";
++import { resolve } from "node:path";
++import { KhieBridge } from "./bridge.js";
++import { enroll } from "./enroll.js";
++import { httpListenHost } from "./listenHost.js";
++import { createHttpServer } from "./server.js";
++import { FileSecureStateStore } from "./store.js";
++import { createTestBridgeNode, createTestWallet } from "./testWallet.js";
++import { libp2pConnector } from "./transport.js";
++
++async function main() {
++  const directory = resolve(process.argv[2] ?? "/tmp/khie-mcp-demo");
++  // Refuse to overwrite or later delete a preexisting directory.
++  await mkdir(directory, { mode: 0o700 });
++  let wallet: Awaited<ReturnType<typeof createTestWallet>> | undefined;
++  let server: ReturnType<typeof createHttpServer> | undefined;
++  let timer: ReturnType<typeof setTimeout> | undefined;
++  const controller = new AbortController();
++  let finish!: () => void;
++  const stopped = new Promise<void>((resolve) => {
++    finish = resolve;
++  });
++  const stop = () => {
++    controller.abort();
++    finish();
++  };
++  for (const signal of ["SIGINT", "SIGTERM"] as const) {
++    process.once(signal, stop);
++  }
++  const checkRunning = () => controller.signal.throwIfAborted();
++
++  try {
++    const key = randomBytes(32);
++    const token = randomBytes(32).toString("base64url");
++    const store = await FileSecureStateStore.open(`${directory}/state`, key);
++    checkRunning();
++    wallet = await createTestWallet({ signDelayMs: 25_000 });
++    checkRunning();
++    const handle = await enroll(
++      store,
++      "isolated-demo",
++      wallet.endpoint,
++      "ckb-testnet",
++      ["get_identity", "sign_message"],
++      createTestBridgeNode,
++    );
++    checkRunning();
++    const bridge = new KhieBridge(store, libp2pConnector(createTestBridgeNode));
++    const authorized = await bridge.authorize("isolated-demo", handle);
++    checkRunning();
++    if (authorized.status !== "completed") {
++      throw new Error("Demo authorization failed");
++    }
++    server = createHttpServer(bridge, {
++      principal: "isolated-demo",
++      bearerToken: token,
++      allowedHosts: ["127.0.0.1:8787", "localhost:8787"],
++    });
++    // Await errors such as EADDRINUSE inside the resource-cleanup scope.
++    await new Promise<void>((resolve, reject) => {
++      const listening = () => {
++        server!.off("error", reject);
++        resolve();
++      };
++      server!.once("error", reject);
++      server!.listen(
++        8787,
++        httpListenHost(process.env.KHIE_LISTEN_HOST),
++        listening,
++      );
++    });
++    checkRunning();
++    await writeFile(
++      `${directory}/client.json`,
++      JSON.stringify({ handle, token, endpoint: "http://127.0.0.1:8787/mcp" }),
++      { mode: 0o600 },
++    );
++    checkRunning();
++    console.log(
++      JSON.stringify({
++        demo: "synthetic wallet only",
++        clientConfigFile: `${directory}/client.json`,
++        lifetime: "five minutes or until SIGINT/SIGTERM",
++      }),
++    );
++    timer = setTimeout(stop, 5 * 60_000);
++    await stopped;
++  } catch (error) {
++    if (!controller.signal.aborted) {
++      throw error;
++    }
++  } finally {
++    clearTimeout(timer);
++    for (const signal of ["SIGINT", "SIGTERM"] as const) {
++      process.off(signal, stop);
++    }
++    try {
++      if (server?.listening) {
++        await new Promise<void>((resolve, reject) => {
++          server!.close((error) => (error ? reject(error) : resolve()));
++          server!.closeAllConnections();
++        });
++      }
++    } finally {
++      try {
++        await wallet?.stop();
++      } finally {
++        await rm(directory, { recursive: true, force: true });
++      }
++    }
++    console.log(
++      JSON.stringify({
++        demo: "stopped",
++        authorizations: wallet?.stats.authorizations ?? 0,
++        syntheticSignatures: wallet?.stats.signatures ?? 0,
++        cleanup: "temporary state removed",
++      }),
++    );
++  }
++}
++
++// Exit only after cleanup: the provider's existing result-cache timers otherwise
++// keep a demo process alive. Raw errors may contain private provisioning data.
++void main().then(
++  () => process.exit(0),
++  () => {
++    console.error("demo_setup_failed");
++    process.exit(1);
++  },
++);
+diff --git a/packages/khie-mcp/src/enroll.ts b/packages/khie-mcp/src/enroll.ts
+new file mode 100644
+index 0000000..cb1937d
+--- /dev/null
++++ b/packages/khie-mcp/src/enroll.ts
+@@ -0,0 +1,51 @@
++import { Libp2p } from "@ckb-ccc/libp2p";
++import { generateKeyPair, privateKeyToProtobuf } from "@libp2p/crypto/keys";
++import type { Method, SecureStateStore, WalletState } from "./state.js";
++import {
++  createBridgeNode,
++  disconnectNode,
++  type BridgeNodeFactory,
++} from "./transport.js";
++
++/** Server-side provisioning only. Endpoint contains a secret; never pass via MCP. */
++export async function enroll(
++  store: SecureStateStore,
++  principal: string,
++  endpoint: string,
++  networkId: string,
++  allowedMethods: Method[] = [
++    "get_identity",
++    "get_native_address",
++    "get_scripts",
++  ],
++  factory: BridgeNodeFactory = createBridgeNode,
++) {
++  const target = await Libp2p.decodePairingEndpoint(endpoint, "provider");
++  const key = await generateKeyPair("Ed25519");
++  const state: WalletState = {
++    version: 1,
++    principal,
++    communicationKey: Buffer.from(privateKeyToProtobuf(key)).toString("base64"),
++    walletPeerId: "",
++    walletAddresses: target.addresses.map(String),
++    networkId,
++    phase: "pairing",
++    allowedMethods,
++    operations: {},
++  };
++  const handle = await store.create(state);
++  await store.withSession(principal, handle, async (saved, save) => {
++    const node = await factory(key);
++    try {
++      const peer = await node.services.pairing.pair(target, {
++        signal: AbortSignal.timeout(15_000),
++      });
++      saved.walletPeerId = peer.toString();
++      saved.phase = "paired";
++      await save();
++    } finally {
++      await disconnectNode(node);
++    }
++  });
++  return handle;
++}
+diff --git a/packages/khie-mcp/src/listenHost.test.ts b/packages/khie-mcp/src/listenHost.test.ts
+new file mode 100644
+index 0000000..15211aa
+--- /dev/null
++++ b/packages/khie-mcp/src/listenHost.test.ts
+@@ -0,0 +1,13 @@
++import { describe, expect, it } from "vitest";
++import { httpListenHost } from "./listenHost.js";
++
++describe("HTTP bind address", () => {
++  it("defaults to loopback and permits only explicit IPv4 wildcard binding", () => {
++    expect(httpListenHost()).toBe("127.0.0.1");
++    expect(httpListenHost("127.0.0.1")).toBe("127.0.0.1");
++    expect(httpListenHost("0.0.0.0")).toBe("0.0.0.0");
++    for (const value of ["", "::", "localhost", "example.invalid"]) {
++      expect(() => httpListenHost(value)).toThrow("invalid_listen_host");
++    }
++  });
++});
+diff --git a/packages/khie-mcp/src/listenHost.ts b/packages/khie-mcp/src/listenHost.ts
+new file mode 100644
+index 0000000..4fe6f92
+--- /dev/null
++++ b/packages/khie-mcp/src/listenHost.ts
+@@ -0,0 +1,12 @@
++import { BridgeError } from "./state.js";
++
++/** Wildcard binding is an explicit container-only operator choice. */
++export function httpListenHost(value?: string): "127.0.0.1" | "0.0.0.0" {
++  if (value === undefined || value === "127.0.0.1") {
++    return "127.0.0.1";
++  }
++  if (value === "0.0.0.0") {
++    return "0.0.0.0";
++  }
++  throw new BridgeError("invalid_listen_host");
++}
+diff --git a/packages/khie-mcp/src/mobileEndpoint.test.ts b/packages/khie-mcp/src/mobileEndpoint.test.ts
+new file mode 100644
+index 0000000..4069d92
+--- /dev/null
++++ b/packages/khie-mcp/src/mobileEndpoint.test.ts
+@@ -0,0 +1,130 @@
++import { Libp2p } from "@ckb-ccc/libp2p";
++import { privateKeyFromProtobuf } from "@libp2p/crypto/keys";
++import { peerIdFromPrivateKey, peerIdFromString } from "@libp2p/peer-id";
++import { multiaddr } from "@multiformats/multiaddr";
++import { randomBytes } from "node:crypto";
++import { mkdtemp, rm } from "node:fs/promises";
++import { tmpdir } from "node:os";
++import { join } from "node:path";
++import { deflateSync } from "node:zlib";
++import { afterEach, expect, it, vi } from "vitest";
++import { enroll } from "./enroll.js";
++import { FileSecureStateStore } from "./store.js";
++import type { BridgeNode, BridgeNodeFactory } from "./transport.js";
++
++// Wire shape from Hanssen0/khie-mobile at ad1cf891e43ff93a7ec3b5538d357b449dd45f9e,
++// App.tsx + src/khie/pairingEndpointCodec.ts. Independently encoded with Node zlib;
++// this is a compatibility fixture, not a React Native/device execution claim.
++const walletId = "12D3KooWJZQ7ypYJ6LHVYbNcKZX7HxV5pnPHJHvJ7zH2Bf6WmDKm";
++const relayId = "12D3KooWQwLwBK3EaCaJQNL9KBUvPi9Vh3gZqPfLQVi7aZpHkF3S";
++const relayPrefix = `/dns4/relay.example.invalid/tcp/443/wss/p2p/${relayId}/p2p-circuit`;
++const addresses = [
++  `${relayPrefix}/webrtc/p2p/${walletId}`,
++  `${relayPrefix}/p2p/${walletId}`,
++];
++const testSecret = "synthetic-mobile-pairing-credential";
++
++function mobileWireEndpoint(role = "provider") {
++  const frames = addresses.map((value) => {
++    const bytes = multiaddr(value).bytes;
++    let length = bytes.byteLength;
++    const prefix = [];
++    do {
++      const next = length & 0x7f;
++      length >>>= 7;
++      prefix.push(next | (length ? 0x80 : 0));
++    } while (length);
++    return Buffer.concat([Buffer.from(prefix), bytes]);
++  });
++  const encoded = deflateSync(Buffer.concat(frames)).toString("base64url");
++  return `https://app.ckbccc.com/khie#?${new URLSearchParams({ role, addresses: encoded, secret: testSecret })}`;
++}
++
++const directories: string[] = [];
++afterEach(async () => {
++  for (const directory of directories.splice(0)) {
++    await rm(directory, { recursive: true, force: true });
++  }
++});
++
++it("decodes the current mobile provider URL with mixed WebRTC and circuit addresses", async () => {
++  const target = await Libp2p.decodePairingEndpoint(
++    mobileWireEndpoint(),
++    "provider",
++  );
++  expect(target.addresses.map(String)).toEqual(addresses);
++  expect(target.secret).toBe(testSecret);
++});
++
++it("enrolls the mobile wire shape through the operator boundary and persists only resume state", async () => {
++  const directory = await mkdtemp(join(tmpdir(), "khie-mobile-wire-test-"));
++  directories.push(directory);
++  const store = await FileSecureStateStore.open(
++    join(directory, "state"),
++    randomBytes(32),
++  );
++  let callerPeerId = "";
++  const pair = vi.fn(async (_target: Libp2p.PairingTarget) =>
++    peerIdFromString(walletId),
++  );
++  let status = "started";
++  const stop = vi.fn(async () => {
++    status = "stopped";
++  });
++  const node = {
++    services: { pairing: { pair } },
++    stop,
++    get status() {
++      return status;
++    },
++  } as unknown as BridgeNode;
++  const factory: BridgeNodeFactory = async (key) => {
++    callerPeerId = peerIdFromPrivateKey(key).toString();
++    return node;
++  };
++  const handle = await enroll(
++    store,
++    "operator-test",
++    mobileWireEndpoint(),
++    "ckb-testnet",
++    ["get_identity"],
++    factory,
++  );
++  expect(pair).toHaveBeenCalledTimes(1);
++  expect(pair.mock.calls[0]?.[0]).toMatchObject({ secret: testSecret });
++  expect(stop).toHaveBeenCalledTimes(1);
++  await store.withSession("operator-test", handle, async (state) => {
++    expect(state.walletPeerId).toBe(walletId);
++    expect(state.walletAddresses).toEqual(addresses);
++    expect(state.phase).toBe("paired");
++    expect(
++      peerIdFromPrivateKey(
++        privateKeyFromProtobuf(Buffer.from(state.communicationKey, "base64")),
++      ).toString(),
++    ).toBe(callerPeerId);
++    expect(JSON.stringify(state)).not.toContain(testSecret);
++    expect(JSON.stringify(state)).not.toContain("app.ckbccc.com");
++  });
++});
++
++it("rejects connector QR and incomplete provider endpoints before creating state or a node", async () => {
++  const store = { create: vi.fn(), withSession: vi.fn() };
++  const factory = vi.fn();
++  for (const endpoint of [
++    mobileWireEndpoint("connector"),
++    "https://app.ckbccc.com/khie#?role=provider",
++  ]) {
++    await expect(
++      enroll(
++        store,
++        "operator-test",
++        endpoint,
++        "ckb-testnet",
++        ["get_identity"],
++        factory,
++      ),
++    ).rejects.toBeInstanceOf(Libp2p.PairingEndpointError);
++  }
++  expect(store.create).not.toHaveBeenCalled();
++  expect(factory).not.toHaveBeenCalled();
++});
+diff --git a/packages/khie-mcp/src/readProbe.test.ts b/packages/khie-mcp/src/readProbe.test.ts
+new file mode 100644
+index 0000000..dea5c32
+--- /dev/null
++++ b/packages/khie-mcp/src/readProbe.test.ts
+@@ -0,0 +1,151 @@
++import { randomBytes, randomUUID } from "node:crypto";
++import { chmod, mkdtemp, rm, writeFile } from "node:fs/promises";
++import type { AddressInfo } from "node:net";
++import { tmpdir } from "node:os";
++import { join } from "node:path";
++import { afterEach, expect, it, vi } from "vitest";
++import type { KhieBridge } from "./bridge.js";
++import { runReadProbe } from "./readProbe.js";
++import { createHttpServer } from "./server.js";
++import type { Outcome } from "./state.js";
++
++const cleanup: (() => Promise<unknown>)[] = [];
++afterEach(async () => {
++  for (const close of cleanup.splice(0).reverse()) {
++    await close();
++  }
++});
++
++async function fixture() {
++  const directory = await mkdtemp(join(tmpdir(), "khie-read-probe-test-"));
++  cleanup.push(() => rm(directory, { recursive: true, force: true }));
++  const token = randomBytes(32).toString("base64url");
++  const handle = randomUUID();
++  const bridge = {
++    request: vi.fn(async (): Promise<Outcome> => ({
++      status: "completed",
++      result: "arbitrary-test-identity",
++    })),
++    poll: vi.fn(async (): Promise<Outcome> => ({ status: "pending" })),
++  };
++  const hosts = ["placeholder"];
++  const server = createHttpServer(bridge as unknown as KhieBridge, {
++    principal: "read-probe-test",
++    bearerToken: token,
++    allowedHosts: hosts,
++  });
++  await new Promise<void>((resolve) => server.listen(0, "127.0.0.1", resolve));
++  const endpoint = `http://127.0.0.1:${(server.address() as AddressInfo).port}/mcp`;
++  hosts.push(new URL(endpoint).host);
++  cleanup.push(
++    () =>
++      new Promise<void>((resolve, reject) => {
++        server.close((error) => (error ? reject(error) : resolve()));
++        server.closeAllConnections();
++      }),
++  );
++  const file = join(directory, "client.json");
++  const config = { handle, token, endpoint };
++  await writeFile(file, JSON.stringify(config), { mode: 0o600 });
++  return { bridge, handle, file, config };
++}
++
++it("uses real MCP initialization and discovery for one read, preserving the supplied ID", async () => {
++  const f = await fixture();
++  expect(
++    await runReadProbe(f.file, "request", "mobile-read-001", "get_identity"),
++  ).toEqual({
++    status: "completed",
++    result: "arbitrary-test-identity",
++  });
++  expect(f.bridge.request).toHaveBeenCalledExactlyOnceWith(
++    "read-probe-test",
++    f.handle,
++    "mobile-read-001",
++    "get_identity",
++    [],
++  );
++  expect(f.bridge.poll).not.toHaveBeenCalled();
++});
++
++it("polls in a fresh SDK client without sending another wallet request", async () => {
++  const f = await fixture();
++  expect(await runReadProbe(f.file, "poll", "pending-read-001")).toEqual({
++    status: "pending",
++  });
++  f.bridge.poll.mockResolvedValueOnce({
++    status: "unknown",
++    reason: "not_found",
++  });
++  expect(await runReadProbe(f.file, "poll", "pending-read-001")).toEqual({
++    status: "unknown",
++    reason: "not_found",
++  });
++  expect(f.bridge.request).not.toHaveBeenCalled();
++  expect(f.bridge.poll).toHaveBeenNthCalledWith(
++    1,
++    "read-probe-test",
++    f.handle,
++    "pending-read-001",
++  );
++  expect(f.bridge.poll).toHaveBeenNthCalledWith(
++    2,
++    "read-probe-test",
++    f.handle,
++    "pending-read-001",
++  );
++});
++
++it("rejects signing, transaction methods and invalid IDs before opening the credential file", async () => {
++  for (const method of ["sign_message", "send_transaction", "connect"]) {
++    await expect(
++      runReadProbe("missing", "request", "read-001", method),
++    ).rejects.toMatchObject({ code: "invalid_probe_arguments" });
++  }
++  await expect(
++    runReadProbe("missing", "poll", "_connect"),
++  ).rejects.toMatchObject({ code: "invalid_operation_id" });
++  await expect(
++    runReadProbe("missing", "poll", "read-001", "get_identity"),
++  ).rejects.toMatchObject({ code: "invalid_probe_arguments" });
++});
++
++it("fails closed on nonlocal credential destinations and unsafe file permissions", async () => {
++  const f = await fixture();
++  await writeFile(
++    f.file,
++    JSON.stringify({ ...f.config, endpoint: "https://example.invalid/mcp" }),
++  );
++  await expect(
++    runReadProbe(f.file, "request", "read-001", "get_identity"),
++  ).rejects.toMatchObject({ code: "read_probe_failed" });
++  const unsafe = `${f.file}.unsafe`;
++  await writeFile(unsafe, JSON.stringify(f.config), { mode: 0o644 });
++  // A restrictive process umask may remove these bits during creation.
++  await chmod(unsafe, 0o644);
++  await expect(
++    runReadProbe(unsafe, "request", "read-001", "get_identity"),
++  ).rejects.toMatchObject({ code: "read_probe_failed" });
++  expect(f.bridge.request).not.toHaveBeenCalled();
++});
++
++it("suppresses authentication and raw adapter errors", async () => {
++  const f = await fixture();
++  await writeFile(
++    f.file,
++    JSON.stringify({
++      ...f.config,
++      token: randomBytes(32).toString("base64url"),
++    }),
++  );
++  await expect(
++    runReadProbe(f.file, "request", "read-001", "get_identity"),
++  ).rejects.toThrow(/^read_probe_failed$/);
++  await writeFile(f.file, JSON.stringify(f.config));
++  f.bridge.request.mockRejectedValueOnce(
++    new Error(`private-token:${f.config.token}`),
++  );
++  expect(
++    await runReadProbe(f.file, "request", "read-001", "get_identity"),
++  ).toEqual({ error: "bridge_unavailable" });
++});
+diff --git a/packages/khie-mcp/src/readProbe.ts b/packages/khie-mcp/src/readProbe.ts
+new file mode 100644
+index 0000000..0980689
+--- /dev/null
++++ b/packages/khie-mcp/src/readProbe.ts
+@@ -0,0 +1,106 @@
++import { Client } from "@modelcontextprotocol/sdk/client/index.js";
++import { StreamableHTTPClientTransport } from "@modelcontextprotocol/sdk/client/streamableHttp.js";
++import { pathToFileURL } from "node:url";
++import { z } from "zod";
++import { readSecretFile } from "./cli.js";
++import { BridgeError, validateOperationId } from "./state.js";
++
++const configSchema = z
++  .object({
++    endpoint: z.string().url(),
++    handle: z.string().uuid(),
++    token: z.string().min(32),
++  })
++  .strict();
++const readMethods = ["get_identity", "get_native_address", "get_scripts"];
++
++/** Operator-only, one-call local probe. Never generates IDs or retries a request. */
++export async function runReadProbe(
++  configPath: string,
++  mode: string,
++  operationId: string,
++  method?: string,
++) {
++  validateOperationId(operationId);
++  if (
++    (mode !== "request" && mode !== "poll") ||
++    (mode === "request" && !readMethods.includes(method ?? "")) ||
++    (mode === "poll" && method !== undefined)
++  ) {
++    throw new BridgeError("invalid_probe_arguments");
++  }
++  let client: Client | undefined;
++  try {
++    const config = configSchema.parse(
++      JSON.parse(await readSecretFile(configPath)),
++    );
++    const url = new URL(config.endpoint);
++    // This mobile readiness client is deliberately local. The synthetic smoke
++    // client remains the separate entry point for approved public tunnel tests.
++    if (
++      url.protocol !== "http:" ||
++      url.hostname !== "127.0.0.1" ||
++      url.pathname !== "/mcp" ||
++      url.username ||
++      url.password ||
++      url.search ||
++      url.hash
++    ) {
++      throw new Error("Invalid local endpoint");
++    }
++    client = new Client({ name: "khie-read-only-probe", version: "0.0.0" });
++    await client.connect(
++      new StreamableHTTPClientTransport(url, {
++        requestInit: { headers: { Authorization: `Bearer ${config.token}` } },
++      }),
++    );
++    if (client.getServerVersion()?.name !== "khie-mcp-prototype") {
++      throw new Error("Unexpected server");
++    }
++    const names = (await client.listTools()).tools.map(({ name }) => name);
++    if (!names.includes("khie_request") || !names.includes("khie_get_result")) {
++      throw new Error("Missing tools");
++    }
++    const result = await client.callTool({
++      name: mode === "poll" ? "khie_get_result" : "khie_request",
++      arguments: {
++        handle: config.handle,
++        operation_id: operationId,
++        ...(mode === "request" ? { method, params: [] } : {}),
++      },
++    });
++    const content = result.content as { type: string; text?: string }[];
++    if (
++      content.length !== 1 ||
++      content[0].type !== "text" ||
++      !content[0].text
++    ) {
++      throw new Error("Invalid response");
++    }
++    return JSON.parse(content[0].text) as unknown;
++  } catch {
++    // SDK, config and transport errors can echo Authorization or provisioning data.
++    throw new BridgeError("read_probe_failed");
++  } finally {
++    await client?.close().catch(() => {});
++  }
++}
++
++if (
++  process.argv[1] &&
++  import.meta.url === pathToFileURL(process.argv[1]).href
++) {
++  const [config, mode, operationId, method, ...extra] = process.argv.slice(2);
++  if (!config || !mode || !operationId || extra.length) {
++    console.error("use_read_probe_CONFIG_request_ID_METHOD_or_CONFIG_poll_ID");
++    process.exitCode = 1;
++  } else {
++    void runReadProbe(config, mode, operationId, method).then(
++      (outcome) => console.log(JSON.stringify(outcome)),
++      () => {
++        console.error("read_probe_failed");
++        process.exitCode = 1;
++      },
++    );
++  }
++}
+diff --git a/packages/khie-mcp/src/server.test.ts b/packages/khie-mcp/src/server.test.ts
+new file mode 100644
+index 0000000..31ff442
+--- /dev/null
++++ b/packages/khie-mcp/src/server.test.ts
+@@ -0,0 +1,160 @@
++import { Client } from "@modelcontextprotocol/sdk/client/index.js";
++import { StreamableHTTPClientTransport } from "@modelcontextprotocol/sdk/client/streamableHttp.js";
++import { randomBytes, randomUUID } from "node:crypto";
++import { request } from "node:http";
++import type { AddressInfo } from "node:net";
++import { afterEach, expect, it, vi } from "vitest";
++import type { KhieBridge } from "./bridge.js";
++import { createHttpServer } from "./server.js";
++
++const cleanup: (() => Promise<unknown>)[] = [];
++afterEach(async () => {
++  for (const close of cleanup.splice(0).reverse()) {
++    await close();
++  }
++});
++
++async function fixture() {
++  const token = randomBytes(32).toString("base64url");
++  const bridge = {
++    request: vi.fn(async () => ({
++      status: "completed",
++      result: "test-result",
++    })),
++    poll: vi.fn(async () => ({ status: "pending" })),
++  };
++  const hosts: string[] = ["placeholder"];
++  const server = createHttpServer(bridge as unknown as KhieBridge, {
++    principal: "test-principal",
++    bearerToken: token,
++    allowedHosts: hosts,
++  });
++  await new Promise<void>((resolve) => {
++    server.listen(0, "127.0.0.1", resolve);
++  });
++  const url = new URL(
++    `http://127.0.0.1:${(server.address() as AddressInfo).port}/mcp`,
++  );
++  hosts.push(url.host);
++  cleanup.push(
++    () =>
++      new Promise<void>((resolve, reject) => {
++        server.close((error) => (error ? reject(error) : resolve()));
++        server.closeAllConnections();
++      }),
++  );
++  return { token, bridge, url };
++}
++
++it("initializes an independent SDK client and lists/calls the two bounded tools", async () => {
++  const f = await fixture();
++  const client = new Client({
++    name: "independent-test-client",
++    version: "1.0.0",
++  });
++  const transport = new StreamableHTTPClientTransport(f.url, {
++    requestInit: { headers: { Authorization: `Bearer ${f.token}` } },
++  });
++  await client.connect(transport);
++  cleanup.push(() => client.close());
++  expect(client.getServerVersion()?.name).toBe("khie-mcp-prototype");
++  expect((await client.listTools()).tools.map(({ name }) => name)).toEqual([
++    "khie_request",
++    "khie_get_result",
++  ]);
++  const handle = randomUUID();
++  const result = await client.callTool({
++    name: "khie_request",
++    arguments: { handle, operation_id: "read-1", method: "get_identity" },
++  });
++  expect(result.content).toEqual([
++    {
++      type: "text",
++      text: JSON.stringify({ status: "completed", result: "test-result" }),
++    },
++  ]);
++  expect(f.bridge.request).toHaveBeenCalledWith(
++    "test-principal",
++    handle,
++    "read-1",
++    "get_identity",
++    [],
++  );
++  expect(
++    await client.callTool({
++      name: "khie_get_result",
++      arguments: { handle, operation_id: "read-1" },
++    }),
++  ).toMatchObject({ content: [{ text: '{"status":"pending"}' }] });
++  const forbidden = await client.callTool({
++    name: "khie_request",
++    arguments: {
++      handle,
++      operation_id: "forbidden",
++      method: "send_transaction",
++      session_id: "must-not-accept",
++    },
++  });
++  expect(forbidden.isError).toBe(true);
++  expect(f.bridge.request).toHaveBeenCalledTimes(1);
++});
++
++it("requires authentication and rejects browser origins, bad hosts, and non-POST transport", async () => {
++  const f = await fixture();
++  expect((await fetch(f.url)).status).toBe(401);
++  const headers = { Authorization: `Bearer ${f.token}` };
++  expect((await fetch(f.url, { headers })).status).toBe(405);
++  expect(
++    (
++      await fetch(f.url, {
++        headers: { ...headers, Origin: "https://untrusted.example" },
++      })
++    ).status,
++  ).toBe(403);
++  // fetch normalizes Host; use a raw HTTP client for the rebinding check.
++  const badHostStatus = await new Promise<number | undefined>(
++    (resolve, reject) => {
++      const req = request(
++        f.url,
++        { headers: { ...headers, Host: "untrusted.example" } },
++        (res) => {
++          res.resume();
++          resolve(res.statusCode);
++        },
++      );
++      req.on("error", reject);
++      req.end();
++    },
++  );
++  expect(badHostStatus).toBe(403);
++  expect((await fetch(new URL("/wallet-rpc", f.url), { headers })).status).toBe(
++    404,
++  );
++  expect(f.bridge.request).not.toHaveBeenCalled();
++});
++
++it("does not expose raw adapter errors through MCP", async () => {
++  const f = await fixture();
++  f.bridge.request.mockRejectedValue(
++    new Error("private communication key and session data"),
++  );
++  const client = new Client({ name: "error-test", version: "1" });
++  await client.connect(
++    new StreamableHTTPClientTransport(f.url, {
++      requestInit: { headers: { Authorization: `Bearer ${f.token}` } },
++    }),
++  );
++  cleanup.push(() => client.close());
++  const result = await client.callTool({
++    name: "khie_request",
++    arguments: {
++      handle: randomUUID(),
++      operation_id: "error",
++      method: "get_identity",
++    },
++  });
++  expect(result).toMatchObject({
++    isError: true,
++    content: [{ text: '{"error":"bridge_unavailable"}' }],
++  });
++});
+diff --git a/packages/khie-mcp/src/server.ts b/packages/khie-mcp/src/server.ts
+new file mode 100644
+index 0000000..538670b
+--- /dev/null
++++ b/packages/khie-mcp/src/server.ts
+@@ -0,0 +1,199 @@
++import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
++import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
++import { createHash, timingSafeEqual } from "node:crypto";
++import { createServer, type IncomingMessage } from "node:http";
++import { z } from "zod";
++import type { KhieBridge } from "./bridge.js";
++import { BridgeError, METHODS } from "./state.js";
++
++export type ServerConfig = {
++  /** One principal/token per prototype server. Handles are not credentials. */
++  principal: string;
++  bearerToken: string;
++  allowedHosts: string[];
++};
++
++export function createMcpServer(bridge: KhieBridge, principal: string) {
++  const server = new McpServer({
++    name: "khie-mcp-prototype",
++    version: "0.0.0",
++  });
++  const identifiers = {
++    handle: z
++      .string()
++      .uuid()
++      .describe("Opaque operator-provisioned wallet handle"),
++    operation_id: z
++      .string()
++      .regex(/^[a-zA-Z0-9][a-zA-Z0-9_-]{0,127}$/)
++      .describe(
++        "Reuse for retries of the same intent; never change to bypass an unknown outcome",
++      ),
++  };
++  server.registerTool(
++    "khie_request",
++    {
++      description:
++        "Request from the user's online Khie wallet. Wallet approvals remain in the wallet. Reuse operation_id for retries; unknown never means not executed. Transactions are not supported.",
++      inputSchema: z
++        .object({
++          ...identifiers,
++          method: z.enum(METHODS),
++          params: z
++            .array(
++              z.discriminatedUnion("type", [
++                z
++                  .object({ type: z.literal("string"), value: z.string() })
++                  .strict(),
++                z
++                  .object({
++                    type: z.literal("bytes"),
++                    value: z.string().regex(/^0x([0-9a-fA-F]{2})*$/),
++                  })
++                  .strict(),
++              ]),
++            )
++            .max(1)
++            .default([]),
++        })
++        .strict(),
++      annotations: {
++        readOnlyHint: false,
++        destructiveHint: false,
++        idempotentHint: true,
++        openWorldHint: true,
++      },
++    },
++    async ({ handle, operation_id, method, params }) =>
++      toolResult(() =>
++        bridge.request(principal, handle, operation_id, method, params),
++      ),
++  );
++  server.registerTool(
++    "khie_get_result",
++    {
++      description:
++        "Poll a previously recorded operation. Pending may need wallet confirmation. An unknown/not_found outcome may have executed and must not be automatically submitted again.",
++      inputSchema: z.object(identifiers).strict(),
++      annotations: {
++        readOnlyHint: true,
++        idempotentHint: true,
++        openWorldHint: true,
++      },
++    },
++    async ({ handle, operation_id }) =>
++      toolResult(() => bridge.poll(principal, handle, operation_id)),
++  );
++  return server;
++}
++
++async function toolResult(run: () => Promise<unknown>) {
++  try {
++    const result = await run();
++    return {
++      content: [{ type: "text" as const, text: JSON.stringify(result) }],
++    };
++  } catch (error) {
++    // Do not forward wallet, transport, file, SDK, or credential error messages.
++    return {
++      isError: true,
++      content: [
++        {
++          type: "text" as const,
++          text: JSON.stringify({
++            error:
++              error instanceof BridgeError ? error.code : "bridge_unavailable",
++          }),
++        },
++      ],
++    };
++  }
++}
++
++/** Stateless Streamable HTTP, JSON responses (no SSE needed by quick tunnels). */
++export function createHttpServer(bridge: KhieBridge, config: ServerConfig) {
++  if (
++    config.bearerToken.length < 32 ||
++    !config.principal ||
++    !config.allowedHosts.length
++  ) {
++    throw new BridgeError("invalid_server_config");
++  }
++  const expected = hash(config.bearerToken);
++  let active = 0;
++  const server = createServer(async (request, response) => {
++    response.setHeader("Cache-Control", "no-store");
++    response.setHeader("X-Content-Type-Options", "nosniff");
++    if (
++      !config.allowedHosts.includes(request.headers.host ?? "") ||
++      request.headers.origin !== undefined
++    ) {
++      response.writeHead(403).end();
++      return;
++    }
++    const token = request.headers.authorization?.replace(/^Bearer /, "") ?? "";
++    if (
++      !request.headers.authorization?.startsWith("Bearer ") ||
++      !timingSafeEqual(expected, hash(token))
++    ) {
++      response.writeHead(401).end();
++      return;
++    }
++    if (request.url !== "/mcp") {
++      response.writeHead(404).end();
++      return;
++    }
++    if (request.method !== "POST") {
++      response.writeHead(405, { Allow: "POST" }).end();
++      return;
++    }
++    if (!request.headers["content-type"]?.startsWith("application/json")) {
++      response.writeHead(415).end();
++      return;
++    }
++    if (active >= 8) {
++      response.writeHead(429).end();
++      return;
++    }
++    active++;
++    let mcp: McpServer | undefined;
++    try {
++      const body = await readBody(request);
++      mcp = createMcpServer(bridge, config.principal);
++      const transport = new StreamableHTTPServerTransport({
++        sessionIdGenerator: undefined,
++        enableJsonResponse: true,
++      });
++      await mcp.connect(transport);
++      await transport.handleRequest(request, response, body);
++    } catch {
++      if (!response.headersSent) {
++        response.writeHead(400).end();
++      }
++    } finally {
++      await mcp?.close();
++      active--;
++    }
++  });
++  server.requestTimeout = 30_000;
++  server.headersTimeout = 10_000;
++  return server;
++}
++
++function hash(value: string) {
++  return createHash("sha256").update(value).digest();
++}
++
++async function readBody(request: IncomingMessage) {
++  const chunks: Buffer[] = [];
++  let length = 0;
++  for await (const chunk of request) {
++    const buffer = Buffer.from(chunk as Uint8Array);
++    length += buffer.length;
++    if (length > 64 * 1024) {
++      throw new Error("Body too large");
++    }
++    chunks.push(buffer);
++  }
++  return JSON.parse(Buffer.concat(chunks).toString()) as unknown;
++}
+diff --git a/packages/khie-mcp/src/smoke.ts b/packages/khie-mcp/src/smoke.ts
+new file mode 100644
+index 0000000..0ef09b8
+--- /dev/null
++++ b/packages/khie-mcp/src/smoke.ts
+@@ -0,0 +1,101 @@
++import { Client } from "@modelcontextprotocol/sdk/client/index.js";
++import { StreamableHTTPClientTransport } from "@modelcontextprotocol/sdk/client/streamableHttp.js";
++import assert from "node:assert/strict";
++import { randomUUID } from "node:crypto";
++import { readSecretFile } from "./cli.js";
++
++async function main() {
++  const config = JSON.parse(await readSecretFile(process.argv[2])) as {
++    handle: string;
++    token: string;
++    endpoint: string;
++  };
++  const endpoint = new URL(process.argv[3] ?? config.endpoint);
++  assert(endpoint.protocol === "https:" || endpoint.hostname === "127.0.0.1");
++  const unauthorized = await fetch(endpoint);
++  assert.equal(unauthorized.status, 401);
++  const client = new Client({
++    name: "khie-independent-smoke",
++    version: "0.0.0",
++  });
++  const transport = new StreamableHTTPClientTransport(endpoint, {
++    requestInit: { headers: { Authorization: `Bearer ${config.token}` } },
++  });
++  try {
++    await client.connect(transport);
++    assert.equal(client.getServerVersion()?.name, "khie-mcp-prototype");
++    assert.deepEqual(
++      (await client.listTools()).tools.map((tool) => tool.name),
++      ["khie_request", "khie_get_result"],
++    );
++    const call = async (name: string, args: Record<string, unknown>) => {
++      const result = await client.callTool({
++        name,
++        arguments: { handle: config.handle, ...args },
++      });
++      const content = result.content as { type: string; text: string }[];
++      return JSON.parse(content[0].text) as {
++        status?: string;
++        reason?: string;
++        result?: unknown;
++        error?: string;
++      };
++    };
++    const operation_id = randomUUID();
++    const first = await call("khie_request", {
++      operation_id,
++      method: "get_identity",
++    });
++    assert.deepEqual(first, {
++      status: "completed",
++      result: "synthetic-wallet-identity",
++    });
++    assert.deepEqual(
++      await call("khie_request", { operation_id, method: "get_identity" }),
++      first,
++    );
++    const signingId = randomUUID();
++    const initial = await call("khie_request", {
++      operation_id: signingId,
++      method: "sign_message",
++      params: [{ type: "string", value: "synthetic smoke test only" }],
++    });
++    assert.equal(initial.status, "unknown");
++    const mismatch = await call("khie_request", {
++      operation_id: signingId,
++      method: "sign_message",
++      params: [{ type: "string", value: "different request" }],
++    });
++    assert.equal(mismatch.error, "operation_payload_mismatch");
++    const pending = await call("khie_get_result", { operation_id: signingId });
++    assert.equal(pending.status, "pending");
++    const completed = await call("khie_get_result", {
++      operation_id: signingId,
++    });
++    assert.deepEqual(completed, {
++      status: "completed",
++      result: "synthetic-signature-not-valid-on-any-chain",
++    });
++    console.log(
++      JSON.stringify({
++        initialize: "passed",
++        tools: "passed",
++        authentication: "passed",
++        requestAndRetry: "passed",
++        mismatchedPayload: "passed",
++        pendingThenCompleted: "passed",
++        wallet: "synthetic loopback peer",
++        hostConnectorIntegration: "not tested",
++      }),
++    );
++  } finally {
++    await client.close();
++  }
++}
++
++void main().catch(() => {
++  console.error(
++    "smoke_failed (credentials and raw transport errors suppressed)",
++  );
++  process.exitCode = 1;
++});
+diff --git a/packages/khie-mcp/src/state.ts b/packages/khie-mcp/src/state.ts
+new file mode 100644
+index 0000000..f1d1b47
+--- /dev/null
++++ b/packages/khie-mcp/src/state.ts
+@@ -0,0 +1,67 @@
++export const METHODS = [
++  "get_identity",
++  "get_native_address",
++  "get_scripts",
++  "sign_message",
++] as const;
++export type Method = (typeof METHODS)[number];
++
++export type Outcome =
++  | { status: "completed"; result: unknown }
++  | { status: "pending" }
++  | {
++      status: "unknown";
++      reason: "transport" | "not_found" | "invalid_response" | "wallet_error";
++    }
++  | { status: "rejected"; code: number }
++  | { status: "repair_required" };
++
++export type Operation = {
++  fingerprint: string;
++  /** Persisted before sending. Never replaced or automatically re-dispatched. */
++  requestId: string;
++  outcome?: Outcome;
++};
++
++/** Secret operator-side data. Never a tool argument, result, or log entry. */
++export type WalletState = {
++  version: 1;
++  principal: string;
++  /** Protobuf libp2p communication private key, NOT a wallet asset key. */
++  communicationKey: string;
++  walletPeerId: string;
++  walletAddresses: string[];
++  sessionId?: string;
++  networkId: string;
++  phase: "pairing" | "paired" | "authorized" | "repair_required";
++  allowedMethods: Method[];
++  operations: Record<string, Operation>;
++};
++
++/**
++ * A production implementation belongs outside the model/worker trust boundary.
++ * Encrypt secrets/results, bind handles to authenticated principals, and provide
++ * exclusive execution across workers. save() MUST durably commit before resolving.
++ * Never automatically expire locks or discard operation tombstones: a crashed
++ * sender may have executed. Fenced recovery requires proving the old worker dead.
++ */
++export interface SecureStateStore {
++  create(state: WalletState): Promise<string>;
++  withSession<T>(
++    principal: string,
++    handle: string,
++    use: (state: WalletState, save: () => Promise<void>) => Promise<T>,
++  ): Promise<T>;
++}
++
++export class BridgeError extends Error {
++  constructor(readonly code: string) {
++    super(code);
++  }
++}
++
++export function validateOperationId(id: string) {
++  if (!/^[a-zA-Z0-9][a-zA-Z0-9_-]{0,127}$/.test(id)) {
++    throw new BridgeError("invalid_operation_id");
++  }
++}
+diff --git a/packages/khie-mcp/src/store.ts b/packages/khie-mcp/src/store.ts
+new file mode 100644
+index 0000000..364326d
+--- /dev/null
++++ b/packages/khie-mcp/src/store.ts
+@@ -0,0 +1,146 @@
++import {
++  createCipheriv,
++  createDecipheriv,
++  randomBytes,
++  randomUUID,
++} from "node:crypto";
++import { constants } from "node:fs";
++import { lstat, mkdir, open, rename, rm } from "node:fs/promises";
++import { resolve } from "node:path";
++import {
++  BridgeError,
++  type SecureStateStore,
++  type WalletState,
++} from "./state.js";
++
++/** Local POSIX prototype adapter; use a KMS-backed transactional store remotely. */
++export class FileSecureStateStore implements SecureStateStore {
++  private constructor(
++    private readonly directory: string,
++    private readonly key: Buffer,
++  ) {}
++
++  static async open(directory: string, key: Buffer) {
++    if (key.length !== 32) {
++      throw new BridgeError("invalid_store_key");
++    }
++    const path = resolve(directory);
++    await mkdir(path, { recursive: true, mode: 0o700 });
++    const stat = await lstat(path);
++    if (
++      !stat.isDirectory() ||
++      stat.isSymbolicLink() ||
++      (stat.mode & 0o077) !== 0 ||
++      stat.uid !== process.getuid?.()
++    ) {
++      throw new BridgeError("unsafe_store_directory");
++    }
++    return new FileSecureStateStore(path, Buffer.from(key));
++  }
++
++  async create(state: WalletState) {
++    const handle = randomUUID();
++    await this.write(handle, state);
++    return handle;
++  }
++
++  async withSession<T>(
++    principal: string,
++    handle: string,
++    use: (state: WalletState, save: () => Promise<void>) => Promise<T>,
++  ): Promise<T> {
++    if (
++      !/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/.test(
++        handle,
++      )
++    ) {
++      throw new BridgeError("unknown_handle");
++    }
++    const lock = `${this.directory}/${handle}.lock`;
++    try {
++      await mkdir(lock, { mode: 0o700 });
++    } catch (error) {
++      if ((error as NodeJS.ErrnoException).code === "EEXIST") {
++        throw new BridgeError("session_busy");
++      }
++      throw error;
++    }
++    let quarantined = false;
++    try {
++      const state = await this.read(handle);
++      if (state.principal !== principal) {
++        throw new BridgeError("unknown_handle");
++      }
++      return await use(state, () => this.write(handle, state));
++    } catch (error) {
++      quarantined =
++        error instanceof BridgeError &&
++        error.code === "transport_cleanup_failed";
++      throw error;
++    } finally {
++      if (!quarantined) {
++        await rm(lock, { recursive: true });
++      }
++    }
++  }
++
++  private async read(handle: string): Promise<WalletState> {
++    try {
++      const file = await open(
++        `${this.directory}/${handle}.sealed`,
++        constants.O_RDONLY | constants.O_NOFOLLOW,
++      );
++      try {
++        const bytes = await file.readFile();
++        const decipher = createDecipheriv(
++          "aes-256-gcm",
++          this.key,
++          bytes.subarray(0, 12),
++        );
++        decipher.setAAD(Buffer.from(handle));
++        decipher.setAuthTag(bytes.subarray(12, 28));
++        const state = JSON.parse(
++          Buffer.concat([
++            decipher.update(bytes.subarray(28)),
++            decipher.final(),
++          ]).toString(),
++        ) as WalletState;
++        if (state.version !== 1) {
++          throw new Error("Unsupported state");
++        }
++        return state;
++      } finally {
++        await file.close();
++      }
++    } catch {
++      throw new BridgeError("unknown_handle");
++    }
++  }
++
++  private async write(handle: string, state: WalletState) {
++    const nonce = randomBytes(12);
++    const cipher = createCipheriv("aes-256-gcm", this.key, nonce);
++    cipher.setAAD(Buffer.from(handle));
++    const ciphertext = Buffer.concat([
++      cipher.update(JSON.stringify(state)),
++      cipher.final(),
++    ]);
++    const temp = `${this.directory}/${handle}.${randomUUID()}.tmp`;
++    const file = await open(temp, "wx", 0o600);
++    try {
++      await file.writeFile(
++        Buffer.concat([nonce, cipher.getAuthTag(), ciphertext]),
++      );
++      await file.sync();
++    } finally {
++      await file.close();
++    }
++    await rename(temp, `${this.directory}/${handle}.sealed`);
++    const directory = await open(this.directory, "r");
++    try {
++      await directory.sync();
++    } finally {
++      await directory.close();
++    }
++  }
++}
+diff --git a/packages/khie-mcp/src/testWallet.ts b/packages/khie-mcp/src/testWallet.ts
+new file mode 100644
+index 0000000..4eee9fc
+--- /dev/null
++++ b/packages/khie-mcp/src/testWallet.ts
+@@ -0,0 +1,157 @@
++// Isolated test fixture. No asset keys, chain calls, signing, or broadcast.
++import { noise } from "@chainsafe/libp2p-noise";
++import { yamux } from "@chainsafe/libp2p-yamux";
++import { ccc } from "@ckb-ccc/core";
++import { Libp2p } from "@ckb-ccc/libp2p";
++import { identify } from "@libp2p/identify";
++import type {
++  Libp2p as Libp2pNode,
++  PeerId,
++  PrivateKey,
++} from "@libp2p/interface";
++import { webSockets } from "@libp2p/websockets";
++import { createLibp2p } from "libp2p";
++import {
++  createBridgeNode,
++  JSON_RPC_PROTOCOL,
++  PAIRING_PROTOCOL,
++  type BridgeNode,
++} from "./transport.js";
++
++export async function createTestBridgeNode(
++  privateKey: PrivateKey,
++): Promise<BridgeNode> {
++  return createBridgeNode(privateKey);
++}
++
++type TestWallet = {
++  node: Libp2pNode<{ pairing: Libp2p.PairingService }>;
++  stats: {
++    authorizations: number;
++    signatures: number;
++    unpairs: number;
++    peers: string[];
++    methods: string[];
++  };
++  endpoint: string;
++  selectedPeer: PeerId | undefined;
++  releaseSignature(): void;
++  restartSession(): Promise<void>;
++  stop(): Promise<void>;
++};
++
++export async function createTestWallet(
++  options: { pairedPeerTimeoutMs?: number; signDelayMs?: number } = {},
++): Promise<TestWallet> {
++  const stats = {
++    authorizations: 0,
++    signatures: 0,
++    unpairs: 0,
++    peers: [] as string[],
++    methods: [] as string[],
++  };
++  let releaseSignature: (() => void) | undefined;
++  let signatureTimer: ReturnType<typeof setTimeout> | undefined;
++  const signer = {
++    client: { addressPrefix: "ckt" },
++    type: ccc.SignerType.CKB,
++    signType: ccc.SignerSignType.CkbSecp256k1,
++    getIdentity: async () => "synthetic-wallet-identity",
++    getInternalAddress: async () => "synthetic-wallet-address",
++    getAddressObjs: async () => [],
++    signMessageRaw: async () => {
++      stats.signatures++;
++      await new Promise<void>((resolve) => {
++        releaseSignature = resolve;
++        if (options.signDelayMs !== undefined) {
++          signatureTimer = setTimeout(resolve, options.signDelayMs);
++        }
++      });
++      return "synthetic-signature-not-valid-on-any-chain";
++    },
++  } as unknown as ccc.Signer;
++  const createSession = () =>
++    ccc.SignerJsonRpcProviderSession.open({
++      getSigner: () => signer,
++      connect: async () => signer,
++      confirmRequest: async (request) => {
++        if (request.method === "connect") {
++          stats.authorizations++;
++        }
++        return true;
++      },
++    });
++  let session = createSession();
++  let selectedPeer: PeerId | undefined;
++  const node = await createLibp2p({
++    addresses: { listen: ["/ip4/127.0.0.1/tcp/0/ws"] },
++    transports: [webSockets()],
++    connectionEncrypters: [noise()],
++    streamMuxers: [yamux()],
++    services: {
++      identify: identify(),
++      pairing: Libp2p.pairingService(
++        {
++          protocol: PAIRING_PROTOCOL,
++          pairedPeerTimeoutMs: options.pairedPeerTimeoutMs ?? 30 * 60 * 1000,
++        },
++        () => !selectedPeer,
++      ),
++      jsonRpc: Libp2p.jsonRpcService(
++        { protocol: JSON_RPC_PROTOCOL },
++        (request) => {
++          // Matches the CCC provider's caller-PeerID guard and generic error code.
++          if (
++            !node.services.pairing.isPaired(request.peerId) ||
++            !selectedPeer?.equals(request.peerId)
++          ) {
++            throw new ccc.JsonRpcError({
++              code: ccc.SignerJsonRpcErrorCode.ServerError,
++              message: "Peer is not paired for Khie access",
++            });
++          }
++          node.services.pairing.refresh(request.peerId);
++          stats.peers.push(request.peerId.toString());
++          stats.methods.push(request.payload.method);
++          // Deliberately do not abort wallet execution when only a stream closes.
++          return session.value.handle(request.payload);
++        },
++      ),
++    },
++  });
++  node.services.pairing.onPaired((peer) => {
++    selectedPeer = peer;
++  });
++  node.services.pairing.onUnpaired(() => {
++    stats.unpairs++;
++    void session.dispose();
++  });
++  const endpoint = await Libp2p.encodePairingEndpoint(
++    "khie-wallet://app/connect",
++    node.getMultiaddrs(),
++    node.services.pairing.secret,
++    "provider",
++  );
++  return {
++    node,
++    stats,
++    endpoint,
++    get selectedPeer() {
++      return selectedPeer;
++    },
++    releaseSignature() {
++      clearTimeout(signatureTimer);
++      releaseSignature?.();
++    },
++    async restartSession() {
++      await session.dispose();
++      session = createSession();
++    },
++    async stop() {
++      clearTimeout(signatureTimer);
++      releaseSignature?.();
++      await session.dispose();
++      await node.stop();
++    },
++  };
++}
+diff --git a/packages/khie-mcp/src/transport.ts b/packages/khie-mcp/src/transport.ts
+new file mode 100644
+index 0000000..9e69647
+--- /dev/null
++++ b/packages/khie-mcp/src/transport.ts
+@@ -0,0 +1,146 @@
++import { noise } from "@chainsafe/libp2p-noise";
++import { yamux } from "@chainsafe/libp2p-yamux";
++import { ccc } from "@ckb-ccc/core";
++import { Libp2p } from "@ckb-ccc/libp2p";
++import { circuitRelayTransport } from "@libp2p/circuit-relay-v2";
++import { privateKeyFromProtobuf } from "@libp2p/crypto/keys";
++import { identify } from "@libp2p/identify";
++import type { Libp2p as Libp2pNode, PrivateKey } from "@libp2p/interface";
++import { peerIdFromString } from "@libp2p/peer-id";
++import { webSockets } from "@libp2p/websockets";
++import { multiaddr } from "@multiformats/multiaddr";
++import { createLibp2p } from "libp2p";
++import { randomUUID } from "node:crypto";
++import { BridgeError, type WalletState } from "./state.js";
++
++export const PAIRING_PROTOCOL = "/nervos-ckb/khie/pairing/0.0.1";
++export const JSON_RPC_PROTOCOL = "/nervos-ckb/khie/json-rpc/0.0.1";
++
++export type RequestMetadata = { request_id?: string; session_id?: string };
++export interface WalletConnection {
++  request(
++    method: string,
++    params: unknown[],
++    metadata: RequestMetadata,
++  ): Promise<unknown>;
++  /** MUST close transport only; never unpair, dispose provider state, or revoke. */
++  disconnectTransport(): Promise<void>;
++}
++export type WalletConnector = (state: WalletState) => Promise<WalletConnection>;
++
++/** Separate server factory: the existing interactive connector cleanup is unchanged. */
++export async function createBridgeNode(
++  privateKey: PrivateKey,
++): Promise<BridgeNode> {
++  const node = await createLibp2p({
++    start: false,
++    privateKey,
++    addresses: { listen: [] },
++    transports: [webSockets(), circuitRelayTransport()],
++    connectionEncrypters: [noise()],
++    streamMuxers: [yamux()],
++    services: {
++      identify: identify(),
++      pairing: Libp2p.pairingService(
++        {
++          protocol: PAIRING_PROTOCOL,
++          name: "Khie MCP prototype",
++          pairedPeerTimeoutMs: 30 * 60 * 1000,
++        },
++        () => false,
++      ),
++    },
++  });
++  try {
++    await node.start();
++    return node;
++  } catch (error) {
++    await disconnectNode(node);
++    throw error;
++  }
++}
++
++export type BridgeNode = Libp2pNode<{ pairing: Libp2p.PairingService }>;
++export type BridgeNodeFactory = (key: PrivateKey) => Promise<BridgeNode>;
++
++export function connectionFromNode(
++  node: BridgeNode,
++  walletPeerId: string,
++  timeout = 12_000,
++): WalletConnection {
++  const transport = new Libp2p.JsonRpcTransportLibp2p(
++    node,
++    peerIdFromString(walletPeerId),
++    {
++      protocol: JSON_RPC_PROTOCOL,
++      timeout,
++    },
++  );
++  return {
++    async request(method, params, metadata) {
++      const id = randomUUID();
++      const response = await transport.request({
++        jsonrpc: "2.0",
++        id,
++        method,
++        params: [metadata, ...params],
++      });
++      if (response.id !== id || response.jsonrpc !== "2.0") {
++        throw new Error("Invalid RPC envelope");
++      }
++      if ("error" in response && response.error) {
++        throw new ccc.JsonRpcError(response.error);
++      }
++      if (!("result" in response)) {
++        throw new Error("Missing RPC result");
++      }
++      return response.result;
++    },
++    // PairingService.stop clears only this node's timers. No remote unpair.
++    disconnectTransport: () => disconnectNode(node),
++  };
++}
++
++export function libp2pConnector(
++  factory: BridgeNodeFactory = createBridgeNode,
++  timeout = 12_000,
++): WalletConnector {
++  return async (state) => {
++    const key = privateKeyFromProtobuf(
++      Buffer.from(state.communicationKey, "base64"),
++    );
++    const node = await factory(key);
++    try {
++      const peer = peerIdFromString(state.walletPeerId);
++      const addresses = state.walletAddresses.map(multiaddr);
++      if (
++        addresses.length === 0 ||
++        addresses.some(
++          (address) =>
++            address.getComponents().at(-1)?.value !== peer.toString(),
++        )
++      ) {
++        throw new Error("Saved addresses must identify the pinned wallet peer");
++      }
++      await node.peerStore.merge(peer, { multiaddrs: addresses });
++      // Actual connection is made on demand by JsonRpcTransportLibp2p.
++      return connectionFromNode(node, state.walletPeerId, timeout);
++    } catch (error) {
++      await disconnectNode(node);
++      throw error;
++    }
++  };
++}
++
++export async function disconnectNode(node: BridgeNode) {
++  try {
++    await node.stop();
++    // libp2p may leave a failed startup cleanup in "stopping". A subsequent
++    // stop() then returns without doing anything; it is not proof of shutdown.
++    if (node.status !== "stopped") {
++      throw new BridgeError("transport_cleanup_failed");
++    }
++  } catch {
++    throw new BridgeError("transport_cleanup_failed");
++  }
++}
+diff --git a/packages/khie-mcp/test/demo.test.mjs b/packages/khie-mcp/test/demo.test.mjs
+new file mode 100644
+index 0000000..408c25a
+--- /dev/null
++++ b/packages/khie-mcp/test/demo.test.mjs
+@@ -0,0 +1,101 @@
++import assert from "node:assert/strict";
++import { spawn } from "node:child_process";
++import { mkdtemp, rm, stat } from "node:fs/promises";
++import { createServer } from "node:net";
++import { tmpdir } from "node:os";
++import { join } from "node:path";
++import { test } from "node:test";
++
++// Run after building: these checks deliberately cross the process boundary.
++const entry = new URL("../dist/demo.js", import.meta.url);
++
++function startDemo(directory) {
++  const child = spawn(process.execPath, [entry.pathname, directory], {
++    stdio: ["ignore", "pipe", "pipe"],
++  });
++  let stdout = "";
++  let stderr = "";
++  child.stdout.on("data", (data) => {
++    stdout += data;
++  });
++  child.stderr.on("data", (data) => {
++    stderr += data;
++  });
++  const timeout = setTimeout(() => child.kill("SIGKILL"), 20_000);
++  const exited = new Promise((resolve, reject) => {
++    child.once("error", reject);
++    child.once("close", (code, signal) => {
++      clearTimeout(timeout);
++      resolve({ code, signal, stdout, stderr });
++    });
++  });
++  return { child, exited };
++}
++
++test("occupied demo port removes all newly acquired temporary state", async () => {
++  const root = await mkdtemp(join(tmpdir(), "khie-demo-startup-test-"));
++  const directory = join(root, "demo");
++  const blocker = createServer();
++  let demo;
++  try {
++    await new Promise((resolve, reject) => {
++      blocker.once("error", reject);
++      blocker.listen(8787, "127.0.0.1", resolve);
++    });
++    demo = startDemo(directory);
++    const result = await demo.exited;
++    assert.equal(result.code, 1);
++    assert.equal(result.signal, null);
++    assert.match(result.stderr, /demo_setup_failed/);
++    assert.match(result.stdout, /temporary state removed/);
++    assert.doesNotMatch(result.stdout, /clientConfigFile/);
++    await assert.rejects(stat(directory), { code: "ENOENT" });
++  } finally {
++    demo?.child.kill("SIGTERM");
++    await demo?.exited;
++    if (blocker.listening) {
++      await new Promise((resolve) => blocker.close(resolve));
++    }
++    await rm(root, { recursive: true, force: true });
++  }
++});
++
++test("SIGTERM removes a running demo's credentials and closes its port", async () => {
++  const root = await mkdtemp(join(tmpdir(), "khie-demo-signal-test-"));
++  const directory = join(root, "demo");
++  const demo = startDemo(directory);
++  try {
++    await new Promise((resolve, reject) => {
++      let output = "";
++      demo.child.stdout.on("data", (data) => {
++        output += data;
++        if (output.includes("clientConfigFile")) resolve();
++      });
++      demo.child.once("close", () =>
++        reject(new Error("Demo exited before readiness")),
++      );
++      demo.child.once("error", reject);
++    });
++    const config = await stat(join(directory, "client.json"));
++    assert.equal(config.mode & 0o777, 0o600);
++    demo.child.kill("SIGTERM");
++    const result = await demo.exited;
++    assert.equal(result.code, 0);
++    assert.equal(result.signal, null);
++    assert.match(result.stdout, /temporary state removed/);
++    await assert.rejects(stat(directory), { code: "ENOENT" });
++    const probe = createServer();
++    try {
++      await new Promise((resolve, reject) => {
++        probe.once("error", reject);
++        probe.listen(8787, "127.0.0.1", resolve);
++      });
++    } finally {
++      if (probe.listening) await new Promise((resolve) => probe.close(resolve));
++    }
++  } finally {
++    demo.child.kill("SIGTERM");
++    await demo.exited;
++    await rm(root, { recursive: true, force: true });
++  }
++});
+diff --git a/packages/khie-mcp/tsconfig.json b/packages/khie-mcp/tsconfig.json
+new file mode 100644
+index 0000000..0751dac
+--- /dev/null
++++ b/packages/khie-mcp/tsconfig.json
+@@ -0,0 +1,14 @@
++{
++  "compilerOptions": {
++    "target": "ES2023",
++    "module": "NodeNext",
++    "moduleResolution": "NodeNext",
++    "strict": true,
++    "skipLibCheck": true,
++    "outDir": "dist",
++    "rootDir": "src",
++    "types": ["node"],
++    "declaration": true
++  },
++  "include": ["src/**/*.ts"]
++}
+diff --git a/packages/khie-mcp/vitest.config.mts b/packages/khie-mcp/vitest.config.mts
+new file mode 100644
+index 0000000..15a6f0a
+--- /dev/null
++++ b/packages/khie-mcp/vitest.config.mts
+@@ -0,0 +1,5 @@
++import { defineConfig } from "vitest/config";
++
++export default defineConfig({
++  test: { include: ["src/**/*.test.ts"], testTimeout: 30_000 },
++});

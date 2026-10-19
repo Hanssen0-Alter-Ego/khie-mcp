@@ -1,0 +1,30 @@
+name: khie-mcp-demo
+services:
+  demo:
+    image: ${KHIE_IMAGE:-khie-mcp-resume-prototype:local}
+    platform: linux/amd64
+    command: [demo, /tmp/khie-mcp-demo]
+    user: "1000:1000"
+    init: true
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=64m,mode=1777
+    ports:
+      - "127.0.0.1:8787:8787"
+    healthcheck:
+      test:
+        [
+          CMD,
+          node,
+          -e,
+          "require('node:fs').accessSync('/tmp/khie-mcp-demo/client.json')",
+        ]
+      interval: 2s
+      timeout: 2s
+      retries: 15
+    pids_limit: 128
+    mem_limit: 512m
+    stop_grace_period: 45s
+    restart: "no"

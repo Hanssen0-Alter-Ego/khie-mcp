@@ -1,0 +1,44 @@
+name: khie-mcp-operator
+services:
+  bridge:
+    image: ${KHIE_IMAGE:-khie-mcp-resume-prototype:local}
+    platform: linux/amd64
+    command: [serve]
+    user: "${KHIE_UID:?Set the owner UID of the protected files}:${KHIE_GID:?Set the owner GID of the protected files}"
+    init: true
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    environment:
+      KHIE_CONFIG_FILE: /run/khie/config.json
+    volumes:
+      - type: bind
+        source: ${KHIE_PRIVATE_DIR:?Set an absolute private directory outside this checkout}/secrets
+        target: /run/khie
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ${KHIE_PRIVATE_DIR:?Set an absolute private directory outside this checkout}/state
+        target: /var/lib/khie
+        bind:
+          create_host_path: false
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=32m,mode=1777
+    ports:
+      - "127.0.0.1:8787:8787"
+    healthcheck:
+      test:
+        [
+          CMD,
+          node,
+          -e,
+          "fetch('http://127.0.0.1:8787/mcp').then(r=>process.exit(r.status===401?0:1)).catch(()=>process.exit(1))",
+        ]
+      interval: 5s
+      timeout: 3s
+      retries: 6
+    pids_limit: 128
+    mem_limit: 512m
+    stop_grace_period: 45s
+    restart: "no"

@@ -145,7 +145,9 @@ def public_base_layers():
                and x.get("platform", {}).get("architecture") == "amd64"]
     need(len(choices) == 1, "base_platform_ambiguous")
     manifest = get_json(root + choices[0]["digest"], headers, choices[0]["digest"])
-    return [x["digest"] for x in manifest["layers"]]
+    base_config = get_json("https://registry-1.docker.io/v2/library/node/blobs/" +
+                           manifest["config"]["digest"], headers, manifest["config"]["digest"])
+    return [x["digest"] for x in manifest["layers"]], base_config["rootfs"]["diff_ids"]
 
 
 RULES = {
@@ -314,10 +316,16 @@ def audit(scratch, progress):
     env_names = {x.split("=", 1)[0] for x in config["config"].get("Env", [])}
     need(env_names <= {"PATH", "NODE_VERSION", "YARN_VERSION", "NODE_ENV", "KHIE_CONFIG_FILE"},
          "unexpected_image_environment")
-    base = public_base_layers()
-    need([x["digest"] for x in layers[:len(base)]] == base, "public_base_mismatch")
+    base, base_diff_ids = public_base_layers()
+    # Registry exports may recompress an inherited layer. The verified public
+    # base config's diff IDs pin its exact decompressed tar bytes; every target
+    # layer is independently decompressed and checked against these below.
+    need(len(base) == len(base_diff_ids) and diff_ids[:len(base)] == base_diff_ids,
+         "public_base_content_mismatch")
     progress.update({"manifest_sha256_verified": True, "config_sha256_verified": True,
-                     "public_base_layers": len(base), "layers_expected": len(layers)})
+                     "public_base_layers": len(base), "layers_expected": len(layers),
+                     "base_compressed_digests_match": [x["digest"] for x in layers[:len(base)]] == base,
+                     "public_base_diff_ids_match": True})
     progress["stage"] = "install_pinned_scanner"
     binary = install_scanner(scratch)
     findings = collections.Counter()

@@ -69,6 +69,23 @@ class AuditTests(unittest.TestCase):
         with self.assertRaisesRegex(audit.AuditError, "^digest_mismatch$"):
             audit.verify(original.replace(b"aaaa", b"bbbb"), digest)
 
+    def test_recompression_keeps_verified_decompressed_bytes(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            first = root / "first"
+            second = root / "second"
+            first.mkdir()
+            second.mkdir()
+            blob, diff_id = layer(first, [("app/a", b"public data")])
+            data = gzip.decompress(blob.read_bytes())
+            other = second / "input.gz"
+            other.write_bytes(gzip.compress(data, compresslevel=1, mtime=1))
+            self.assertNotEqual(hashlib.sha256(blob.read_bytes()).digest(),
+                                hashlib.sha256(other.read_bytes()).digest())
+            for source, work in ((blob, first), (other, second)):
+                counts, _, _ = audit.scan_layer(source, diff_id, work, {}, True)
+                self.assertEqual(counts["regular_file_versions"], 1)
+
     def test_traversal_is_rejected_without_disclosing_path(self):
         with self.assertRaisesRegex(audit.AuditError, "^unsafe_tar_path$"):
             audit.normal_path("../private-value")
